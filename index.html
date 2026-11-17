@@ -74,13 +74,13 @@ renderVals() {
 const lvl = this.state.level;
 const S = this.state[lvl];
 const P = 'Proposal', C = 'To confirm';
-const tagBase = 'display: inline-flex; align-items: center; flex-shrink: 0; min-height: 22px; padding: 0 9px; border-radius: 11px; background: #ffffff; color: #291647; font-size: 12px; font-weight: 600; white-space: nowrap;';
-const tagStyle = (t) => !t ? 'display: none;' : tagBase + (t === P ? ' border: 1.5px solid #291647;' : ' border: 1.5px dashed #291647;');
+const tagBase = 'display: inline-flex; align-items: center; flex-shrink: 0; min-height: 22px; padding: 0 9px; border-radius: 11px; color: #291647; font-size: 12px; font-weight: 600; white-space: nowrap;';
+const tagStyle = (t) => t === C ? tagBase + ' background: #d4ef70;' : 'display: none;';
 const base = 'display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 52px; padding: 10px 18px; box-sizing: border-box; border: 2px solid #291647; border-radius: 5px; font-family: Figtree, sans-serif; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer;';
 const on = base + ' background: #291647; color: #ffffff;';
 const off = base + ' background: #ffffff; color: #291647;';
 const group = (cur, key, label, opts, note, tag) => ({
-label: label, note: note || '', hasNote: !!note, tag: tag || '', tagStyle: tagStyle(tag),
+label: label, note: note || '', hasNote: !!note, tag: tag === C ? C : '', tagStyle: tagStyle(tag),
 options: opts.map((o) => ({
 label: o[1], sub: o[2] || '',
 pressed: cur[key] === o[0] ? 'true' : 'false',
@@ -88,7 +88,7 @@ style: cur[key] === o[0] ? on : off,
 pick: () => this.setState({ [lvl]: Object.assign({}, this.state[lvl], { [key]: o[0] }), last: label })
 }))
 });
-const fact = (label, value, tag) => ({ label: label, value: value, tag: tag || '', tagStyle: tagStyle(tag) });
+const fact = (label, value, tag) => ({ label: label, value: value, tag: tag === C ? C : '', tagStyle: tagStyle(tag) });
 const rule = (label, current, cases) => ({ label: label, current: current, cases: cases });
 const sec = (name, rules, hidden) => ({ name: name, rules: rules, hidden: !!hidden });
 const homeLabel = 'UK, Channel Islands, Isle of Man or Ireland';
@@ -292,7 +292,7 @@ const just = !!last && x.rules.some((r) => r.label === last);
 return {
 name: x.name,
 badge: just ? 'Just changed' : '',
-badgeStyle: just ? badgeBase + ' background: #d4ef70; color: #291647;' : 'display: none;',
+badgeStyle: just ? badgeBase + ' background: #291647; color: #ffffff;' : 'display: none;',
 boxStyle: boxBase + ' background: #ffffff; border: 2px solid ' + (just ? '#291647' : '#d9cbee') + ';',
 rules: x.rules.map((r) => ({
 label: r.label,
@@ -302,11 +302,10 @@ return {
 value: c[1],
 effect: c[2],
 selected: sel,
-tag: c[3] || '',
+tag: c[3] === C ? C : '',
 tagStyle: tagStyle(c[3]),
 style: caseBase + (sel ? ' background: #ead8ff; border: 2px solid #291647; color: #291647;' : ' background: #ffffff; border: 2px solid #e6e0ee; color: #4a3a63;'),
-dot: 'display: inline-block; flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; box-sizing: border-box; ' + (sel ? 'border: 5px solid #291647; background: #ffffff;' : 'border: 2px solid #8a7aa3; background: #ffffff;'),
-pillStyle: sel ? 'display: inline-flex; align-items: center; flex-shrink: 0; min-height: 22px; padding: 0 9px; border-radius: 11px; background: #291647; color: #ffffff; font-size: 12px; font-weight: 600; white-space: nowrap;' : 'display: none;'
+dot: 'display: inline-block; flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; box-sizing: border-box; ' + (sel ? 'border: 5px solid #291647; background: #ffffff;' : 'border: 2px solid #8a7aa3; background: #ffffff;')
 };
 })
 }))
@@ -336,7 +335,7 @@ function render() {
   const sections = v.sections.map((s) => `
     <div style="${esc(s.boxStyle)}">
       <div class="sec-head"><h3>${esc(s.name)}</h3><span style="${esc(s.badgeStyle)}">${esc(s.badge)}</span></div>
-      ${s.rules.map((r) => `<div class="rule"><p>${esc(r.label)}</p><div class="cases">${r.cases.map((c) => `<div style="${esc(c.style)}"><span style="display: flex; align-items: center; gap: 10px; font-weight: 600"><span aria-hidden="true" style="${esc(c.dot)}"></span>${esc(c.value)}</span><span style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>${esc(c.effect)}</span><span style="display: flex; gap: 6px"><span style="${esc(c.tagStyle)}">${esc(c.tag)}</span><span style="${esc(c.pillStyle)}">Your choice</span></span></span></div>`).join('')}</div></div>`).join('')}
+      ${s.rules.map((r) => `<div class="rule"><p>${esc(r.label)}</p><div class="cases">${r.cases.map((c) => `<div style="${esc(c.style)}"><span style="display: flex; align-items: center; gap: 10px; font-weight: 600"><span aria-hidden="true" style="${esc(c.dot)}"></span>${esc(c.value)}</span><span style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>${esc(c.effect)}</span><span style="display: flex; gap: 6px"><span style="${esc(c.tagStyle)}">${esc(c.tag)}</span></span></span></div>`).join('')}</div></div>`).join('')}
     </div>`).join('');
   document.getElementById('app').innerHTML = `
     <div class="level">
@@ -346,7 +345,6 @@ function render() {
       </select>
       <span>Example course: ${esc(v.example)}</span>
     </div>
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; font-size: 13px; color: #4a3a63"><span>Untagged: from winchester.ac.uk or the course page wireframe</span><span style="display: inline-flex; align-items: center; gap: 8px"><span style="display: inline-flex; align-items: center; min-height: 22px; padding: 0 9px; border-radius: 11px; background: #ffffff; color: #291647; font-size: 12px; font-weight: 600; white-space: nowrap; border: 1.5px solid #291647;">Proposal</span>Suggested, for Winchester to agree</span><span style="display: inline-flex; align-items: center; gap: 8px"><span style="display: inline-flex; align-items: center; min-height: 22px; padding: 0 9px; border-radius: 11px; background: #ffffff; color: #291647; font-size: 12px; font-weight: 600; white-space: nowrap; border: 1.5px dashed #291647;">To confirm</span>Not known yet</span></div>
     <div class="url"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>winchester.ac.uk<strong>${esc(v.path)}</strong></span></div>
     <div style="display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">${esc(v.award)}</p><h1>${esc(v.title)}</h1></div>
     <div class="panels">

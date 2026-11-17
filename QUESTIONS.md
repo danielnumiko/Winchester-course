@@ -1,6 +1,6 @@
 # Questions for the University of Winchester
 
-These go with the course page options prototype. Course details in the prototype were taken from winchester.ac.uk on 17 November 2026. Anything tagged **Proposal** is a suggestion for you to agree. Anything tagged **To confirm** is listed here.
+These go with the course page options prototype. Course details in the prototype were taken from winchester.ac.uk on 17 November 2026. Anything highlighted **To confirm** in the prototype is listed here, along with the suggestions we'd like you to agree.
 
 ## Course data and the CRM
 
@@ -36,7 +36,7 @@ These go with the course page options prototype. Course details in the prototype
 
 ## Proposals to agree
 
-These are marked **Proposal** in the prototype:
+These are suggestions in the prototype that differ from the current website:
 
 - Showing only the content that matches the chosen options, instead of every version at once:
   - opening the matching tab in entry requirements
