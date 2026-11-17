@@ -9,15 +9,19 @@
 <style>
 :root { --purple-dark: #291647; --purple-light: #c68efd; --purple-line: #d9cbee; --grey: #f4f4f4; --muted: #4a3a63; --lime: #d4ef70; }
 * { box-sizing: border-box; }
-body { margin: 0; background: #ffffff; color: var(--purple-dark); font-family: Figtree, sans-serif; }
+body { margin: 0; background: var(--grey); color: var(--purple-dark); font-family: Figtree, sans-serif; }
 a { color: var(--purple-dark); }
-.wrap { max-width: 1280px; margin: 0 auto; padding: 40px 16px; display: flex; flex-direction: column; gap: 28px; }
-@media (min-width: 768px) { .wrap { padding: 40px; } }
-.level { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid var(--purple-line); }
+.proto-controls { width: min(1280px, 100%); margin: 0 auto; padding: 24px 16px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; }
+@media (min-width: 1312px) { .proto-controls { padding-left: 0; padding-right: 0; } }
+@media (min-width: 768px) { #app { display: flex; flex-direction: column; height: 100vh; } .viewport { flex: 1 1 auto; min-height: 0; max-height: 832px; } }
+.viewport { width: min(1280px, 100%); height: 832px; margin: 0 auto 24px; overflow-y: auto; background: #fff; border: 1px solid var(--purple-line); border-radius: 12px; box-shadow: 0 8px 24px rgba(41, 22, 71, 0.10); }
+.wrap { padding: 40px; display: flex; flex-direction: column; gap: 28px; }
+@media (max-width: 767px) { .viewport { height: auto; overflow: visible; border: 0; border-radius: 0; box-shadow: none; margin-bottom: 0; } .wrap { padding: 24px 16px; } }
+.level { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .level label { font-size: 15px; font-weight: 600; }
 .level select { min-height: 48px; min-width: min(320px, 100%); padding: 0 16px; border: 2px solid var(--purple-dark); border-radius: 5px; background: #fff; color: var(--purple-dark); font: 600 16px Figtree, sans-serif; cursor: pointer; }
 .level span { font-size: 14px; color: var(--muted); }
-.url { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--grey); border-radius: 8px; font-size: 14px; overflow-wrap: anywhere; }
+.url { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: #fff; border-radius: 8px; font-size: 14px; overflow-wrap: anywhere; }
 .eyebrow { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
 h1 { margin: 0; font-size: clamp(32px, 5vw, 46px); font-weight: 500; line-height: 1.15; }
 .panels { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
@@ -27,9 +31,33 @@ h1 { margin: 0; font-size: clamp(32px, 5vw, 46px); font-weight: 500; line-height
 h2 { margin: 0; font-size: 20px; font-weight: 600; }
 fieldset { margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 legend { padding: 0; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
-.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.optbar { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--purple-line); border-radius: 15px; }
+.optbar-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 14px 20px; }
+.optbar-summary { display: flex; flex-direction: column; gap: 2px; flex: 1 1 260px; min-width: 0; }
+.optbar-summary span { font-size: 12px; font-weight: 500; color: var(--muted); }
+.optbar-summary strong { font-size: 16px; font-weight: 600; line-height: 1.35; }
+.optbar-toggle { flex-shrink: 0; min-height: 44px; padding: 0 18px; border: 2px solid var(--purple-dark); border-radius: 5px; background: #fff; color: var(--purple-dark); font: 600 15px Figtree, sans-serif; cursor: pointer; }
+.optbar .cta, .pinbar .cta { flex-shrink: 0; min-height: 44px; font-size: 15px; padding: 0 20px; }
+.drawer { display: flex; flex-direction: column; gap: 16px; padding: 20px; border-top: 1px solid var(--purple-line); }
+.pinbar { position: sticky; bottom: 0; z-index: 10; display: flex; flex-direction: column; background: #fff; border-top: 1px solid var(--purple-line); box-shadow: 0 -6px 16px rgba(41, 22, 71, 0.10); }
+.pinbar-drawer { display: flex; flex-direction: column; gap: 16px; max-height: 520px; overflow-y: auto; padding: 20px 24px; border-bottom: 1px solid var(--purple-line); }
+.pinbar-row { display: flex; align-items: center; gap: 16px; padding: 12px 24px; background: var(--purple-dark); color: #fff; }
+.pinbar .optbar-toggle { background: transparent; border-color: #fff; color: #fff; }
+.pinbar .cta-primary { background: var(--purple-light); color: var(--purple-dark); }
+.pinbar-summary { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
+.pinbar-summary span { font-size: 13px; font-weight: 500; color: var(--purple-light); margin-right: 6px; }
+@media (max-width: 899px) { .drawer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+@media (max-width: 767px) {
+  .drawer-grid { grid-template-columns: 1fr !important; }
+  .pinbar-row { flex-wrap: wrap; gap: 10px; padding: 12px 16px 16px; }
+  .pinbar-summary { flex-basis: 100%; white-space: normal; }
+  .pinbar .optbar-toggle, .pinbar .cta { flex: 1 1 0; justify-content: center; text-align: center; font-size: 14px; padding: 0 10px; }
+  .pinbar-drawer { max-height: 60vh; padding: 16px; }
+}
+
 .note { margin: 0; font-size: 13px; line-height: 1.45; color: var(--muted); }
-dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; }
+dl { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 22px 24px; }
 dt { font-size: 13px; color: var(--muted); }
 dd { margin: 4px 0 0; font-size: 17px; font-weight: 600; line-height: 1.35; }
 .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -50,7 +78,7 @@ dd { margin: 4px 0 0; font-size: 17px; font-weight: 600; line-height: 1.35; }
 </style>
 </head>
 <body>
-<main id="app" class="wrap" aria-live="polite"></main>
+<main id="app"></main>
 <script>
 // Minimal stand-in for the design canvas runtime: same component logic, rendered with plain JavaScript.
 class DCLogic {
@@ -76,13 +104,14 @@ const S = this.state[lvl];
 const P = 'Proposal', C = 'To confirm';
 const tagBase = 'display: inline-flex; align-items: center; flex-shrink: 0; min-height: 22px; padding: 0 9px; border-radius: 11px; color: #291647; font-size: 12px; font-weight: 600; white-space: nowrap;';
 const tagStyle = (t) => t === C ? tagBase + ' background: #d4ef70;' : 'display: none;';
-const base = 'display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 52px; padding: 10px 18px; box-sizing: border-box; border: 2px solid #291647; border-radius: 5px; font-family: Figtree, sans-serif; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer;';
-const on = base + ' background: #291647; color: #ffffff;';
-const off = base + ' background: #ffffff; color: #291647;';
+const base = 'display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 10px 14px; box-sizing: border-box; border-radius: 5px; font-family: Figtree, sans-serif; font-size: 15px; text-align: left; cursor: pointer;';
+const on = base + ' background: #ead8ff; border: 2px solid #291647; color: #291647; font-weight: 600;';
+const off = base + ' background: #ffffff; border: 2px solid #e6e0ee; color: #291647; font-weight: 500;';
+const radio = (sel) => 'display: inline-block; flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; box-sizing: border-box; background: #ffffff; ' + (sel ? 'border: 5px solid #291647;' : 'border: 2px solid #8a7aa3;');
 const group = (cur, key, label, opts, note, tag) => ({
 label: label, note: note || '', hasNote: !!note, tag: tag === C ? C : '', tagStyle: tagStyle(tag),
 options: opts.map((o) => ({
-label: o[1], sub: o[2] || '',
+label: o[1], sub: o[2] || '', dot: radio(cur[key] === o[0]),
 pressed: cur[key] === o[0] ? 'true' : 'false',
 style: cur[key] === o[0] ? on : off,
 pick: () => this.setState({ [lvl]: Object.assign({}, this.state[lvl], { [key]: o[0] }), last: label })
@@ -283,6 +312,26 @@ const boxBase = 'display: flex; flex-direction: column; gap: 14px; padding: 22px
 const badgeBase = 'display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 14px; font-size: 13px; font-weight: 600;';
 const caseBase = 'display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; padding: 10px 14px; border-radius: 5px; font-size: 14px; line-height: 1.45;';
 v.hasCta2 = !!v.cta2;
+v.summary = v.groups.map((g) => { const o = g.options.find((x) => x.pressed === 'true'); return o ? (o.label === homeLabel ? 'UK and Ireland' : o.label) : ''; }).join(' · ');
+const dr = this.state.drawer;
+v.drawerInline = dr === 'inline';
+v.drawerPinned = dr === 'pinned';
+v.inlineExpanded = dr === 'inline' ? 'true' : 'false';
+v.pinnedExpanded = dr === 'pinned' ? 'true' : 'false';
+v.inlineLabel = dr === 'inline' ? 'Done' : 'Change options';
+v.pinnedLabel = dr === 'pinned' ? 'Done' : 'Change options';
+v.toggleInline = () => this.setState({ drawer: dr === 'inline' ? false : 'inline' });
+v.togglePinned = () => this.setState({ drawer: dr === 'pinned' ? false : 'pinned' });
+v.pinnedVisible = true;
+v.checkPinned = (container) => {
+const f = typeof document !== 'undefined' ? document.getElementById('facts') : null;
+if (!f) return;
+const top = container && container.getBoundingClientRect ? container.getBoundingClientRect().top : 0;
+const show = f.getBoundingClientRect().bottom < top;
+if (show !== !!this.state.pinned) this.setState({ pinned: show, drawer: !show && this.state.drawer === 'pinned' ? false : this.state.drawer });
+};
+v.onFrameScroll = (e) => v.checkPinned(e.currentTarget);
+v.drawerCols = 'display: grid; grid-template-columns: repeat(' + v.groups.length + ', minmax(0, 1fr)); gap: 20px;';
 v.filtered = false;
 v.showAll = () => {};
 v.contentTitle = 'Content that changes with these options';
@@ -312,7 +361,7 @@ dot: 'display: inline-block; flex-shrink: 0; width: 16px; height: 16px; border-r
 };
 });
 v.level = lvl;
-v.pickLevel = (e) => this.setState({ level: e.target.value, last: null });
+v.pickLevel = (e) => this.setState({ level: e.target.value, last: null, drawer: false, pinned: false });
 return v;
 }
 }
@@ -328,7 +377,7 @@ function render() {
   const groups = v.groups.map((g, gi) => `
     <fieldset>
       <legend style="display: flex; align-items: center; gap: 10px">${esc(g.label)}<span style="${esc(g.tagStyle)}">${esc(g.tag)}</span></legend>
-      <div class="choices">${g.options.map((o, oi) => `<button type="button" data-key="g${gi}o${oi}" data-h="${on(o.pick)}" aria-pressed="${o.pressed}" style="${esc(o.style)}">${esc(o.label)}<span style="font-size: 13px; font-weight: 500">${esc(o.sub)}</span></button>`).join('')}</div>
+      <div class="choices">${g.options.map((o, oi) => `<button type="button" data-key="g${gi}o${oi}" data-h="${on(o.pick)}" aria-pressed="${o.pressed}" style="${esc(o.style)}"><span aria-hidden="true" style="${esc(o.dot)}"></span><span style="display: flex; flex-direction: column; gap: 2px">${esc(o.label)}<span style="font-size: 13px; font-weight: 500; color: #4a3a63">${esc(o.sub)}</span></span></button>`).join('')}</div>
       ${g.hasNote ? `<p class="note">${esc(g.note)}</p>` : ''}
     </fieldset>`).join('');
   const facts = v.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px">${esc(f.value)}<span style="${esc(f.tagStyle)}">${esc(f.tag)}</span></dd></div>`).join('');
@@ -337,7 +386,11 @@ function render() {
       <div class="sec-head"><h3>${esc(s.name)}</h3><span style="${esc(s.badgeStyle)}">${esc(s.badge)}</span></div>
       ${s.rules.map((r) => `<div class="rule"><p>${esc(r.label)}</p><div class="cases">${r.cases.map((c) => `<div style="${esc(c.style)}"><span style="display: flex; align-items: center; gap: 10px; font-weight: 600"><span aria-hidden="true" style="${esc(c.dot)}"></span>${esc(c.value)}</span><span style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>${esc(c.effect)}</span><span style="display: flex; gap: 6px"><span style="${esc(c.tagStyle)}">${esc(c.tag)}</span></span></span></div>`).join('')}</div></div>`).join('')}
     </div>`).join('');
+  const vp = document.getElementById('vp');
+  const scroll = vp ? vp.scrollTop : 0;
   document.getElementById('app').innerHTML = `
+    <div class="proto-controls">
+      <div style="display: flex; flex-direction: column; gap: 6px; max-width: 900px; font-size: 15px; line-height: 1.55"><p style="margin: 0"><strong style="font-weight: 600">Course page options prototype.</strong> This shows how a University of Winchester course page could change with an applicant’s options. Change them with the purple bar at the bottom of the page, and switch between types of course with the study level menu.</p><p style="margin: 0; color: #4a3a63">Course details are from winchester.ac.uk (17 November 2026). Anything highlighted <span style="display: inline-flex; align-items: center; min-height: 20px; padding: 0 8px; border-radius: 10px; background: #d4ef70; color: #291647; font-size: 12px; font-weight: 600; white-space: nowrap">To confirm</span> isn’t known yet, and some behaviours are proposals for you to agree. Please check the options and facts for each study level, and see the <a href="questions.html" style="color: #291647; font-weight: 600">questions and proposals</a>.</p></div>
     <div class="level">
       <label for="study-level">Study level</label>
       <select id="study-level" data-key="level">
@@ -346,19 +399,33 @@ function render() {
       <span>Example course: ${esc(v.example)}</span>
     </div>
     <div class="url"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>winchester.ac.uk<strong>${esc(v.path)}</strong></span></div>
-    <div style="display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">${esc(v.award)}</p><h1>${esc(v.title)}</h1></div>
-    <div class="panels">
-      <section class="opts" aria-labelledby="opt-h"><h2 id="opt-h">Choose your options</h2>${groups}${v.hasFixed ? `<p class="note">${esc(v.fixed)}</p>` : ''}</section>
-      <section class="facts-panel" aria-labelledby="ov-h"><h2 id="ov-h">What you need to know</h2><dl>${facts}</dl>
-        <div class="ctas"><a class="cta cta-primary" href="#">${esc(v.cta)} <span aria-hidden="true">→</span></a>${v.hasCta2 ? `<a class="cta cta-secondary" href="#">${esc(v.cta2)}</a>` : ''}</div>
-        <p class="note">${esc(v.ctaNote)}</p></section>
     </div>
+    <div class="viewport" id="vp" aria-label="Course page prototype, 1280 by 832"><div class="wrap" aria-live="polite">
+    <div style="display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">${esc(v.award)}</p><h1>${esc(v.title)}</h1></div>
+    <section class="facts-panel" id="facts" aria-labelledby="ov-h"><h2 id="ov-h">What you need to know</h2><dl>${facts}</dl>
+      <div class="ctas"><a class="cta cta-primary" href="#">${esc(v.cta)} <span aria-hidden="true">→</span></a>${v.hasCta2 ? `<a class="cta cta-secondary" href="#">${esc(v.cta2)}</a>` : ''}</div>
+      <p class="note">${esc(v.ctaNote)}</p></section>
     <section class="content" aria-labelledby="pc-h"><h2 id="pc-h">${esc(v.contentTitle)}</h2>${sections}</section>
-    <p class="foot">Prototype for discussion. Course details were taken from winchester.ac.uk on 17 November 2026.</p>`;
+    <p class="foot">Prototype for discussion. Course details were taken from winchester.ac.uk on 17 November 2026.</p>
+    </div>
+    ${v.pinnedVisible ? `<div class="pinbar">
+      ${v.drawerPinned ? `<div id="pinned-drawer" class="pinbar-drawer"><div class="drawer-grid" style="${esc(v.drawerCols)}">${groups}</div>${v.hasFixed ? `<p class="note">${esc(v.fixed)}</p>` : ''}</div>` : ''}
+      <div class="pinbar-row">
+        <div class="pinbar-summary"><span>Your options</span> <strong>${esc(v.summary)}</strong></div>
+        <button type="button" class="optbar-toggle" data-key="drawer-pinned" data-h="${on(v.togglePinned)}" aria-expanded="${v.pinnedExpanded}" aria-controls="pinned-drawer">${esc(v.pinnedLabel)}</button>
+        <a class="cta cta-primary" href="#">${esc(v.cta)} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>` : ''}
+    </div>`;
+  const vp2 = document.getElementById('vp'); if (vp2) { vp2.scrollTop = scroll; vp2.addEventListener('scroll', () => checkPinned()); }
+  lastV = v;
   if (focusId) { const el = document.querySelector(`[data-key="${focusId}"]`); if (el) el.focus(); }
 }
 document.addEventListener('click', (e) => { const b = e.target.closest('[data-h]'); if (b) handlers[+b.dataset.h](); });
 document.addEventListener('change', (e) => { if (e.target.id === 'study-level') app.renderVals().pickLevel({ target: { value: e.target.value } }); });
+let lastV = null;
+function checkPinned() { const vp = document.getElementById('vp'); if (!vp || !lastV) return; const framed = getComputedStyle(vp).overflowY === 'auto'; lastV.checkPinned(framed ? vp : null); }
+window.addEventListener('scroll', () => checkPinned());
 render();
 </script>
 </body>
