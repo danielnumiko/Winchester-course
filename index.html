@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course page options prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap">
+<style>
+:root { --purple-dark: #291647; --purple-light: #c68efd; --purple-line: #d9cbee; --grey: #f4f4f4; --muted: #4a3a63; --lime: #d4ef70; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #ffffff; color: var(--purple-dark); font-family: Figtree, sans-serif; }
+a { color: var(--purple-dark); }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 40px 16px; display: flex; flex-direction: column; gap: 28px; }
+@media (min-width: 768px) { .wrap { padding: 40px; } }
+.level { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid var(--purple-line); }
+.level label { font-size: 15px; font-weight: 600; }
+.level select { min-height: 48px; min-width: min(320px, 100%); padding: 0 16px; border: 2px solid var(--purple-dark); border-radius: 5px; background: #fff; color: var(--purple-dark); font: 600 16px Figtree, sans-serif; cursor: pointer; }
+.level span { font-size: 14px; color: var(--muted); }
+.url { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--grey); border-radius: 8px; font-size: 14px; overflow-wrap: anywhere; }
+.eyebrow { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+h1 { margin: 0; font-size: clamp(32px, 5vw, 46px); font-weight: 500; line-height: 1.15; }
+.panels { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
+@media (min-width: 900px) { .panels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.opts { display: flex; flex-direction: column; gap: 22px; padding: 30px; background: var(--grey); border-radius: 15px; }
+.facts-panel { display: flex; flex-direction: column; gap: 26px; padding: 30px; background: #fff; border: 1px solid var(--purple-line); border-radius: 15px; }
+h2 { margin: 0; font-size: 20px; font-weight: 600; }
+fieldset { margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+legend { padding: 0; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.note { margin: 0; font-size: 13px; line-height: 1.45; color: var(--muted); }
+dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; }
+dt { font-size: 13px; color: var(--muted); }
+dd { margin: 4px 0 0; font-size: 17px; font-weight: 600; line-height: 1.35; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 5px; font-size: 16px; font-weight: 600; text-decoration: none; }
+.cta-primary { background: var(--purple-dark); color: #fff; }
+.cta-secondary { background: var(--purple-light); color: var(--purple-dark); }
+.content { display: flex; flex-direction: column; gap: 12px; }
+.content > h2 { font-size: 24px; padding-top: 8px; }
+.sec-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.sec-head h3 { margin: 0; font-size: 18px; font-weight: 600; }
+.rule { display: grid; grid-template-columns: 1fr; gap: 6px 20px; align-items: start; }
+@media (min-width: 768px) { .rule { grid-template-columns: 180px minmax(0, 1fr); } }
+.rule > p { margin: 0; font-size: 14px; font-weight: 600; }
+@media (min-width: 768px) { .rule > p { padding-top: 10px; } }
+.cases { display: flex; flex-direction: column; gap: 6px; }
+@media (max-width: 767px) { .cases > div { grid-template-columns: 1fr !important; gap: 4px !important; } }
+.foot { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main id="app" class="wrap" aria-live="polite"></main>
+<script>
+// Minimal stand-in for the design canvas runtime: same component logic, rendered with plain JavaScript.
+class DCLogic {
+  constructor(props) { this.props = props || {}; this.state = {}; }
+  setState(patch) { Object.assign(this.state, patch); render(); }
+}
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = {
+level: 'ug',
+ug: { fee: 'home', route: 'std', place: 'none', start: 'sep27' },
+pgt: { fee: 'home', award: 'msc', mode: 'ft' },
+pgr: { fee: 'home', mode: 'ft' },
+app: { who: 'employer', start: 'sep' },
+short: { start: 'oct25' }
+};
+}
+renderVals() {
+const lvl = this.state.level;
+const s = this.state[lvl];
+const base = 'display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 52px; padding: 10px 18px; box-sizing: border-box; border: 2px solid #291647; border-radius: 5px; font-family: Figtree, sans-serif; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer;';
+const on = base + ' background: #291647; color: #ffffff;';
+const off = base + ' background: #ffffff; color: #291647;';
+const group = (cur, key, label, opts, note) => ({
+label: label, note: note || '', hasNote: !!note,
+options: opts.map((o) => ({
+label: o[1], sub: o[2] || '',
+pressed: cur[key] === o[0] ? 'true' : 'false',
+style: cur[key] === o[0] ? on : off,
+pick: () => this.setState({ [lvl]: Object.assign({}, this.state[lvl], { [key]: o[0] }), last: label, all: false })
+}))
+});
+const homeLabel = 'UK, Channel Islands, Isle of Man or Ireland';
+let v;
+
+if (lvl === 'ug') {
+const intl = s.fee === 'intl';
+const fy = s.route === 'fy';
+let start = s.start;
+if (fy && start !== 'sep27') start = 'sep27';
+if (intl && start === 'clr26') start = 'sep27';
+const cur = { fee: s.fee, route: s.route, place: s.place, start: start };
+const startOpts = [['sep27', 'September']];
+if (!fy) startOpts.push(['jan28', 'January', 'Ends in May, 2 years 4 months later']);
+if (!fy && !intl) startOpts.unshift(['clr26', 'Clearing 2026', 'Open now']);
+const groups = [
+group(cur, 'fee', 'Fee status', [['home', homeLabel], ['intl', 'International']]),
+group(cur, 'route', 'Route', [['std', 'Standard', 'UCAS code NP29'], ['fy', 'With foundation year', 'UCAS code NP2X, +1 year']], 'Each route is its own course page with its own UCAS code.'),
+group(cur, 'place', 'Industry placement', [['none', 'No placement'], ['yes', 'Sandwich year', '+1 year, between years 2 and 3']], 'Same course page and UCAS code: it only changes the course length.'),
+group(cur, 'start', 'Start date', startOpts, fy ? 'The foundation year route starts in September only.' : '')
+];
+let length;
+if (start === 'jan28') length = s.place === 'yes' ? '[January start with placement: check]' : '2 years 4 months full-time';
+else length = (fy ? 4 : 3) + (s.place === 'yes' ? 1 : 0) + ' years ' + (s.place === 'yes' ? 'sandwich' : 'full-time');
+let fees;
+if (start === 'clr26') fees = '[2026/27 fee]';
+else if (fy) fees = intl ? '[International foundation year fee]' : 'From £5,760 (foundation year)';
+else fees = intl ? '£16,700 a year (2027/28)' : 'From £10,050 a year (2027/28)';
+if (s.place === 'yes') fees += ', [placement year fee]';
+let offer = fy ? '48 UCAS points' : '104 to 120 UCAS points';
+if (start === 'clr26') offer = 'Below 104 points considered individually';
+if (intl) offer += ', plus international entry requirements';
+let cta = intl ? 'Apply now (for International students)' : 'Apply now (for UK students)';
+let cta2 = intl ? 'International entry requirements' : 'Book an open day';
+let ctaNote = intl ? 'Goes to Oxford International, the University’s international admissions partner.' : 'Goes to this route’s UCAS course page.';
+if (start === 'clr26') { cta = 'Call 01962 827234'; cta2 = 'WhatsApp 07447 197168'; ctaNote = 'The live page offers phone and WhatsApp for Clearing, alongside the UCAS button.'; }
+v = {
+example: 'BA (Hons) Business Management',
+path: fy ? '/study/foundation-year/Courses/BA-Hons-Business-Management-with-Foundation-Year/' : '/study/undergraduate/courses/ba-hons-business-management/',
+award: 'BA (Hons)', title: 'Business Management' + (fy ? ' with Foundation Year' : ''), groups: groups,
+fixed: 'Location is fixed for this course (on campus), so it is a fact, not an option.', hasFixed: true,
+facts: [
+{ label: 'UCAS code', value: fy ? 'NP2X' : 'NP29' },
+{ label: 'Course length', value: length },
+{ label: 'Start date', value: { clr26: '[Clearing 2026 start date]', sep27: 'September', jan28: 'January' }[start] },
+{ label: 'Location', value: 'On campus' },
+{ label: 'Typical offer', value: offer },
+{ label: 'Fees', value: fees }
+],
+cta: cta, cta2: cta2, ctaNote: ctaNote,
+pageLine: 'Route chooses the page: standard and foundation year are two course pages, each with its own UCAS code. This is ' + (fy ? 'the foundation year page.' : 'the standard page.'),
+prefLine: 'Fee status, placement and start date stay on the same page. They swap the course length, fees, offer and apply button in place.',
+checks: [
+{ text: 'Course length and fees for a January start with a placement year.' },
+{ text: 'Placement year fee, and the international foundation year fee.' },
+{ text: 'Whether international applicants can apply through Clearing, and how.' },
+{ text: 'Which intake Clearing 2026 is for, and which year the September and January starts are.' },
+{ text: 'Whether any undergraduate course is offered part-time, or with a study abroad year that changes its length.' },
+{ text: 'Other routes: Accounting and Finance has a 2-year accelerated version. Is it its own page?' },
+{ text: 'The wireframe lists a part-time fee (£81.58 per credit). Which courses can be studied part-time? Business Management can’t on the live site.' },
+{ text: 'The wireframe shows a UK fee of £9,790. The live 2027/28 fee is £10,050.' },
+{ text: 'The wireframe’s Accounting and Finance codes don’t agree: NN34 in the panel, N82X and N820 in the related courses cards.' }
+]
+};
+}
+
+if (lvl === 'pgt') {
+const intl = s.fee === 'intl';
+const cur = s;
+const groups = [
+group(cur, 'fee', 'Fee status', [['home', homeLabel], ['intl', 'International']]),
+group(cur, 'award', 'Award', [['msc', 'MSc', '180 credits'], ['pgdip', 'PgDip', '120 credits'], ['pgcert', 'PgCert', '60 credits']], 'Winchester lets you study for a PgDip or PgCert instead of the full master’s.'),
+group(cur, 'mode', 'Mode', [['ft', 'Full-time'], ['pt', 'Part-time']], intl ? 'The Student visa allows part-time study at postgraduate level, but check whether Winchester sponsors it.' : '')
+];
+const len = {
+msc: ['1 year full-time', '2 years part-time'],
+pgdip: ['[PgDip length]', '[PgDip length]'],
+pgcert: ['1 semester full-time', '2 semesters part-time']
+}[s.award][s.mode === 'pt' ? 1 : 0];
+let fees = s.award !== 'msc' ? '[' + (s.award === 'pgdip' ? 'PgDip' : 'PgCert') + ' fee]' : (s.mode === 'pt' ? '[Part-time fee]' : (intl ? '£17,450 (2027/28)' : '£10,050 (2027/28)'));
+v = {
+example: 'MSc Digital Marketing and Analytics',
+path: '/study/Postgraduate/Courses/MSc-Digital-Marketing-and-Analytics/',
+award: s.award === 'msc' ? 'MSc' : (s.award === 'pgdip' ? 'PgDip' : 'PgCert'), title: 'Digital Marketing and Analytics', groups: groups,
+fixed: 'Start date (September) and location (on campus) are fixed for this course, so they are facts, not options. Other courses vary: some are distance learning only.', hasFixed: true,
+facts: [
+{ label: 'Course start date', value: 'September' },
+{ label: 'Course length', value: len },
+{ label: 'Location', value: 'On campus, Winchester' },
+{ label: 'Typical offer', value: 'A first or second-class honours degree' + (intl ? ', plus international entry requirements' : '') },
+{ label: 'Fees', value: fees },
+{ label: 'Credits', value: { msc: '180', pgdip: '120', pgcert: '60' }[s.award] }
+],
+cta: intl ? 'Apply now (for International students)' : 'Apply now (for UK students)',
+cta2: 'Postgraduate events',
+ctaNote: intl ? 'Goes to Oxford International, the University’s international admissions partner.' : 'Goes to the postgraduate how to apply page.',
+pageLine: 'One course page. On the live site the PgDip and PgCert don’t have their own pages.',
+prefLine: 'Every option here stays on the same page and swaps the length, fees and apply button in place.',
+checks: [
+{ text: 'Which courses offer PgDip and PgCert entry, and what they cost.' },
+{ text: 'PgDip length, and the part-time fee.' },
+{ text: 'Whether international students can study part-time.' },
+{ text: 'Which courses offer a January start.' }
+]
+};
+}
+
+if (lvl === 'pgr') {
+const cur = s;
+const tier = { home: 'UK or Ireland', ci: 'Channel Islands or Isle of Man', intl: 'International' };
+const groups = [
+group(cur, 'fee', 'Fee status', [['home', tier.home], ['ci', tier.ci], ['intl', tier.intl]], 'Research degree fees have three tiers, not two.'),
+group(cur, 'mode', 'Mode', [['ft', 'Full-time'], ['pt', 'Part-time']])
+];
+const ft = s.mode === 'ft';
+const fee = { home: ft ? '£5,006' : '£2,503', ci: '[Channel Islands fee]', intl: ft ? '£16,700' : '£8,350' }[s.fee] + (s.fee === 'ci' ? '' : ' a year (2026/27)');
+v = {
+example: 'MPhil/PhD Research',
+path: '/study/research-degrees/Courses/MPhilPhD-Research/',
+award: 'Research degree', title: 'MPhil/PhD Research', groups: groups,
+fixed: 'Start date (September) and location (on campus) are fixed, and MPhil and PhD share one page, so none of these are options.', hasFixed: true,
+facts: [
+{ label: 'Course start date', value: 'September' },
+{ label: 'Course length', value: ft ? '4 years full-time (maximum)' : '7 years part-time (maximum)' },
+{ label: 'Location', value: 'On campus, Winchester' },
+{ label: 'Fees', value: fee },
+{ label: 'Preparation for Research', value: '£1,400 one-off fee' },
+{ label: 'Research areas', value: 'All subjects share this one page' }
+],
+cta: 'Apply now', cta2: s.fee === 'intl' ? 'International apply page' : 'Contact the Doctoral School',
+ctaNote: 'Goes to the research degree how to apply page.',
+pageLine: 'One page for every research degree at the University. No child pages.',
+prefLine: 'Fee status and mode swap the fees and course length in place.',
+checks: [
+{ text: 'Course length: the key facts say 4 years full-time and 7 part-time, but the fees table says 3 and 6.' },
+{ text: 'Channel Islands and Isle of Man fee: the live fees table has no figure for it.' },
+{ text: 'Whether international applicants apply through Oxford International, as they do for taught courses.' }
+]
+};
+}
+
+if (lvl === 'app') {
+const emp = s.who === 'employer';
+const cur = s;
+const groups = [
+group(cur, 'who', 'I am', [['employer', 'An employer'], ['apprentice', 'An apprentice or future apprentice']], 'Replaces fee status: the live pages split costs into apprentice and employer sections.'),
+group(cur, 'start', 'Start date', [['sep', 'September'], ['jan', 'January']], 'The live page lists September in its key facts but January and September in its course details.')
+];
+v = {
+example: 'MA Social Work Apprenticeship',
+path: '/study/Apprenticeships/Degree-Apprenticeship-Programmes/MA-Hons-Social-Work-Apprenticeship/',
+award: 'Degree apprenticeship', title: 'Social Work Apprenticeship (MA)', groups: groups,
+fixed: 'Each programme runs at one level, so level is not an option. Social Work has separate BA and MA apprenticeship pages.', hasFixed: true,
+facts: [
+{ label: 'Course start date', value: s.start === 'sep' ? 'September' : 'January' },
+{ label: 'Course length', value: '2 years part-time' },
+{ label: emp ? 'Cost to employers' : 'Cost to apprentices', value: emp ? 'Funded through the apprenticeship levy. Funding depends on your size, payroll and the learner’s age' : 'No tuition fees. You are paid and get time off to study' },
+{ label: 'Entry requirements', value: 'A relevant first degree or equivalent Level 6 study, plus significant social work or care experience' },
+{ label: 'How to get a place', value: emp ? 'Support an existing employee, or recruit through a partner employer' : 'Apply for a job with a partner employer, or ask your employer to support you' },
+{ label: 'Course enquiries', value: '+44 (0)1962 827234' }
+],
+cta: emp ? 'Information for employers' : 'Information for learners',
+cta2: 'What are degree apprenticeships?',
+ctaNote: 'There is no apply button: apprentices are recruited through their employer.',
+pageLine: 'One page per programme. No child pages.',
+prefLine: 'Employer or apprentice swaps the costs, how to get a place and the main button in place.',
+checks: [
+{ text: 'Which start dates are correct for this programme.' },
+{ text: 'Whether the employer and apprentice view should be a switch, or two sections on the page as now.' }
+]
+};
+}
+
+if (lvl === 'short') {
+const cur = s;
+const groups = [
+group(cur, 'start', 'Start date', [['oct25', 'October 2025'], ['feb26', 'February 2026'], ['jun26', 'June 2026']], 'These are the dates the live page lists, including past ones.')
+];
+v = {
+example: 'An Introduction to Global Health',
+path: '/study/Short-courses/Courses/An-Introduction-to-Global-Health/',
+award: 'Short course', title: 'An Introduction to Global Health', groups: groups,
+fixed: 'There is no fee status option (one price for everyone), and delivery is fixed (distance learning only).', hasFixed: true,
+facts: [
+{ label: 'Course start date', value: { oct25: 'October 2025', feb26: 'February 2026', jun26: 'June 2026' }[s.start] },
+{ label: 'Course length', value: '10 hours (5 to 10, self-paced)' },
+{ label: 'Location', value: 'Distance learning only' },
+{ label: 'Fees', value: '£150' },
+{ label: 'Typical offer', value: 'Health professionals' },
+{ label: 'Assessment', value: 'No formal assessment' }
+],
+cta: 'Apply now', cta2: 'Ask a question',
+ctaNote: 'Goes to the University’s online store.',
+pageLine: 'One page per short course. No child pages.',
+prefLine: 'Picking a start date only changes which run you apply for.',
+checks: [
+{ text: 'Whether the store needs the chosen start date passed to it.' },
+{ text: 'Whether past start dates should be hidden automatically.' }
+]
+};
+}
+
+const S = this.state[lvl];
+const rule = (label, current, cases) => ({ label: label, current: current, cases: cases });
+const sec = (name, rules, hidden) => ({ name: name, rules: rules, hidden: !!hidden });
+const homeShort = 'UK, Channel Islands, Isle of Man or Ireland';
+let secs = [];
+if (lvl === 'ug') {
+const intl = S.fee === 'intl', fy = S.route === 'fy';
+let st = S.start;
+if (fy && st !== 'sep27') st = 'sep27';
+if (intl && st === 'clr26') st = 'sep27';
+const feeR = (home, int) => rule('Fee status', S.fee, [['home', homeShort, home], ['intl', 'International', int]]);
+const routeR = (std, f) => rule('Route', S.route, [['std', 'Standard', std], ['fy', 'With foundation year', f]]);
+const placeR = (no, yes) => rule('Industry placement', S.place, [['none', 'No placement', no], ['yes', 'Sandwich year', yes]]);
+const startR = (c, s, j) => rule('Start date', st, [['clr26', 'Clearing 2026', c], ['sep27', 'September', s], ['jan28', 'January', j]]);
+secs = [
+sec('Clearing alert', [startR('Alert shown: “this course is available through Clearing”, call 01962 827234', 'No alert', 'No alert')], st !== 'clr26'),
+sec('Course modules', [routeR('Years 1 to 3', 'Foundation Year (120 credits) added before Year 1'), placeR('No placement year', 'Placement year added between Years 2 and 3')]),
+sec('Study hours and assessment', [routeR('Years 1 to 3 in the table', 'Year 0 (Level 3) text and table row added')]),
+sec('Entry requirements', [feeR('UK tab open: A-levels, BTEC, T Level', 'International tab open: International Recruitment Team contact'), routeR('104 to 120 UCAS points', '48 UCAS points'), startR('Clearing: below 104 points considered individually', 'Standard typical offer', 'Standard typical offer')]),
+sec('Pathways Programme', [feeR('Shown', 'Hidden: only open to home and Channel Islands students')], intl),
+sec('How much will university cost me?', [feeR('UK tuition fee: £10,050 a year', 'International tuition fee: £16,700 a year'), routeR('No foundation year fee', 'Foundation year fee added (UK: from £5,760)'), placeR('No placement year fee', 'Placement year fee added'), startR('2026/27 fees', '2027/28 fees', '2027/28 fees')]),
+sec('Discover Uni', [routeR('Data for UCAS code NP29', 'Data for UCAS code NP2X')]),
+sec('Compare related courses', [routeR('Course cards open on the Undergraduate tab', 'Course cards open on the Foundation tab')])
+];
+}
+if (lvl === 'pgt') {
+const feeR = (home, int) => rule('Fee status', S.fee, [['home', homeShort, home], ['intl', 'International', int]]);
+const awardR = (m, d, c) => rule('Award', S.award, [['msc', 'MSc', m], ['pgdip', 'PgDip', d], ['pgcert', 'PgCert', c]]);
+const modeR = (f, p) => rule('Mode', S.mode, [['ft', 'Full-time', f], ['pt', 'Part-time', p]]);
+secs = [
+sec('Learning and teaching', [modeR('Full-time study pattern', 'Part-time study pattern')]),
+sec('Modules', [awardR('All modules (180 credits)', 'PgDip modules (120 credits)', 'PgCert modules (60 credits)')]),
+sec('Entry requirements', [feeR('A first or second-class honours degree', 'International requirements: IELTS 6.0 overall, 5.5 in writing, and the International Recruitment Team contact')]),
+sec('Tuition fees', [feeR('UK fee: £10,050 (2027/28)', 'International fee: £17,450 (2027/28)'), awardR('Full MSc fee', 'PgDip fee', 'PgCert fee'), modeR('Full-time fee', 'Part-time fee')]),
+sec('Scholarships, bursaries and awards', [feeR('UK scholarships and bursaries', 'Adds the link to information for international students')])
+];
+}
+if (lvl === 'pgr') {
+const feeR = (h, c, i) => rule('Fee status', S.fee, [['home', 'UK or Ireland', h], ['ci', 'Channel Islands or Isle of Man', c], ['intl', 'International', i]]);
+const modeR = (f, p) => rule('Mode', S.mode, [['ft', 'Full-time', f], ['pt', 'Part-time', p]]);
+secs = [
+sec('Application process', [feeR('Research degree application', 'Research degree application', 'Adds the link to the International apply page')]),
+sec('Fees', [feeR('£5,006 full-time, £2,503 part-time (2026/27)', '[No figure on the live page]', '£16,700 full-time, £8,350 part-time (2026/27)'), modeR('Full-time rate, 4 years maximum', 'Part-time rate, 7 years maximum')])
+];
+}
+if (lvl === 'app') {
+const emp = S.who === 'employer';
+const whoR = (e, a) => rule('I am', S.who, [['employer', 'An employer', e], ['apprentice', 'An apprentice', a]]);
+secs = [
+sec('Start date', [rule('Start date', S.start, [['sep', 'September', 'September cohort'], ['jan', 'January', 'January cohort']])]),
+sec('Course enquiries and applications', [whoR('How to support an employee or recruit an apprentice', 'How to apply for a job with a partner employer, or ask your employer')]),
+sec('Costs to student/apprentice', [whoR('Hidden', 'Shown: no tuition fees, paid with time off to study')], emp),
+sec('Costs to employers', [whoR('Shown: funding depends on employer size, payroll and the learner’s age', 'Hidden')], !emp)
+];
+}
+if (lvl === 'short') {
+secs = [
+sec('Book now', [rule('Start date', S.start, [['oct25', 'October 2025', 'Books the October 2025 run'], ['feb26', 'February 2026', 'Books the February 2026 run'], ['jun26', 'June 2026', 'Books the June 2026 run']])])
+];
+}
+const last = this.state.last;
+const boxBase = 'display: flex; flex-direction: column; gap: 14px; padding: 22px 26px; border-radius: 15px; box-sizing: border-box;';
+const badgeBase = 'display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 14px; font-size: 13px; font-weight: 600;';
+const caseBase = 'display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; padding: 10px 14px; border-radius: 5px; font-size: 14px; line-height: 1.45;';
+v.filtered = false;
+v.showAll = () => {};
+v.contentTitle = 'Content that changes with these options';
+v.contentIntro = '';
+v.sections = secs.filter((x) => !x.hidden).map((x) => {
+const just = !!last && x.rules.some((r) => r.label === last);
+return {
+name: x.name,
+badge: just ? 'Just changed' : '',
+badgeStyle: just ? badgeBase + ' background: #d4ef70; color: #291647;' : 'display: none;',
+boxStyle: boxBase + ' background: #ffffff; border: 2px solid ' + (just ? '#291647' : '#d9cbee') + ';',
+rules: x.rules.map((r) => ({
+label: r.label,
+cases: r.cases.map((c) => ({
+value: c[1] + (c[0] === r.current ? ' (selected)' : ''),
+effect: c[2],
+style: caseBase + (c[0] === r.current ? ' background: #291647; color: #ffffff;' : ' background: #f4f4f4; color: #291647;')
+}))
+}))
+};
+});
+v.level = lvl;
+v.pickLevel = (e) => this.setState({ level: e.target.value, last: null, all: false });
+return v;
+}
+}
+
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const app = new Component({});
+let handlers = [];
+const on = (fn) => { handlers.push(fn); return handlers.length - 1; };
+function render() {
+  handlers = [];
+  const v = app.renderVals();
+  const focusId = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.key : null;
+  const groups = v.groups.map((g, gi) => `
+    <fieldset>
+      <legend>${esc(g.label)}</legend>
+      <div class="choices">${g.options.map((o, oi) => `<button type="button" data-key="g${gi}o${oi}" data-h="${on(o.pick)}" aria-pressed="${o.pressed}" style="${esc(o.style)}">${esc(o.label)}<span style="font-size: 13px; font-weight: 500">${esc(o.sub)}</span></button>`).join('')}</div>
+      ${g.hasNote ? `<p class="note">${esc(g.note)}</p>` : ''}
+    </fieldset>`).join('');
+  const facts = v.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('');
+  const sections = v.sections.map((s) => `
+    <div style="${esc(s.boxStyle)}">
+      <div class="sec-head"><h3>${esc(s.name)}</h3><span style="${esc(s.badgeStyle)}">${esc(s.badge)}</span></div>
+      ${s.rules.map((r) => `<div class="rule"><p>${esc(r.label)}</p><div class="cases">${r.cases.map((c) => `<div style="${esc(c.style)}"><span style="font-weight: 600">${esc(c.value)}</span><span>${esc(c.effect)}</span></div>`).join('')}</div></div>`).join('')}
+    </div>`).join('');
+  document.getElementById('app').innerHTML = `
+    <div class="level">
+      <label for="study-level">Study level</label>
+      <select id="study-level" data-key="level">
+        ${[['ug', 'Undergraduate'], ['pgt', 'Postgraduate taught'], ['pgr', 'Research degree'], ['app', 'Degree apprenticeship'], ['short', 'Short course']].map(([k, l]) => `<option value="${k}"${k === v.level ? ' selected' : ''}>${l}</option>`).join('')}
+      </select>
+      <span>Example course: ${esc(v.example)}</span>
+    </div>
+    <div class="url"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>winchester.ac.uk<strong>${esc(v.path)}</strong></span></div>
+    <div style="display: flex; flex-direction: column; gap: 10px"><p class="eyebrow">${esc(v.award)}</p><h1>${esc(v.title)}</h1></div>
+    <div class="panels">
+      <section class="opts" aria-labelledby="opt-h"><h2 id="opt-h">Choose your options</h2>${groups}${v.hasFixed ? `<p class="note">${esc(v.fixed)}</p>` : ''}</section>
+      <section class="facts-panel" aria-labelledby="ov-h"><h2 id="ov-h">What you need to know</h2><dl>${facts}</dl>
+        <div class="ctas"><a class="cta cta-primary" href="#">${esc(v.cta)} <span aria-hidden="true">→</span></a><a class="cta cta-secondary" href="#">${esc(v.cta2)}</a></div>
+        <p class="note">${esc(v.ctaNote)}</p></section>
+    </div>
+    <section class="content" aria-labelledby="pc-h"><h2 id="pc-h">${esc(v.contentTitle)}</h2>${sections}</section>
+    <p class="foot">Prototype for discussion. Course details are taken from winchester.ac.uk; values in square brackets are still to be confirmed.</p>`;
+  if (focusId) { const el = document.querySelector(`[data-key="${focusId}"]`); if (el) el.focus(); }
+}
+document.addEventListener('click', (e) => { const b = e.target.closest('[data-h]'); if (b) handlers[+b.dataset.h](); });
+document.addEventListener('change', (e) => { if (e.target.id === 'study-level') app.renderVals().pickLevel({ target: { value: e.target.value } }); });
+render();
+</script>
+</body>
+</html>
