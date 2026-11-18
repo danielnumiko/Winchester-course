@@ -20,32 +20,34 @@ ol, ul { margin: 0; padding-left: 22px; display: flex; flex-direction: column; g
 ul ul { margin-top: 8px; gap: 6px; }
 .tag { display: inline-flex; align-items: center; min-height: 22px; padding: 0 9px; border-radius: 11px; background: var(--lime); font-size: 12px; font-weight: 600; white-space: nowrap; }
 .note { margin: 0; font-size: 15px; color: var(--muted); }
+.answer { display: block; margin-top: 6px; padding: 8px 12px; border-left: 3px solid var(--purple-light); background: #f7f1ff; font-size: 15px; color: var(--muted); }
 </style>
 </head>
 <body>
 <main>
 <a class="back" href="./">← Back to the prototype</a>
 <h1>Questions and proposals for the University of Winchester</h1>
-<p class="intro">These go with the course page options prototype. Course details in the prototype were taken from winchester.ac.uk on 17 November 2026. Everything highlighted <span class="tag">To confirm</span> in the prototype is listed below, followed by the suggestions we’d like you to agree.</p>
+<p class="intro">These go with the course page options prototype. Course details in the prototype were taken from winchester.ac.uk on 17 and 18 November 2026. Everything highlighted <span class="tag">To confirm</span> in the prototype is listed below, followed by the suggestions we’d like you to agree.</p>
+<p class="intro">Where your notes on the course page content board (18 November 2026) have answered part of a question, we’ve added what you told us underneath it.</p>
 
 <section aria-labelledby="crm">
 <h2 id="crm">Course data and the CRM</h2>
 <ol>
 <li>Which course details does the CRM hold for each course? For example: UCAS codes, routes (such as with foundation year), placement years, modes of study, start dates, fees by fee status, typical offers and course lengths.</li>
-<li>Does the CRM treat a foundation year route as a separate course record, as the website does (for example NP29 and NP2X)?</li>
+<li>Does the CRM treat a foundation year route as a separate course record, as the website does (for example NP29 and NP2X)?<span class="answer">Answered in part: the course overview, team and accreditations stay the same for the foundation year and undergraduate routes. Entry requirements, fees, modules and study hours change. We still need to know how the CRM holds them.</span></li>
 <li>Does the CRM hold a placement year as part of the same course record, or separately?</li>
 <li>Which fee statuses does the CRM use? The website shows “UK / Channel Islands / Isle of Man / Republic of Ireland” against “International” for most courses, and three columns for research degrees.</li>
 <li>Where do Clearing status and Clearing entry requirements come from, and how are they switched on and off?</li>
-<li>Do the apply links (UCAS, Oxford International, the postgraduate and research application pages, the online store for short courses) come from the CRM or are they entered by editors?</li>
+<li>Do the apply links (UCAS, Oxford International, the postgraduate and research application pages, the online store for short courses) come from the CRM or are they entered by editors?<span class="answer">Answered in part: taught postgraduate courses have no UCAS code, except for one course. Apprenticeships have no UCAS code, and applicants find an employer first.</span></li>
 </ol>
 </section>
 
 <section aria-labelledby="ug">
 <h2 id="ug">Undergraduate (example: BA (Hons) Business Management)</h2>
 <ol start="7">
-<li>What is the course length and end date for a January start with a placement year?</li>
+<li>What is the course length and end date for a January start with a placement year?<span class="answer">Answered in part: a January start for Business and Computing courses means a shorter course. We still need the length and end date with a placement year.</span></li>
 <li>What is the fee for the placement year?</li>
-<li>What is the international fee for the foundation year?</li>
+<li>What is the international fee for the foundation year?<span class="answer">Answered in part: the foundation year can cost less, but the rest of the degree costs the same as the standard undergraduate course. The prototype now shows both fees together. We still need the international figure.</span></li>
 <li>Can international applicants apply through Clearing, and if so, how?</li>
 <li>Which intake does “Clearing 2026” apply to, and what are its start date and fees?</li>
 </ol>
@@ -54,7 +56,7 @@ ul ul { margin-top: 8px; gap: 6px; }
 <section aria-labelledby="pgt">
 <h2 id="pgt">Postgraduate taught (example: MSc Digital Marketing and Analytics)</h2>
 <ol start="12">
-<li>Can applicants study for a PgDip or PgCert on its own on this course? If so, what are the length, credits, modules and fees for each?</li>
+<li>Can applicants study for a PgDip or PgCert on its own on this course? If so, what are the length, credits, modules and fees for each?<span class="answer">You asked how to present stackable masters. The prototype shows one course page with the MSc, PgDip and PgCert as choices. We still need the details for each award.</span></li>
 <li>What is the part-time fee?</li>
 <li>Can international students study part-time?</li>
 </ol>
@@ -75,6 +77,30 @@ ul ul { margin-top: 8px; gap: 6px; }
 </ol>
 </section>
 
+<section aria-labelledby="top">
+<h2 id="top">Top-up degrees (example: BA (Hons) Business Management (Top up))</h2>
+<ol start="18">
+<li>How long does the course take part-time? The live page gives the part-time fee per credit, but no course length.</li>
+</ol>
+</section>
+
+<section aria-labelledby="two">
+<h2 id="two">Two-year degrees (examples: BA (Hons) Accounting and Finance (2 year Accelerated) and FdA Integrative Counselling)</h2>
+<ol start="19">
+<li>Does FdA Integrative Counselling have any professional accreditation?</li>
+<li>Are there any other two-year courses we should include, beyond these two?</li>
+</ol>
+</section>
+
+<section aria-labelledby="other">
+<h2 id="other">Other points from your notes</h2>
+<ol start="21">
+<li>What should the Discover Winchester banner say on foundation year pages, given there is no lower offer?</li>
+<li>Which locations can a school-led PGCE have, and how should they show on the course page?</li>
+<li>Where should distance learning sit for short courses? For taught postgraduate courses, we’ve shown it in the location.</li>
+</ol>
+</section>
+
 <section aria-labelledby="proposals">
 <h2 id="proposals">Proposals to agree</h2>
 <p class="note">These are suggestions in the prototype that differ from how the current website works.</p>
@@ -88,10 +114,14 @@ ul ul { margin-top: 8px; gap: 6px; }
 </ul>
 </li>
 <li>Showing the placement year in the undergraduate course modules.</li>
+<li>Showing the foundation year as its own labelled block before Years 1 to 3, so the degree still reads as three years.</li>
+<li>Showing the foundation year fee and the standard yearly fee together, so the cheaper first year is clear.</li>
+<li>A course setting to switch the Pathways Programme on or off for each course.</li>
 <li>Discover Uni statistics and the “Compare related courses” cards matching the chosen route.</li>
 <li>An “I am an employer / I am an apprentice” switch on apprenticeship pages, in place of showing both cost sections.</li>
-<li>Offering PgDip and PgCert as options on taught postgraduate pages.</li>
+<li>Offering PgDip and PgCert as options on taught postgraduate pages, as a way to present stackable masters.</li>
 <li>Passing the chosen start date through to the short course booking link.</li>
+<li>Making top-up degrees and two-year degrees their own course types.</li>
 </ul>
 </section>
 </main>

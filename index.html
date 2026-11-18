@@ -96,7 +96,9 @@ ug: { fee: 'home', route: 'std', place: 'none', start: 'sep' },
 pgt: { fee: 'home', award: 'msc', mode: 'ft' },
 pgr: { fee: 'home', mode: 'ft' },
 app: { who: 'employer', start: 'sep' },
-short: { start: 'oct25' }
+short: { start: 'oct25' },
+top: { fee: 'home', mode: 'ft' },
+two: { course: 'acc', fee: 'home' }
 };
 }
 renderVals() {
@@ -143,7 +145,7 @@ if (jan) { length = place ? '[January start with a placement year]' : '2 years 4
 else length = ((fy ? 4 : 3) + (place ? 1 : 0)) + ' years ' + (place ? 'sandwich' : 'full-time');
 let fees, feesTag = '';
 if (clr) { fees = '[2026/27 fee]'; feesTag = C; }
-else if (fy) { fees = intl ? '[International foundation year fee]' : 'From £5,760 (foundation year)'; if (intl) feesTag = C; }
+else if (fy) { fees = intl ? '[International foundation year fee], then £16,700 a year for Years 1 to 3 (2027/28)' : 'From £5,760 for the foundation year, then from £10,050 a year for Years 1 to 3 (2027/28)'; if (intl) feesTag = C; }
 else fees = intl ? '£16,700 a year (2027/28)' : 'From £10,050 a year (2027/28)';
 if (place) { fees += ', plus [placement year fee]'; feesTag = C; }
 const offer = clr ? 'Below 104 points considered individually' : (fy ? '48 UCAS points' : '104 to 120 UCAS points');
@@ -172,11 +174,11 @@ const placeR = (n, y) => rule('Industry placement', S.place, [['none', 'No place
 const startR = (c, s, j) => rule('Start date', st, [['clr', 'Clearing 2026', c[0], c[1]], ['sep', 'September', s[0], s[1]], ['jan', 'January', j[0], j[1]]]);
 secs = [
 sec('Clearing alert', [startR(['Alert shown: “this course is available through Clearing”, call 01962 827234'], ['No alert'], ['No alert'])], !clr),
-sec('Course modules', [routeR(['Years 1 to 3'], ['Foundation Year (optional 120 credits) item shown before Year 1']), placeR(['No placement year item'], ['Placement year shown between Years 2 and 3', P])]),
+sec('Course modules', [routeR(['Years 1 to 3'], ['Foundation year (120 credits) shown first as its own labelled block, separate from Years 1 to 3, so the degree still reads as three years', P]), placeR(['No placement year item'], ['Placement year shown between Years 2 and 3', P])]),
 sec('Study hours and assessment', [routeR(['Years 1 to 3'], ['Year 0 (Level 3) text and table row shown'])]),
 sec('Entry requirements', [feeR(['UK tab opens first', P], ['International tab opens first', P]), routeR(['104 to 120 UCAS points'], ['48 UCAS points']), startR(['Below 104 points considered individually'], ['Typical offer'], ['Typical offer'])]),
-sec('Pathways Programme', [feeR(['Shown'], ['Hidden. The live page says the programme is open to home and Channel Islands Year 12 and 13 students', P])], intl),
-sec('How much will university cost me?', [feeR(['UK tuition fee: £10,050 a year (2027/28)'], ['International tuition fee: £16,700 a year (2027/28)']), routeR(['No foundation year fee'], ['Foundation year fee: from £5,760 (UK)']), placeR(['No placement year fee'], ['[Placement year fee]', C]), startR(['[2026/27 fees]', C], ['2027/28 fees'], ['2027/28 fees'])]),
+sec('Pathways Programme', [rule('Course setting', 'on', [['on', 'Switched on for this course', 'Shown'], ['off', 'Switched off for this course', 'Hidden. Editors choose this per course']]), feeR(['Shown'], ['Hidden. The live page says the programme is open to home and Channel Islands Year 12 and 13 students', P])], intl),
+sec('How much will university cost me?', [feeR(['UK tuition fee: £10,050 a year (2027/28)'], ['International tuition fee: £16,700 a year (2027/28)']), routeR(['No foundation year fee'], ['Foundation year fee: from £5,760 (UK), then the standard fee for Years 1 to 3. Both are shown together so the cheaper first year is clear']), placeR(['No placement year fee'], ['[Placement year fee]', C]), startR(['[2026/27 fees]', C], ['2027/28 fees'], ['2027/28 fees'])]),
 sec('Discover Uni', [routeR(['Statistics for NP29', P], ['Statistics for NP2X', P])]),
 sec('Compare related courses', [routeR(['Course cards open on the Undergraduate tab', P], ['Course cards open on the Foundation tab', P])])
 ];
@@ -187,7 +189,7 @@ const intl = S.fee === 'intl', pt = S.mode === 'pt', msc = S.award === 'msc';
 const awardName = { msc: 'MSc', pgdip: 'PgDip', pgcert: 'PgCert' }[S.award];
 const groups = [
 group(S, 'fee', 'Fee status', [['home', homeLabel], ['intl', 'International']]),
-group(S, 'award', 'Award', [['msc', 'MSc', '180 credits'], ['pgdip', 'PgDip'], ['pgcert', 'PgCert']], 'The live course page offers the MSc only. To confirm whether a PgDip or PgCert can be studied on its own.', P),
+group(S, 'award', 'Award', [['msc', 'MSc', '180 credits'], ['pgdip', 'PgDip'], ['pgcert', 'PgCert']], 'Our suggestion for showing stackable masters: one course page, with the MSc, PgDip and PgCert as choices. The live course page offers the MSc only, so we still need to confirm whether a PgDip or PgCert can be studied on its own.', P),
 group(S, 'mode', 'Mode', [['ft', 'Full-time'], ['pt', 'Part-time']], intl ? 'To confirm: whether international students can study part-time.' : '', intl ? C : '')
 ];
 let length, lengthTag = '';
@@ -269,7 +271,7 @@ facts: [
 fact('Course start date', S.start === 'sep' ? 'September' : 'January', C),
 fact('Course length', '2 years part-time'),
 fact(emp ? 'Costs to employers' : 'Costs to apprentices', emp ? 'Funding depends on the number of people you employ, your payroll and the learner’s age' : 'No tuition fees. Apprentices are paid, with time off to study'),
-fact('Entry requirements', 'A relevant first degree or equivalent Level 6 study, plus significant social work or care experience'),
+fact('Entry requirements', 'A relevant first degree or equivalent Level 6 study, plus significant social work or care experience. You also need an employer to support your apprenticeship'),
 fact('Course enquiries', '+44 (0) 1962 827234')
 ],
 cta: emp ? 'Information for employers' : 'What are Degree Apprenticeships?',
@@ -305,6 +307,76 @@ ctaNote: 'Goes to the University’s online store.'
 };
 secs = [
 sec('Book now', [rule('Start date', S.start, [['oct25', dates.oct25, 'Books the ' + dates.oct25 + ' run', P], ['feb26', dates.feb26, 'Books the ' + dates.feb26 + ' run', P], ['jun26', dates.jun26, 'Books the ' + dates.jun26 + ' run', P]])])
+];
+}
+
+if (lvl === 'top') {
+const intl = S.fee === 'intl', pt = S.mode === 'pt';
+const groups = [
+group(S, 'fee', 'Fee status', [['home', homeLabel], ['intl', 'International']]),
+group(S, 'mode', 'Mode', [['ft', 'Full-time', '1 year'], ['pt', 'Part-time', 'Paid per credit']], 'The University says top-up degrees are similar to undergraduate, with fewer modules and fewer years.')
+];
+let fees;
+if (pt) fees = intl ? '£139.14 per credit (£2,087 for a 15-credit module, 2027/28)' : '£83.75 per credit (£1,256 for a 15-credit module, 2027/28)';
+else fees = intl ? '£16,700 (2027/28)' : '£10,050 (2027/28)';
+v = {
+example: 'BA (Hons) Business Management (Top up)',
+path: '/study/undergraduate/Courses/BA-Hons-Business-Management-Top-up/',
+award: 'BA (Hons)', title: 'Business Management (Top up)', groups: groups,
+fixed: 'The live page lists a September start on the Winchester campus only, so neither is an option.', hasFixed: true,
+facts: [
+fact('UCAS code', 'N250'),
+fact('Course length', pt ? '[Part-time course length]' : '1 year full-time', pt ? C : ''),
+fact('Start date', 'September'),
+fact('Location', 'Winchester campus'),
+fact('Typical offer', 'HND or Foundation degree'),
+fact('Fees', fees)
+],
+cta: intl ? 'Apply now (for International students)' : 'Apply now (for UK students)', cta2: 'Book an open day',
+ctaNote: intl ? 'Goes to Oxford International (oxfordinternational.com).' : 'Goes to the course page on UCAS.'
+};
+const feeR = (h, i) => rule('Fee status', S.fee, [['home', homeLabel, h[0], h[1]], ['intl', 'International', i[0], i[1]]]);
+const modeR = (f, p) => rule('Mode', S.mode, [['ft', 'Full-time', f[0], f[1]], ['pt', 'Part-time', p[0], p[1]]]);
+secs = [
+sec('Modules', [modeR(['One year: core modules (Dissertation, Sustainable Strategy in Action, Managing Change) plus optional modules'], ['The same modules, spread over [part-time course length]', C])]),
+sec('Entry requirements', [feeR(['A Foundation degree in Business Management or an HND in a Business subject, with merit profile'], ['IELTS Academic 6.0 overall, with at least 5.5 in each component'])]),
+sec('Tuition fees', [feeR(['UK fee: £10,050 (2027/28)'], ['International fee: £16,700 (2027/28)']), modeR(['Full-time fee for the year'], ['Per credit: £83.75 (UK) or £139.14 (International), up to 90 credits a year'])])
+];
+}
+
+if (lvl === 'two') {
+const intl = S.fee === 'intl', acc = S.course === 'acc';
+const groups = [
+group(S, 'course', 'Example course', [['acc', 'Accounting and Finance', 'BA (Hons), 2 year accelerated'], ['fda', 'Integrative Counselling', 'FdA (Foundation degree)']], 'Prototype only, so you can compare both. Visitors would not see this choice: each course has its own page.'),
+group(S, 'fee', 'Fee status', [['home', homeLabel], ['intl', 'International']])
+];
+let fees;
+if (acc) fees = intl ? '£25,050 for Year 1 (2027/28)' : '£15,075 for Year 1 (2027/28)';
+else fees = intl ? '£16,700 a year (2027/28)' : 'From £10,050 a year (2027/28)';
+v = {
+example: 'BA (Hons) Accounting and Finance (2 year Accelerated) and FdA Integrative Counselling',
+path: acc ? '/study/undergraduate/Courses/BA-Hons-Accounting-and-Finance-2-year-Accelerated/' : '/study/undergraduate/Courses/FdA-Integrative-Counselling/',
+award: acc ? 'BA (Hons)' : 'FdA', title: acc ? 'Accounting and Finance (2 year Accelerated)' : 'Integrative Counselling', groups: groups,
+fixed: acc ? 'The live page says this course will next be available in September 2027.' : 'The live page says this course is currently subject to validation.', hasFixed: true,
+facts: [
+fact('UCAS code', acc ? 'NN37' : 'B940'),
+fact('Course length', '2 years full-time'),
+fact('Start date', acc ? 'September 2027' : 'January'),
+fact('Location', acc ? 'Winchester campus' : 'Blended learning, Winchester'),
+fact('Typical offer', acc ? '112 to 120 UCAS points' : '32 points'),
+fact('Fees', fees)
+],
+cta: intl ? 'Apply now (for International students)' : 'Apply now (for UK students)', cta2: 'Book an open day',
+ctaNote: intl ? 'Goes to Oxford International (oxfordinternational.com).' : 'Goes to the course page on UCAS.'
+};
+const courseR = (a, f) => rule('Example course', S.course, [['acc', 'Accounting and Finance', a[0], a[1]], ['fda', 'Integrative Counselling', f[0], f[1]]]);
+const feeR = (h, i) => rule('Fee status', S.fee, [['home', homeLabel, h[0], h[1]], ['intl', 'International', i[0], i[1]]]);
+secs = [
+sec('Availability notice', [courseR(['“This course will next be available in September 2027”'], ['“The course is currently subject to validation”'])]),
+sec('Course modules', [courseR(['Year 1 and Year 2, with a 60-credit Capstone Project in Year 2'], ['Year 1 and Year 2, with four 30-credit modules each year'])]),
+sec('Placement', [courseR(['Option to spend a year on a paid work placement in business'], ['Supervised clinical placement in Year 2'])]),
+sec('Tuition fees', [feeR([acc ? '£15,075 for Year 1 (2027/28)' : '£10,050 a year (2027/28)'], [acc ? '£25,050 for Year 1 (2027/28)' : '£16,700 a year (2027/28)'])]),
+sec('Professional accreditation', [courseR(['ICAEW, ACCA, CIMA and CIPFA'], ['[Accreditation]', C])])
 ];
 }
 
@@ -394,7 +466,7 @@ function render() {
       <div class="level">
       <label for="study-level">Study level</label>
       <select id="study-level" data-key="level">
-        ${[['ug', 'Undergraduate'], ['pgt', 'Postgraduate taught'], ['pgr', 'Research degree'], ['app', 'Degree apprenticeship'], ['short', 'Short course']].map(([k, l]) => `<option value="${k}"${k === v.level ? ' selected' : ''}>${l}</option>`).join('')}
+        ${[['ug', 'Undergraduate'], ['pgt', 'Postgraduate taught'], ['pgr', 'Research degree'], ['app', 'Degree apprenticeship'], ['short', 'Short course'], ['top', 'Top-up degree'], ['two', 'Two-year degree']].map(([k, l]) => `<option value="${k}"${k === v.level ? ' selected' : ''}>${l}</option>`).join('')}
       </select>
       <span>Example course: ${esc(v.example)}</span>
     </div>
@@ -406,7 +478,7 @@ function render() {
       <div class="ctas"><a class="cta cta-primary" href="#">${esc(v.cta)} <span aria-hidden="true">→</span></a>${v.hasCta2 ? `<a class="cta cta-secondary" href="#">${esc(v.cta2)}</a>` : ''}</div>
       <p class="note">${esc(v.ctaNote)}</p></section>
     <section class="content" aria-labelledby="pc-h"><h2 id="pc-h">${esc(v.contentTitle)}</h2>${sections}</section>
-    <p class="foot">Prototype for discussion. Course details were taken from winchester.ac.uk on 17 November 2026.</p>
+    <p class="foot">Prototype for discussion. Course details were taken from winchester.ac.uk on 17 and 18 November 2026.</p>
     </div>
     ${v.pinnedVisible ? `<div class="pinbar">
       ${v.drawerPinned ? `<div id="pinned-drawer" class="pinbar-drawer"><div class="drawer-grid" style="${esc(v.drawerCols)}">${groups}</div>${v.hasFixed ? `<p class="note">${esc(v.fixed)}</p>` : ''}</div>` : ''}
