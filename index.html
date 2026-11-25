@@ -179,33 +179,36 @@ sec('Study hours and assessment', [routeR(['Years 1 to 3'], ['Year 0 (Level 3) t
 sec('Entry requirements', [feeR(['UK tab opens first', P], ['International tab opens first', P]), routeR(['104 to 120 UCAS points'], ['48 UCAS points']), startR(['Below 104 points considered individually'], ['Typical offer'], ['Typical offer'])]),
 sec('Pathways Programme', [rule('Course setting', 'on', [['on', 'Switched on for this course', 'Shown'], ['off', 'Switched off for this course', 'Hidden. Editors choose this per course']]), feeR(['Shown'], ['Hidden. The live page says the programme is open to home and Channel Islands Year 12 and 13 students', P])], intl),
 sec('How much will university cost me?', [feeR(['UK tuition fee: £10,050 a year (2027/28)'], ['International tuition fee: £16,700 a year (2027/28)']), routeR(['No foundation year fee'], ['Foundation year fee: from £5,760 (UK), then the standard fee for Years 1 to 3. Both are shown together so the cheaper first year is clear']), placeR(['No placement year fee'], ['[Placement year fee]', C]), startR(['[2026/27 fees]', C], ['2027/28 fees'], ['2027/28 fees'])]),
+sec('Scholarships and bursaries', [rule('Course setting', 'generic', [['generic', 'No course scholarship', 'Generic scholarships and bursaries banner shown'], ['bespoke', 'Course scholarship switched on', 'This course’s own scholarship replaces the generic banner. Editors choose this per course', P]])]),
+sec('Discover Winchester banner', [routeR(['Shown with the lower offer'], ['[Wording without a lower offer]', C])]),
 sec('Discover Uni', [routeR(['Statistics for NP29', P], ['Statistics for NP2X', P])]),
 sec('Compare related courses', [routeR(['Course cards open on the Undergraduate tab', P], ['Course cards open on the Foundation tab', P])])
 ];
 }
 
 if (lvl === 'pgt') {
-const intl = S.fee === 'intl', pt = S.mode === 'pt', msc = S.award === 'msc';
+const intl = S.fee === 'intl', pt = S.mode === 'pt', dl = S.mode === 'dl', msc = S.award === 'msc';
 const awardName = { msc: 'MSc', pgdip: 'PgDip', pgcert: 'PgCert' }[S.award];
 const groups = [
 group(S, 'fee', 'Fee status', [['home', homeLabel], ['intl', 'International']]),
 group(S, 'award', 'Award', [['msc', 'MSc', '180 credits'], ['pgdip', 'PgDip'], ['pgcert', 'PgCert']], 'Our suggestion for showing stackable masters: one course page, with the MSc, PgDip and PgCert as choices. The live course page offers the MSc only, so we still need to confirm whether a PgDip or PgCert can be studied on its own.', P),
-group(S, 'mode', 'Mode', [['ft', 'Full-time'], ['pt', 'Part-time']], intl ? 'To confirm: whether international students can study part-time.' : '', intl ? C : '')
+group(S, 'mode', 'Mode of study', [['ft', 'Full-time', 'On campus'], ['pt', 'Part-time', 'On campus'], ['dl', 'Distance learning', 'Online']], dl ? 'Our suggestion: distance learning is a mode of study, because it changes the fees and course length. This course is on campus only on the live site, so the distance learning option is an example.' : (intl && pt ? 'To confirm: whether international students can study part-time.' : ''), (intl && pt) || dl ? C : '')
 ];
 let length, lengthTag = '';
-if (msc) length = pt ? '2 years part-time' : '1 year full-time';
+if (dl) { length = '[Distance learning ' + awardName + ' length]'; lengthTag = C; }
+else if (msc) length = pt ? '2 years part-time' : '1 year full-time';
 else { length = '[' + awardName + ' length]'; lengthTag = C; }
-let fees = '[' + (pt ? 'Part-time ' : '') + awardName + ' fee]', feesTag = C;
-if (msc && !pt) { fees = intl ? '£17,450 (2027/28)' : '£10,050 (2027/28)'; feesTag = ''; }
+let fees = '[' + (pt ? 'Part-time ' : (dl ? 'Distance learning ' : '')) + awardName + ' fee]', feesTag = C;
+if (msc && S.mode === 'ft') { fees = intl ? '£17,450 (2027/28)' : '£10,050 (2027/28)'; feesTag = ''; }
 v = {
 example: 'MSc Digital Marketing and Analytics',
 path: '/study/Postgraduate/Courses/MSc-Digital-Marketing-and-Analytics/',
 award: awardName, title: 'Digital Marketing and Analytics', groups: groups,
-fixed: 'Start date (September) and location (on campus) are the same for every option on this course, so they are shown as facts. Some other courses are distance learning only.', hasFixed: true,
+fixed: 'Start date (September) is the same for every option on this course, so it is shown as a fact. Location follows the mode of study. Courses that are distance learning only would show it as a fact instead. Taught postgraduate pages have no UCAS code and no Discover Uni statistics, and summarise study hours and assessment more briefly than undergraduate pages.', hasFixed: true,
 facts: [
 fact('Course start date', 'September'),
 fact('Course length', length, lengthTag),
-fact('Location', 'On campus, Winchester'),
+fact('Location', dl ? 'Online (distance learning)' : 'On campus, Winchester'),
 fact('Typical offer', 'A first or second-class honours degree'),
 fact('Fees', fees, feesTag),
 fact('Credits', msc ? '180' : '[' + awardName + ' credits]', msc ? '' : C)
@@ -216,11 +219,11 @@ ctaNote: intl ? 'Goes to Oxford International (oxfordinternational.com).' : 'Goe
 };
 const feeR = (h, i) => rule('Fee status', S.fee, [['home', homeLabel, h[0], h[1]], ['intl', 'International', i[0], i[1]]]);
 const awardR = (m, d, c) => rule('Award', S.award, [['msc', 'MSc', m[0], m[1]], ['pgdip', 'PgDip', d[0], d[1]], ['pgcert', 'PgCert', c[0], c[1]]]);
-const modeR = (f, p) => rule('Mode', S.mode, [['ft', 'Full-time', f[0], f[1]], ['pt', 'Part-time', p[0], p[1]]]);
+const modeR = (f, p, d) => rule('Mode of study', S.mode, [['ft', 'Full-time', f[0], f[1]], ['pt', 'Part-time', p[0], p[1]], ['dl', 'Distance learning', d[0], d[1]]]);
 secs = [
 sec('Modules', [awardR(['All modules (180 credits)'], ['[PgDip modules]', C], ['[PgCert modules]', C])]),
 sec('Entry requirements', [feeR(['A first or second-class honours degree', P], ['IELTS 6.0 overall, 5.5 in writing, and the International Recruitment Team contact', P])]),
-sec('Tuition fees', [feeR(['UK fee: £10,050 (2027/28)'], ['International fee: £17,450 (2027/28)']), modeR(['Full-time fee'], ['[Part-time fee]', C]), awardR(['MSc fee'], ['[PgDip fee]', C], ['[PgCert fee]', C])]),
+sec('Tuition fees', [feeR(['UK fee: £10,050 (2027/28)'], ['International fee: £17,450 (2027/28)']), modeR(['Full-time fee'], ['[Part-time fee]', C], ['[Distance learning fee]', C]), awardR(['MSc fee'], ['[PgDip fee]', C], ['[PgCert fee]', C])]),
 sec('Information for International Students', [feeR(['Hidden', P], ['Shown: country-specific entry requirements and funding information'])], !intl)
 ];
 }
@@ -275,8 +278,8 @@ fact('Entry requirements', 'A relevant first degree or equivalent Level 6 study,
 fact('Course enquiries', '+44 (0) 1962 827234')
 ],
 cta: emp ? 'Information for employers' : 'What are Degree Apprenticeships?',
-cta2: emp ? 'What are Degree Apprenticeships?' : '',
-ctaNote: 'The live page has no apply button. Apprentices apply for a job with a partner employer, or ask their employer to support them.'
+cta2: emp ? 'What are Degree Apprenticeships?' : 'Information for employers',
+ctaNote: 'The live page has no apply button. Apprentices apply for a job with a partner employer, or ask their employer to support them. The University asked for a call to action for employers, so “Information for employers” shows for everyone.'
 };
 const whoR = (e, a) => rule('I am', S.who, [['employer', 'An employer', e[0], e[1]], ['apprentice', 'An apprentice', a[0], a[1]]]);
 secs = [
@@ -466,7 +469,7 @@ function render() {
       <div class="level">
       <label for="study-level">Study level</label>
       <select id="study-level" data-key="level">
-        ${[['ug', 'Undergraduate'], ['pgt', 'Postgraduate taught'], ['pgr', 'Research degree'], ['app', 'Degree apprenticeship'], ['short', 'Short course'], ['top', 'Top-up degree'], ['two', 'Two-year degree']].map(([k, l]) => `<option value="${k}"${k === v.level ? ' selected' : ''}>${l}</option>`).join('')}
+        ${[['Content type 1: Course page', [['ug', 'Undergraduate'], ['top', 'Top-up degree'], ['two', 'Two-year degree']]], ['Content type 2: Postgraduate and research', [['pgt', 'Postgraduate taught'], ['pgr', 'Research degree']]], ['Content type 3: Apprenticeships', [['app', 'Degree apprenticeship']]], ['Content type 4: CPD', [['short', 'Short course']]]].map(([g, opts]) => `<optgroup label="${g}">${opts.map(([k, l]) => `<option value="${k}"${k === v.level ? ' selected' : ''}>${l}</option>`).join('')}</optgroup>`).join('')}
       </select>
       <span>Example course: ${esc(v.example)}</span>
     </div>

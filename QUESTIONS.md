@@ -2,7 +2,7 @@
 
 These go with the course page options prototype. Course details in the prototype were taken from winchester.ac.uk on 17 and 18 November 2026. Anything highlighted **To confirm** in the prototype is listed here, along with the suggestions we'd like you to agree.
 
-Where your notes on the course page content board (18 November 2026) have answered part of a question, we've added what you told us underneath it.
+Where your notes on the course page content board (18 November 2026), or your later notes on course types, have answered part of a question, we've added what you told us underneath it.
 
 ## Course data and the CRM
 
@@ -18,7 +18,7 @@ Where your notes on the course page content board (18 November 2026) have answer
 ## Undergraduate (example: BA (Hons) Business Management)
 
 7. What is the course length and end date for a January start with a placement year?
-   - Answered in part: a January start for Business and Computing courses means a shorter course. We still need the length and end date with a placement year.
+   - Answered in part: a January start for Business and Computing courses means a shorter course. We still need the length and end date with a placement year. Your course type notes say only one course currently has a January start, so see question 25.
 8. What is the fee for the placement year?
 9. What is the international fee for the foundation year?
    - Answered in part: the foundation year can cost less, but the rest of the degree costs the same as the standard undergraduate course. The prototype now shows both fees together. We still need the international figure.
@@ -28,7 +28,7 @@ Where your notes on the course page content board (18 November 2026) have answer
 ## Postgraduate taught (example: MSc Digital Marketing and Analytics)
 
 12. Can applicants study for a PgDip or PgCert on its own on this course? If so, what are the length, credits, modules and fees for each?
-   - You asked how to present stackable masters. The prototype shows one course page with the MSc, PgDip and PgCert as choices. We still need the details for each award.
+   - You asked how to present stackable masters. The prototype shows one course page with the MSc, PgDip and PgCert as choices. We still need the details for each award. Your course type notes ask about stackable masters under short courses, so see question 26.
 13. What is the part-time fee?
 14. Can international students study part-time?
 
@@ -54,7 +54,16 @@ Where your notes on the course page content board (18 November 2026) have answer
 
 21. What should the Discover Winchester banner say on foundation year pages, given there is no lower offer?
 22. Which locations can a school-led PGCE have, and how should they show on the course page?
-23. Where should distance learning sit for short courses? For taught postgraduate courses, we've shown it in the location.
+23. Where should distance learning sit for short courses?
+   - Answered for taught postgraduate courses: your notes suggest local and distance learning as a mode of study. The prototype now shows full-time, part-time and distance learning as the modes of study.
+
+## From your notes on course types
+
+24. Your notes say course fees are edited at a global and a local level. Which fees are set globally, which are set for each course, and do any of them come from the CRM?
+25. Which courses start in January? Your course type notes say only one course does, but the board notes said January starts apply to Business and Computing courses.
+26. When you ask how stackable masters are presented, do you mean credit-bearing short courses that build up to a masters, or the PgDip and PgCert stages of a taught masters? The prototype currently shows the second.
+27. What does a course's own scholarship need to show, for example its name, amount, who can apply and a link? Is it entered by editors or held somewhere else?
+28. Which content can be less detailed on taught postgraduate pages? Your notes say assessment and study hours need less detail than on undergraduate pages.
 
 ## Proposals to agree
 
@@ -73,4 +82,8 @@ These are suggestions in the prototype that differ from the current website:
 - An "I am an employer / I am an apprentice" switch on apprenticeship pages, in place of showing both cost sections.
 - Offering PgDip and PgCert as options on taught postgraduate pages, as a way to present stackable masters.
 - Passing the chosen start date through to the short course booking link.
-- Making top-up degrees and two-year degrees their own course types.
+- Showing top-up degrees and two-year degrees as their own course types on the page, while they share the undergraduate content type in the CMS (content management system).
+- Distance learning as a mode of study on taught postgraduate pages, alongside full-time and part-time.
+- A course setting to switch on a course's own scholarship in place of the generic scholarships and bursaries banner.
+- An "Information for employers" button on every apprenticeship page, whichever option the visitor picks.
+- Four content types, as your notes suggest, with one change. Taught postgraduate courses have modules, awards and part-time fees, while research degrees are built around supervisors and research areas. We'd suggest giving research degrees their own content type, or moving taught postgraduate courses into the main course page type with conditional fields. Our developers will confirm which works best for the build. The study level menu in the prototype is grouped by your four content types for now.
