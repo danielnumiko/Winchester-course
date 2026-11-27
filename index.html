@@ -782,20 +782,44 @@ class Component extends DCLogic {
   }
   componentDidMount() {
     SCROLLER.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll);
     this.onScroll();
   }
   componentWillUnmount() {
     SCROLLER.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+  }
+  view() {
+    return { y: SCROLLER.scrollTop, h: SCROLLER.clientHeight, full: SCROLLER.scrollHeight, top: SCROLLER.getBoundingClientRect().top, scale: FRAME_SCALE };
   }
   onScroll() {
     if (typeof document === 'undefined') return;
-    let cur = this.sections[0][0];
-    for (const [id] of this.sections) {
-      const el = document.getElementById(id);
-      if (el && (el.getBoundingClientRect().top - SCROLLER.getBoundingClientRect().top) / FRAME_SCALE < 160) cur = id;
+    const LINE = 160, v = this.view();
+    const tops = this.sections.map(([id]) => { const el = document.getElementById(id); return el ? (el.getBoundingClientRect().top - v.top) / v.scale + v.y : Infinity; });
+    const y = v.y + LINE;
+    let i = -1;
+    tops.forEach((t, k) => { if (t <= y) i = k; });
+    const cur = this.sections[Math.max(0, i)][0];
+    // The bar's end sits at the left edge of the current link and travels under it to the next link as you read that section
+    const strip = document.querySelector('.jump-strip');
+    const track = strip && strip.closest('nav');
+    let p = 0;
+    if (strip && track) {
+      const tb = track.getBoundingClientRect(), width = tb.width / v.scale;
+      const xs = Array.from(strip.querySelectorAll('a')).map(a => (a.getBoundingClientRect().left - tb.left) / v.scale);
+      const ends = xs.concat([width]);
+      const maxY = v.full - v.h;
+      if (i < 0) {
+        const start = tops[0] - LINE;
+        p = (xs[0] || 0) * Math.min(1, Math.max(0, start > 0 ? v.y / start : 1));
+      } else {
+        const from = tops[i], to = Math.min(i + 1 < tops.length ? tops[i + 1] : Infinity, maxY + LINE);
+        const f = Math.min(1, Math.max(0, to > from ? (y - from) / (to - from) : 1));
+        p = ends[i] + (ends[i + 1] - ends[i]) * f;
+      }
+      if (v.y >= maxY - 2) p = width;
+      p = Math.round(p);
     }
-    const max = Math.max(1, SCROLLER.scrollHeight - SCROLLER.clientHeight);
-    const p = Math.round(Math.min(1, Math.max(0, SCROLLER.scrollTop / max)) * 100);
     if (cur !== this.state.current || p !== this.state.progress) this.setState({ current: cur, progress: p });
   }
   renderVals() {
@@ -904,7 +928,7 @@ class Component extends DCLogic {
       ukCardTag: intl ? 'UK' : 'Your route', intlCardTag: intl ? 'Your route' : 'International',
       discoverCode: place ? 'NN34 with a placement year' : 'NN34',
       jumpLinks,
-      progressStyle: 'height: 5px; width: ' + s.progress + '%; background: #ffffff;'
+      progressStyle: 'height: 5px; width: ' + s.progress + 'px; background: #ffffff; transition: width 0.15s linear;'
     };
   }
 }
