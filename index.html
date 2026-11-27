@@ -12,7 +12,7 @@ body{margin:0;background:#ffffff}
 a{color:#291647}a:hover{color:#8f48d5}
 
 .sec{scroll-margin-top:96px}
-.hero-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.hero-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 60px;align-items:start}
 .hero-scroll{padding-bottom:40px}
 .hero-media{position:sticky;top:20px;align-self:start;height:min(792px, 960px)}
 @container page (max-width:899px){
@@ -22,16 +22,38 @@ a{color:#291647}a:hover{color:#8f48d5}
 .acc-row{grid-template-columns:1fr !important}
 .two-col{grid-template-columns:1fr !important}
 .cols-3,.cols-4,.cols-6{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.cta-motif{opacity:.35}
 .nav-links{display:none !important}
 .h1{font-size:52px !important}
-.h2{font-size:44px !important}
-.jump-grid{grid-template-columns:1fr 1fr !important}
+.h2{font-size:46px !important}
+.h2.h2-content{font-size:39px !important}
+.jump-strip::-webkit-scrollbar{display:none}
+.ev-row{grid-template-columns:1fr !important;padding:24px !important}
+.person-card{grid-template-columns:120px minmax(0,1fr) !important}
+.du-grid{grid-template-columns:1fr 1fr !important}
 }
 @container page (max-width:560px){
-.cols-2,.cols-3,.cols-4,.cols-6,.jump-grid{grid-template-columns:1fr !important}
+.cols-2,.cols-3,.cols-4,.cols-6{grid-template-columns:1fr !important}
 .pad{padding-left:16px !important;padding-right:16px !important}
 .mod-row{flex-wrap:wrap}
 }
+
+.teaser{transition:background-color .25s ease}
+.teaser:hover,.teaser:focus-visible{background-color:#c68efd !important;border-color:#c68efd !important}
+.t-img{position:relative;display:block;transform-origin:50% 50%;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.teaser:hover .t-img,.teaser:focus-visible .t-img{transform:scale(.94)}
+.t-arrow{position:absolute;right:20px;bottom:20px;width:60px;height:60px;border-radius:5px;background:#c68efd;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(12px) scale(.9);transition:opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:2}
+.teaser:hover .t-arrow,.teaser:focus-visible .t-arrow{opacity:1;transform:none}
+.t-clip{position:relative;width:14px;height:14px;overflow:hidden;display:block}
+.t-clip svg{position:absolute;left:0;top:0;display:block;transition:transform .45s cubic-bezier(.65,0,.35,1) .15s}
+.t-clip .a2{transform:translateX(-100%)}
+.teaser:hover .t-clip .a1,.teaser:focus-visible .t-clip .a1{transform:translateX(100%)}
+.teaser:hover .t-clip .a2,.teaser:focus-visible .t-clip .a2{transform:translateX(0)}
+@media (prefers-reduced-motion: reduce){.teaser,.t-img,.t-arrow,.t-clip svg{transition:none !important}.teaser:hover .t-img{transform:none}}
+
+.info-acc summary::-webkit-details-marker{display:none}
+.info-acc .acc-chev{flex:none;transition:transform .2s ease}
+.info-acc[open] .acc-chev{transform:rotate(180deg)}
 </style>
 
 <style>
@@ -48,7 +70,7 @@ body{background:#e4dcee;overflow:hidden}
 <svg aria-hidden="true" width="0" height="0" style="position: absolute"><defs><clipPath id="cta-wave" clipPathUnits="objectBoundingBox"><path d="M0,0 L0.84,0 C0.9,0.14 0.96,0.28 1,0.4 L1,0.86 C0.72,0.84 0.42,0.87 0.2,1 L0,1 C0.07,0.72 0.07,0.28 0,0 Z"></path></clipPath><clipPath id="cta-wave-l" clipPathUnits="objectBoundingBox"><path d="M1,0 L0.16,0 C0.1,0.14 0.04,0.28 0,0.4 L0,0.86 C0.28,0.84 0.58,0.87 0.8,1 L1,1 C0.93,0.72 0.93,0.28 1,0 Z"></path></clipPath></defs></svg>
 
 <!-- HERO -->
-<header class="hero pad" style="background: #c68efd; padding: 20px 40px 40px">
+<header class="hero pad" style="background: #c68efd; padding: 20px 40px 40px; border-bottom: 1px solid #b57bef">
   <nav aria-label="Main" style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 10px 10px 10px 16px; background: #291647; border-radius: 5px; min-height: 80px; box-sizing: border-box">
     <a href="#" aria-label="University of Winchester home" style="display: flex; align-items: center"><img src="images/logo.svg" alt="University of Winchester" style="height: 40px; width: auto; display: block"></a>
     <div class="nav-links" style="display: flex; gap: 20px; font-size: 16px; font-weight: 500">
@@ -90,6 +112,14 @@ body{background:#e4dcee;overflow:hidden}
           </div>
         </sc-for>
       </dl>
+
+      <a href="#open-days" aria-labelledby="hero-od-h" style="margin-top: 48px; padding: 16px 24px 16px 16px; background: #ffffff; border-radius: 15px; display: flex; align-items: center; gap: 20px; color: #291647; text-decoration: none">
+        <img src="images/facilities.jpg" alt="" style="flex: none; width: 96px; height: 72px; border-radius: 10px; object-fit: cover; display: block">
+        <div style="min-width: 0">
+          <h2 id="hero-od-h" style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">Next open day</h2>
+          <span style="display: block; margin: 8px 0 0; font-size: 24px; font-weight: 500; line-height: 1.4">Saturday 28 November 2026</span>
+        </div>
+      </a>
     </div>
 
     <div class="hero-media" style="border-radius: 15px; overflow: hidden; background: #8f48d5">
@@ -99,103 +129,98 @@ body{background:#e4dcee;overflow:hidden}
   </div>
 </header>
 
-<!-- ALERT -->
-<div style="background: #d4ef70; padding: 18px 40px" class="pad">
-  <p style="max-width: 1200px; margin: 0 auto; font-size: 16px; font-weight: 500">Next open day: Saturday 28 November 2026. <a href="#open-days" style="color: #291647; font-weight: 600">Book your place</a></p>
-</div>
-
 <!-- JUMP LINKS -->
 <nav aria-label="On this page" style="position: sticky; top: 0; z-index: 20; background: #291647; color: #ffffff">
-  <div class="pad" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px">
-    <p style="margin: 0; font-size: 18px; font-weight: 500"><span style="color: #c68efd; font-size: 13px; font-weight: 600; margin-right: 12px">On this page</span>{{ currentLabel }}</p>
-    <button type="button" aria-expanded="{{ jumpExpanded }}" onClick="{{ toggleJump }}" style="min-height: 48px; padding: 0 4px; border: 0; background: transparent; color: #ffffff; font: 500 18px Figtree, sans-serif; display: flex; align-items: center; gap: 10px; cursor: pointer">{{ jumpButton }} <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c68efd" stroke-width="1.8" aria-hidden="true" style="{{ chevronStyle }}"><circle cx="12" cy="12" r="10"></circle><path d="M8 10.5l4 4 4-4"></path></svg></button>
+  <div class="pad" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; min-height: 88px; display: flex; align-items: center; justify-content: center; gap: 24px">
+    <ul class="jump-strip" style="list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 32px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; min-width: 0">
+      <sc-for list="{{ jumpLinks }}" as="j" hint-placeholder-count="6">
+        <li><a href="{{ j.href }}" aria-current="{{ j.current }}" style="{{ j.style }}">{{ j.label }}</a></li>
+      </sc-for>
+    </ul>
   </div>
-  <sc-if value="{{ jumpOpen }}" hint-placeholder-val="{{ false }}">
-    <div class="pad" style="max-width: 1200px; margin: 0 auto; padding: 8px 40px 32px">
-      <ul class="jump-grid" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 20px">
-        <sc-for list="{{ jumpLinks }}" as="j" hint-placeholder-count="12">
-          <li><a href="{{ j.href }}" onClick="{{ j.close }}" style="{{ j.style }}">{{ j.label }}</a></li>
-        </sc-for>
-      </ul>
-    </div>
-  </sc-if>
   <div aria-hidden="true" style="height: 5px; background: #8f48d5"><div style="{{ progressStyle }}"></div></div>
 </nav>
 
 <main>
 
 <!-- COURSE OVERVIEW -->
-<section id="overview" class="sec pad" aria-labelledby="overview-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<section id="overview" class="sec pad" aria-labelledby="overview-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
   <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px">
-    <h2 id="overview-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Course overview</h2>
-    <div style="display: flex; flex-direction: column; gap: 18px; font-size: 18px; font-weight: 500; line-height: 1.6; color: #462b6d">
+    <h2 id="overview-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Course overview</h2>
+    <div>
+      <div id="rm-overview" style="{{ rm.overview.box }}">
+      <div style="display: flex; flex-direction: column; gap: 18px; font-size: 18px; font-weight: 500; line-height: 1.6; color: #5c358e">
       <p style="margin: 0">Financial careers are evolving fast. While AI can handle the routine tasks, today's finance professionals need to be communicators, problem solvers, strategic advisors, and ethical decision-makers. Our programme prepares you for this reality.</p>
       <p style="margin: 0">From day one, you'll apply accounting principles to real scenarios from actual companies. This hands-on approach means you'll graduate ready to hit the ground running, not just with theoretical knowledge but practical experience that employers seek.</p>
       <p style="margin: 0">You'll benefit from our close-knit learning environment where lecturers know you by name and provide tailored guidance on your journey toward professional status. Many of our academics are qualified Chartered Accountants who bring current industry practices directly into the classroom.</p>
       <p style="margin: 0">Our degree offers exemptions from four professional accounting bodies, including the maximum exemption from up to nine papers from the Association of Chartered Certified Accountants (ACCA).</p>
     </div>
+      <sc-if value="{{ rm.overview.fade }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: linear-gradient(rgba(255,255,255,0), #ffffff); pointer-events: none"></span></sc-if>
+      </div>
+      <button type="button" aria-expanded="{{ rm.overview.expanded }}" aria-controls="rm-overview" onClick="{{ rm.overview.toggle }}" style="width: 100%; margin-top: 4px; display: flex; align-items: center; gap: 14px; padding: 16px 0 0; border: 0; border-top: 1px solid #d9cbee; background: transparent; color: #291647; font: 500 18px Figtree, sans-serif; text-align: left; cursor: pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="1.8" aria-hidden="true" style="{{ rm.overview.chev }}"><circle cx="12" cy="12" r="10"></circle><path d="M8 10.5l4 4 4-4"></path></svg><span>{{ rm.overview.label }}</span></button>
+    </div>
   </div>
 </section>
 
 <!-- WHY CHOOSE WINCHESTER -->
-<section id="why" class="sec pad" aria-labelledby="why-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<section id="why" class="sec pad" aria-labelledby="why-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="why-h" class="h2" style="margin: 0 0 48px; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Why choose Winchester</h2>
+    <h2 id="why-h" class="h2 h2-content" style="margin: 0 0 48px; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Why choose Winchester</h2>
     <div class="cols-6" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 32px 20px">
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 80px; height: 80px; border-radius: 50%; background: #d4ef70; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#291647" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 26l7-7 5 5 12-12"></path><path d="M24 12h8v8"></path></svg></span>
+        <svg width="80" height="80" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="display: block"><path fill="#8f48d5" d="M16 80 V60 H36 V40 H56 V80 Z"/><rect fill="#632da8" x="56" y="20" width="24" height="60"/></svg>
         <h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25">Fast-track to qualification</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #462b6d">Get a head start on your professional journey with our maximum 9 ACCA exemptions.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5c358e; font-weight: 500">Get a head start on your professional journey with our maximum 9 ACCA exemptions.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 80px; height: 80px; border-radius: 50%; background: #d4ef70; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#291647" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="26" height="17" rx="1"></rect><circle cx="20" cy="29" r="3"></circle><path d="M14 36c1-3 3.5-4 6-4s5 1 6 4"></path></svg></span>
+        <svg width="80" height="80" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="display: block"><path fill="#8f48d5" fill-rule="evenodd" d="M18 80 a30 30 0 0 1 60 0 Z M31 80 a17 17 0 0 1 34 0 Z"/><path fill="#632da8" d="M37 80 a11 11 0 0 1 22 0 Z"/><circle fill="#632da8" cx="48" cy="28" r="13"/></svg>
         <h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25">Learn from industry experts</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #462b6d">Practising Chartered Accountants who know what employers want.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5c358e; font-weight: 500">Practising Chartered Accountants who know what employers want.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 80px; height: 80px; border-radius: 50%; background: #d4ef70; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#291647" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="8" width="28" height="20" rx="1"></rect><path d="M11 23v-4M17 23v-8M23 23v-6M29 23v-10M14 34l6-6 6 6"></path></svg></span>
+        <svg width="80" height="80" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="display: block"><path fill="#8f48d5" d="M18 18 H48 A30 30 0 0 1 18 48 Z"/><path fill="#632da8" d="M78 18 V48 A30 30 0 0 1 48 18 Z"/><path fill="#8f48d5" d="M78 78 H48 A30 30 0 0 1 78 48 Z"/><path fill="#632da8" d="M18 78 V48 A30 30 0 0 1 48 78 Z"/></svg>
         <h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25">Apply your knowledge</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #462b6d">To real financial challenges through case studies and industry simulations.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5c358e; font-weight: 500">To real financial challenges through case studies and industry simulations.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 80px; height: 80px; border-radius: 50%; background: #d4ef70; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#291647" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 6l4.2 8.6 9.4 1.3-6.8 6.6 1.6 9.4L20 27.5l-8.4 4.4 1.6-9.4-6.8-6.6 9.4-1.3z"></path></svg></span>
+        <svg width="80" height="80" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="display: block"><g fill="#8f48d5"><circle cx="79.0" cy="48.0" r="6"/><circle cx="69.9" cy="69.9" r="6"/><circle cx="48.0" cy="79.0" r="6"/><circle cx="26.1" cy="69.9" r="6"/><circle cx="17.0" cy="48.0" r="6"/><circle cx="26.1" cy="26.1" r="6"/><circle cx="48.0" cy="17.0" r="6"/><circle cx="69.9" cy="26.1" r="6"/></g><circle fill="#632da8" cx="48" cy="48" r="15"/></svg>
         <h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25">97% student satisfaction</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #462b6d">With the teaching and learning resources on this course.</p>
-        <p style="margin: 0; font-size: 13px; color: #462b6d">National Student Survey 2026</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5c358e; font-weight: 500">With the teaching and learning resources on this course.</p>
+        <p style="margin: 0; font-size: 13px; color: #5c358e; font-weight: 500">National Student Survey 2026</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 80px; height: 80px; border-radius: 50%; background: #d4ef70; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#291647" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="13" r="4"></circle><circle cx="27" cy="13" r="4"></circle><path d="M6 30c0-5 3.5-8 8-8s8 3 8 8M19 30c0-5 3.5-8 8-8s8 3 8 8"></path></svg></span>
+        <svg width="80" height="80" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="display: block"><g fill="#8f48d5"><circle cx="65" cy="31" r="14"/><circle cx="31" cy="65" r="14"/></g><g fill="#632da8"><circle cx="31" cy="31" r="14"/><circle cx="65" cy="65" r="14"/></g></svg>
         <h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25">Network with employers</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #462b6d">Opportunities to connect at our finance-focused careers events.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5c358e; font-weight: 500">Opportunities to connect at our finance-focused careers events.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 80px; height: 80px; border-radius: 50%; background: #d4ef70; display: flex; align-items: center; justify-content: center"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#291647" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 12h24v14H18l-6 5v-5H8z"></path><path d="M14 18h12M14 22h7"></path></svg></span>
+        <svg width="80" height="80" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="display: block"><path fill="#632da8" d="M88 70 A16 16 0 1 0 72 86 H88 Z"/><path fill="#8f48d5" fill-rule="evenodd" d="M12 46 A30 30 0 1 1 42 76 H12 Z M31 46 a3.5 3.5 0 1 0 0.01 0 Z M42 46 a3.5 3.5 0 1 0 0.01 0 Z M53 46 a3.5 3.5 0 1 0 0.01 0 Z"/></svg>
         <h3 style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.25">Skills beyond the numbers</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #462b6d">Develop the human side of accounting with communication, creativity and critical thinking.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #5c358e; font-weight: 500">Develop the human side of accounting with communication, creativity and critical thinking.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- APPLICATION ROUTE -->
-<section id="apply" class="sec pad" aria-labelledby="apply-h" style="padding: 80px 40px; background: #f3e9ff">
+<section id="apply" class="sec pad" aria-labelledby="apply-h" style="padding: 80px 40px; background: #ffffff; border-bottom: 1px solid #ead8ff">
   <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px">
     <div>
-      <h2 id="apply-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">How to apply</h2>
-      <p style="margin: 20px 0 0; font-size: 18px; line-height: 1.6; color: #462b6d">How you apply depends on your fee status.</p>
+      <h2 id="apply-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">How to apply</h2>
+      <p style="margin: 20px 0 0; font-size: 18px; line-height: 1.6; color: #5c358e; font-weight: 500">How you apply depends on your fee status.</p>
       <p style="margin: 16px 0 0; font-size: 18px"><a href="#" style="color: #291647; font-weight: 600">How to apply for this course</a></p>
     </div>
     <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
       <div style="{{ ukCardStyle }}">
         <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">{{ ukCardTag }}</p>
         <h3 style="margin: 0; font-size: 26px; font-weight: 500">UK students</h3>
-        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #462b6d">Apply through UCAS using the course code NN34.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5c358e; font-weight: 500">Apply through UCAS using the course code NN34.</p>
         <a href="#" style="margin-top: auto; min-height: 56px; padding: 0 20px; border-radius: 5px; background: #291647; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px">Apply now (for UK students) <span aria-hidden="true">→</span></a>
       </div>
       <div style="{{ intlCardStyle }}">
         <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">{{ intlCardTag }}</p>
         <h3 style="margin: 0; font-size: 26px; font-weight: 500">International students</h3>
-        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #462b6d">Apply through our partner, Oxford International.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5c358e; font-weight: 500">Apply through our partner, Oxford International.</p>
         <a href="#" style="margin-top: auto; min-height: 56px; padding: 0 20px; border-radius: 5px; background: #291647; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px">Apply now (for International students) <span aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -203,10 +228,12 @@ body{background:#e4dcee;overflow:hidden}
 </section>
 
 <!-- COURSE STRUCTURE -->
-<section id="modules" class="sec pad" aria-labelledby="modules-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<section id="modules" class="sec pad" aria-labelledby="modules-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="modules-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Course structure</h2>
-    <p style="margin: 20px 0 0; max-width: 820px; font-size: 18px; line-height: 1.6; color: #462b6d">Teaching is mainly lectures, seminars and workshops. Classes run between 9am and 6pm, Monday to Friday in term time, and Wednesday afternoons are kept free for personal study, sports clubs and societies.</p>
+    <div class="two-col" style="display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px">
+    <h2 id="modules-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Course details</h2>
+    <div style="display: flex; flex-direction: column; gap: 18px; font-size: 18px; font-weight: 500; line-height: 1.6; color: #5c358e"><p style="margin: 0">At Winchester, we transform you into finance professionals who are ready for the modern workplace. Our approach balances academic rigour with practical skills in a supportive environment where your growth matters.</p><p style="margin: 0">While traditional accounting programmes rely heavily on exams and theory, we embed real-world application throughout your learning. You’ll master the technical requirements needed for professional exemptions (with most accredited modules requiring 70% exam assessment), but we also offer project-based alternatives like Digital Finance, Data Analysis, and Financial Modelling for students who thrive on practical projects.</p><p style="margin: 0">You are taught primarily through a combination of lectures, seminars, and workshops, allowing opportunities to discuss and develop your understanding of topics in smaller groups to become a confident learner.</p></div>
+    </div>
     <div class="two-col" style="background: #f3e9ff; border-radius: 15px; padding: 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; box-sizing: border-box; margin-top: 32px">
       <div role="tablist" aria-label="Year of study" style="display: flex; gap: 10px; overflow-x: auto; padding: 2px">
       <sc-for list="{{ yearTabs }}" as="t" hint-placeholder-count="3">
@@ -215,21 +242,25 @@ body{background:#e4dcee;overflow:hidden}
     </div>
       <div id="year-panel" role="tabpanel" aria-labelledby="{{ yearTabId }}" style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; min-width: 0">
       <div>
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">{{ year.eyebrow }}</p>
-        <h3 style="margin: 12px 0 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 40px; line-height: 1.15">{{ year.heading }}</h3>
-        <p style="margin: 16px 0 0; max-width: 820px; font-size: 17px; line-height: 1.6; color: #462b6d">{{ year.intro }}</p>
-        <sc-if value="{{ yh.has }}" hint-placeholder-val="{{ true }}"><p style="margin: 12px 0 0; max-width: 820px; font-size: 17px; line-height: 1.6; color: #462b6d">Teaching, learning and assessment: {{ yh.teaching }} hours. Independent learning: {{ yh.independent }} hours.</p></sc-if>
+        <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">{{ year.heading }}</h3>
+        <p style="margin: 16px 0 0; max-width: 820px; font-size: 17px; line-height: 1.6; color: #5c358e; font-weight: 500">{{ year.intro }}</p>
         <sc-if value="{{ yh.has }}" hint-placeholder-val="{{ true }}">
-          <div style="margin-top: 28px; padding-top: 24px; border-top: 1px solid #c68efd; display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-start">
-            <div style="flex: 1 1 420px; max-width: 560px">
-              <p style="margin: 0 0 12px; font-size: 14px; font-weight: 600">How you're assessed</p>
-              <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px">
-                <div><p style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 40px; line-height: 1">{{ yh.cw }}</p><p style="margin: 6px 0 0; font-size: 14px; color: #462b6d">coursework</p></div>
-                <div><p style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 40px; line-height: 1">{{ yh.ex }}</p><p style="margin: 6px 0 0; font-size: 14px; color: #462b6d">written exams</p></div>
-                <div><p style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 40px; line-height: 1">{{ yh.pr }}</p><p style="margin: 6px 0 0; font-size: 14px; color: #462b6d">practical assessment</p></div>
-              </div>
-              <p style="margin: 16px 0 0; font-size: 14px; line-height: 1.6; color: #462b6d">Assessments include essays, portfolios, presentations, written exams and practical performances. We may set alternative assignments if you have a recognised disability.</p>
-            </div>
+          <p style="margin: 20px 0 0; max-width: 820px; font-size: 17px; line-height: 1.6; color: #5c358e; font-weight: 500">Your study time this year:</p>
+          <ul style="margin: 8px 0 0; padding-left: 22px; max-width: 820px; display: flex; flex-direction: column; gap: 4px; font-size: 17px; line-height: 1.6; color: #5c358e; font-weight: 500">
+            <li>{{ yh.total }} hours in total</li>
+            <li>{{ yh.teaching }} hours of teaching, learning and assessment</li>
+            <li>{{ yh.independent }} hours of independent learning</li>
+          </ul>
+
+          <div style="margin-top: 28px; display: flex; flex-direction: column; gap: 8px">
+            <details class="info-acc" style="background: #ffffff; border-radius: 5px">
+              <summary style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; min-height: 64px; box-sizing: border-box; cursor: pointer; list-style: none; font: 500 18px Figtree, sans-serif; color: #291647"><svg class="acc-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 10.5l4 4 4-4"></path></svg><span>Teaching hours</span></summary>
+              <div style="padding: 4px 18px 22px 56px; display: flex; flex-direction: column; gap: 12px; max-width: 860px; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500"><p style="margin: 0">All class based teaching takes places between 9am – 6pm, Monday to Friday during term time. Wednesday afternoons are kept free from timetabled teaching for personal study time and for sports clubs and societies to train, meet and play matches. There may be some occasional learning opportunities (for example, an evening guest lecturer or performance) that take places outside of these hours for which you will be given forewarning.</p></div>
+            </details>
+            <details class="info-acc" style="background: #ffffff; border-radius: 5px">
+              <summary style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; min-height: 64px; box-sizing: border-box; cursor: pointer; list-style: none; font: 500 18px Figtree, sans-serif; color: #291647"><svg class="acc-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 10.5l4 4 4-4"></path></svg><span>Assessment</span></summary>
+              <div style="padding: 4px 18px 22px 56px; display: flex; flex-direction: column; gap: 12px; max-width: 860px; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500"><p style="margin: 0">Our validated courses may adopt a range of means of assessing your learning. An indicative, and not necessarily comprehensive, list of assessment types you might encounter includes essays, portfolios, supervised independent work, presentations, written exams, or practical performances.</p><p style="margin: 0">We ensure all students have an equal opportunity to achieve module learning outcomes. As such, where appropriate and necessary, students with recognised disabilities may have alternative assignments set that continue to test how successfully they have met the module’s learning outcomes. Further details on assessment types used on the course you are interested in can be found on the course page, by attending an Open Day or Open Evening, or contacting our teaching staff.</p><p style="margin: 0">The assessment balance between examination and coursework depends to some extent on the optional modules you choose. The approximate percentage of this year assessed by different assessment modes is:</p><ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px"><li>Coursework: {{ yh.cw }}</li><li>Written exams: {{ yh.ex }}</li><li>Practical: {{ yh.pr }}</li></ul></div>
+            </details>
           </div>
         </sc-if>
         <sc-if value="{{ yh.none }}" hint-placeholder-val="{{ false }}">
@@ -237,7 +268,7 @@ body{background:#e4dcee;overflow:hidden}
         </sc-if>
       </div>
       <div>
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">Modules</p>
+        <h4 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25; color: #291647">Modules</h4>
         <ul style="list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
           <sc-for list="{{ year.modules }}" as="m" hint-placeholder-count="4">
             <li style="background: #ffffff; border-radius: 5px">
@@ -255,7 +286,7 @@ body{background:#e4dcee;overflow:hidden}
                   <sc-for list="{{ m.parts }}" as="pt" hint-placeholder-count="2">
                     <div style="margin-top: 14px">
                       <sc-if value="{{ pt.hasTitle }}" hint-placeholder-val="{{ false }}"><h5 style="margin: 0 0 6px; font-size: 16px; font-weight: 600">{{ pt.title }}</h5></sc-if>
-                      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #462b6d">{{ pt.text }}</p>
+                      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500">{{ pt.text }}</p>
                     </div>
                   </sc-for>
                 </div>
@@ -263,19 +294,19 @@ body{background:#e4dcee;overflow:hidden}
             </li>
           </sc-for>
         </ul>
-        <p style="margin: 16px 0 0; font-size: 15px; color: #462b6d">{{ year.note }}</p>
+        <p style="margin: 16px 0 0; font-size: 15px; color: #5c358e; font-weight: 500">{{ year.note }}</p>
       </div>
-      <p style="margin: 0; padding-top: 20px; border-top: 1px solid #c68efd; font-size: 13px; color: #462b6d">Hours are indicative. Modules are correct at the time of publishing and may change.</p>
+      <p style="margin: 0; padding-top: 20px; border-top: 1px solid #c68efd; font-size: 13px; color: #5c358e; font-weight: 500">Hours are indicative. Modules are correct at the time of publishing and may change.</p>
     </div>
     </div>
   </div>
 </section>
 
 <!-- ENTRY REQUIREMENTS -->
-<section id="entry" class="sec pad" aria-labelledby="entry-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<section id="entry" class="sec pad" aria-labelledby="entry-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="entry-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Entry requirements</h2>
-    <p style="margin: 20px 0 0; max-width: 820px; font-size: 18px; line-height: 1.6; color: #462b6d">What you need depends on where you're applying from.</p>
+    <h2 id="entry-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Entry requirements</h2>
+    <p style="margin: 20px 0 0; max-width: 820px; font-size: 18px; line-height: 1.6; color: #5c358e; font-weight: 500">What you need depends on where you're applying from.</p>
     <div class="two-col" style="background: #f3e9ff; border-radius: 15px; padding: 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; box-sizing: border-box; margin-top: 32px">
       <div role="tablist" aria-label="Fee status" style="display: flex; gap: 10px; overflow-x: auto; padding: 2px">
       <sc-for list="{{ feeTabs }}" as="t" hint-placeholder-count="3">
@@ -285,8 +316,8 @@ body{background:#e4dcee;overflow:hidden}
       <div id="entry-panel" role="tabpanel" aria-labelledby="{{ feeTabId }}" style="display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; min-width: 0">
       <div>
         <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">{{ entry.eyebrow }}</p>
-        <h3 style="margin: 12px 0 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 40px; line-height: 1.15">{{ entry.heading }}</h3>
-        <p style="margin: 16px 0 0; max-width: 820px; font-size: 17px; line-height: 1.6; color: #462b6d">{{ entry.intro }}</p>
+        <h3 style="margin: 12px 0 0; font-size: 30px; font-weight: 500; line-height: 1.25">{{ entry.heading }}</h3>
+        <p style="margin: 16px 0 0; max-width: 820px; font-size: 17px; line-height: 1.6; color: #5c358e; font-weight: 500">{{ entry.intro }}</p>
       </div>
       <div>
         <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">{{ entry.listLabel }}</p>
@@ -294,7 +325,7 @@ body{background:#e4dcee;overflow:hidden}
           <sc-for list="{{ entry.rows }}" as="r" hint-placeholder-count="4">
             <div class="cols-2" style="{{ r.style }}">
               <dt style="font-size: 16px; font-weight: 600">{{ r.k }}</dt>
-              <dd style="margin: 0; font-size: 16px; line-height: 1.5">{{ r.v }}<sc-if value="{{ r.hasNote }}" hint-placeholder-val="{{ false }}"><span style="display: block; margin-top: 4px; font-size: 14px; color: #462b6d">{{ r.note }}</span></sc-if></dd>
+              <dd style="margin: 0; font-size: 16px; line-height: 1.5; color: #5c358e; font-weight: 500">{{ r.v }}<sc-if value="{{ r.hasNote }}" hint-placeholder-val="{{ false }}"><span style="display: block; margin-top: 4px; font-size: 14px; color: #5c358e; font-weight: 500">{{ r.note }}</span></sc-if></dd>
             </div>
           </sc-for>
         </dl>
@@ -309,7 +340,7 @@ body{background:#e4dcee;overflow:hidden}
               </h4>
               <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
                 <div style="padding: 4px 18px 22px; border-top: 1px solid #f3e9ff; max-width: 860px">
-                  <p style="margin: 14px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">{{ c.text }}</p>
+                  <p style="margin: 14px 0 0; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500">{{ c.text }}</p>
                   <a href="#" style="display: inline-block; margin-top: 10px; color: #291647; font-size: 15px; font-weight: 600">{{ c.link }}</a>
                 </div>
               </sc-if>
@@ -324,7 +355,7 @@ body{background:#e4dcee;overflow:hidden}
 
 <!-- PATHWAYS (CTA slice, variant B, image left, Chapel motif) -->
 <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-<section id="pathways" class="sec pad" aria-labelledby="pathways-h" style="padding: 120px 40px; background: #c68efd; overflow: hidden">
+<section id="pathways" class="sec pad" aria-labelledby="pathways-h" style="padding: 120px 40px; background: #c68efd; overflow: hidden; border-bottom: 1px solid #b57bef">
   <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px 20px; align-items: center">
     <div style="position: relative; width: 100%; aspect-ratio: 590 / 440">
       <svg aria-hidden="true" viewBox="0 0 866 680" style="position: absolute; left: -6.78%; top: -27.27%; width: 146.78%; height: 154.55%; display: block; pointer-events: none"><path d="M518.39 79.4262C477.159 89.9404 448.945 110.441 434.321 122.815C415.336 106.401 383.77 76.3499 337.535 77.4519C276.607 78.9211 247.819 120.152 242.102 125.96C228.879 110.992 215.816 98.8019 201.101 90.8358C176.101 77.3142 153.786 74.6511 123.736 73.5262C100.411 72.6539 69.8097 74.8347 69.8097 74.8347C69.8097 74.8347 67.6287 105.436 68.5011 128.761C69.603 158.835 72.2433 181.126 85.8109 206.126C93.777 220.841 105.967 233.904 120.935 247.127C115.127 252.844 73.8961 281.632 72.4269 342.559C71.325 388.795 101.376 420.361 117.79 439.346C105.416 453.97 84.9155 482.184 74.4012 523.415C65.6775 557.667 67.3763 587.052 69.8327 605.119C87.8999 607.575 117.285 609.274 151.56 600.573C192.79 590.059 221.005 569.559 235.628 557.185C254.614 573.599 286.18 603.65 332.415 602.548C393.343 601.079 422.131 559.848 427.847 554.04C441.071 569.008 454.133 581.198 468.849 589.164C493.849 602.686 516.163 605.349 546.214 606.474C569.538 607.346 600.14 605.165 600.14 605.165C600.14 605.165 602.321 574.563 601.448 551.239C600.346 521.165 597.707 498.874 584.139 473.874C576.173 459.158 563.983 446.096 549.015 432.872C554.823 427.156 596.054 398.368 597.523 337.44C598.625 291.205 568.574 259.639 552.16 240.653C564.534 226.03 585.034 197.815 595.548 156.585C604.272 122.333 602.573 92.9478 600.094 74.8577C582.027 72.4013 552.665 70.6795 518.39 79.4262Z" fill="#D4EF70"></path></svg>
@@ -332,8 +363,8 @@ body{background:#e4dcee;overflow:hidden}
     </div>
     <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0">
       <p style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="#f3e9ff"></path></svg>For UK Year 12 and 13 students</p>
-      <h2 id="pathways-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.15">Pathways <em style="font-style: italic">Programme</em></h2>
-      <p style="margin: 0; font-size: 18px; line-height: 1.6">Get to know your subject and university life before you arrive, with taster lectures, practical exercises and personalised careers guidance. If you're eligible and complete the pathway, you'll receive an adjusted offer.</p>
+      <h2 id="pathways-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.15">Pathways <em style="font-style: italic">Programme</em></h2>
+      <p style="margin: 0; font-size: 18px; font-weight: 500; line-height: 1.6">Get to know your subject and university life before you arrive, with taster lectures, practical exercises and personalised careers guidance. If you're eligible and complete the pathway, you'll receive an adjusted offer.</p>
       <a href="#" style="align-self: flex-start; min-height: 60px; padding: 0 20px; border-radius: 5px; background: #291647; color: #f3e9ff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">Register for the Pathways Programme <span aria-hidden="true">→</span></a>
     </div>
   </div>
@@ -341,12 +372,12 @@ body{background:#e4dcee;overflow:hidden}
 </sc-if>
 
 <!-- SCHOLARSHIPS (CTA slice, variant B, image right, Lecture theatre motif) -->
-<section id="scholarships" class="sec pad" aria-labelledby="scholarships-h" style="padding: 120px 40px; background: #c68efd; overflow: hidden">
+<section id="scholarships" class="sec pad" aria-labelledby="scholarships-h" style="padding: 120px 40px; background: #c68efd; overflow: hidden; border-bottom: 1px solid #b57bef">
   <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 80px 20px; align-items: center">
     <div style="display: flex; flex-direction: column; gap: 20px; min-width: 0">
       <p style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="#f3e9ff"></path></svg>Admissions</p>
-      <h2 id="scholarships-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.15">Scholarships <em style="font-style: italic">and bursaries</em></h2>
-      <p style="margin: 0; font-size: 18px; line-height: 1.6">We have a variety of scholarships and bursaries available to support you financially with the cost of your course. See if you're eligible today.</p>
+      <h2 id="scholarships-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.15">Scholarships <em style="font-style: italic">and bursaries</em></h2>
+      <p style="margin: 0; font-size: 18px; font-weight: 500; line-height: 1.6">We have a variety of scholarships and bursaries available to support you financially with the cost of your course. See if you're eligible today.</p>
       <a href="#" style="align-self: flex-start; min-height: 60px; padding: 0 20px; border-radius: 5px; background: #291647; color: #f3e9ff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">See our scholarships and bursaries <span aria-hidden="true">→</span></a>
     </div>
     <div style="position: relative; width: 100%; aspect-ratio: 590 / 440">
@@ -357,49 +388,47 @@ body{background:#e4dcee;overflow:hidden}
 </section>
 
 <!-- ACCREDITATIONS -->
-<section id="accreditations" class="sec pad" aria-labelledby="acc-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<section id="accreditations" class="sec pad" aria-labelledby="acc-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="acc-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Professional body accreditations</h2>
-    <p style="margin: 40px 0 0; max-width: 740px; font-size: 18px; line-height: 1.6; color: #462b6d">Our BA (Hons) Accounting and Finance programme is accredited by prestigious professional bodies known for their commitment to excellence and maintaining the highest standards. This ensures that your experience at the University of Winchester is of the highest quality, aligned with industry best practices. It also helps to boost your employability and can give you exemptions from some professional exams as follows:</p>
+    <div class="two-col" style="display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px">
+    <h2 id="acc-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Professional body accreditations</h2>
+    <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #5c358e; font-weight: 500">Our BA (Hons) Accounting and Finance programme is accredited by prestigious professional bodies known for their commitment to excellence and maintaining the highest standards. This ensures that your experience at the University of Winchester is of the highest quality, aligned with industry best practices. It also helps to boost your employability and can give you exemptions from some professional exams as follows:</p>
+    </div>
     <ol style="list-style: none; margin: 52px 0 0; padding: 0">
-      <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
-        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #e9e1f3; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 360px">
+      <li class="acc-row" style="display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px; align-items: start; padding: 28px 0; border-top: 1px solid #ead8ff">
+        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #ead8ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%">
           <img src="images/icaew.png" alt="ICAEW Partner in Learning logo" style="max-width: 62%; max-height: 62%; object-fit: contain; display: block">
         </div>
-        <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">01</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">ICAEW Partner in Learning</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">The University of Winchester is recognised as an Institute of Chartered Accountants in England and Wales (ICAEW) Partner in Learning, working with ICAEW in the professional development of students. This allows you to apply for exemption from some modules when studying for the professional chartered accountant (ACA) qualification after graduating.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500">The University of Winchester is recognised as an Institute of Chartered Accountants in England and Wales (ICAEW) Partner in Learning, working with ICAEW in the professional development of students. This allows you to apply for exemption from some modules when studying for the professional chartered accountant (ACA) qualification after graduating.</p>
         </div>
       </li>
-      <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
-        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #e9e1f3; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 360px">
+      <li class="acc-row" style="display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px; align-items: start; padding: 28px 0; border-top: 1px solid #ead8ff">
+        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #ead8ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%">
           <img src="images/acca.png" alt="ACCA Accredited Programme logo" style="max-width: 62%; max-height: 62%; object-fit: contain; display: block">
         </div>
-        <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">02</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">ACCA accredited</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">This degree is accredited by the Association of Chartered Certified Accountants and you can apply for up to the maximum exemption from 9 modules when studying for the professional qualification after graduating.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500">This degree is accredited by the Association of Chartered Certified Accountants and you can apply for up to the maximum exemption from 9 modules when studying for the professional qualification after graduating.</p>
         </div>
       </li>
-      <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
-        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #e9e1f3; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 360px">
+      <li class="acc-row" style="display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px; align-items: start; padding: 28px 0; border-top: 1px solid #ead8ff">
+        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #ead8ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%">
           <img src="images/cima.png" alt="AICPA and CIMA logo" style="max-width: 62%; max-height: 62%; object-fit: contain; display: block">
         </div>
-        <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">03</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">CIMA</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Chartered Institute of Management Accountants (CIMA) accreditation will exempt you from the certificate and operational level modules of its professional syllabus.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500">Chartered Institute of Management Accountants (CIMA) accreditation will exempt you from the certificate and operational level modules of its professional syllabus.</p>
         </div>
       </li>
-      <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
-        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #e9e1f3; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 360px">
+      <li class="acc-row" style="display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px; align-items: start; padding: 28px 0; border-top: 1px solid #ead8ff">
+        <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #ead8ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%">
           <img src="images/cipfa.png" alt="CIPFA, The Chartered Institute of Public Finance and Accountancy logo" style="max-width: 62%; max-height: 62%; object-fit: contain; display: block">
         </div>
-        <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">04</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">CIPFA</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Our programme allows you the opportunity to be recognised for exemption against specific examinations when studying for the Professional Chartered Public Finance Accountant (CIPFA) qualification after graduating.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #5c358e; font-weight: 500">Our programme allows you the opportunity to be recognised for exemption against specific examinations when studying for the Professional Chartered Public Finance Accountant (CIPFA) qualification after graduating.</p>
         </div>
       </li>
     </ol>
@@ -407,12 +436,12 @@ body{background:#e4dcee;overflow:hidden}
 </section>
 
 <!-- FACILITIES (CTA slice) -->
-<section id="facilities" class="sec two-col" aria-labelledby="facilities-h" style="display: grid; grid-template-columns: minmax(0, 40fr) minmax(0, 60fr); align-items: stretch; background: #c68efd">
+<section id="facilities" class="sec two-col" aria-labelledby="facilities-h" style="display: grid; grid-template-columns: minmax(0, 40fr) minmax(0, 60fr); align-items: stretch; background: #c68efd; border-bottom: 1px solid #b57bef">
   <div class="pad" style="padding: 100px 60px 100px 40px; display: flex; flex-direction: column; gap: 20px; justify-content: center; min-width: 0">
       <p style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="#f3e9ff"></path></svg>Facilities</p>
-      <h2 id="facilities-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Winchester Business School facilities</h2>
-      <p style="margin: 0; font-size: 18px; line-height: 1.6">Explore the spaces and rooms where you could be studying.</p>
-      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 18px; line-height: 1.5">
+      <h2 id="facilities-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Winchester Business School facilities</h2>
+      <p style="margin: 0; font-size: 18px; font-weight: 500; line-height: 1.6">Explore the spaces and rooms where you could be studying.</p>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 18px; font-weight: 500; line-height: 1.5">
         <li>The Stripe Auditorium</li>
         <li>West Downs Classroom</li>
         <li>West Downs Library</li>
@@ -422,189 +451,253 @@ body{background:#e4dcee;overflow:hidden}
   <div class="cta-media" style="position: relative; min-height: 640px; min-width: 0"><img src="images/facilities.jpg" alt="Students walking past teaching buildings on campus" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; clip-path: url(#cta-wave); display: block"></div>
 </section>
 
-<!-- CAREERS -->
-<section id="careers" class="sec pad" aria-labelledby="car-h" style="padding: 80px 40px; background: #f3e9ff">
-  <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 40px 60px">
+<!-- CAREERS (same component as course overview) -->
+<section id="careers" class="sec pad" aria-labelledby="car-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
+  <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px">
+    <h2 id="car-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Career prospects</h2>
     <div>
-      <h2 id="car-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Career prospects</h2>
-      <p style="margin: 20px 0 0; font-size: 18px; line-height: 1.6; color: #462b6d">Our graduates have gone on to work for the Big Four accounting firms, Next, Tesco and HMRC, in roles such as audit trainee, tax specialist, financial analyst, management accountant and business manager.</p>
-      <h3 style="margin: 32px 0 0; font-size: 20px; font-weight: 600">Where this course could take you</h3>
-      <ul style="list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px">
-        <li style="padding: 10px 16px; border-radius: 5px; background: #ffffff; border: 1px solid #c68efd; font-size: 16px; font-weight: 500">Professional practice</li>
-        <li style="padding: 10px 16px; border-radius: 5px; background: #ffffff; border: 1px solid #c68efd; font-size: 16px; font-weight: 500">Corporate finance</li>
-        <li style="padding: 10px 16px; border-radius: 5px; background: #ffffff; border: 1px solid #c68efd; font-size: 16px; font-weight: 500">Public sector</li>
-        <li style="padding: 10px 16px; border-radius: 5px; background: #ffffff; border: 1px solid #c68efd; font-size: 16px; font-weight: 500">Financial services</li>
-        <li style="padding: 10px 16px; border-radius: 5px; background: #ffffff; border: 1px solid #c68efd; font-size: 16px; font-weight: 500">Entrepreneurship</li>
-      </ul>
-      <p style="margin: 28px 0 0; font-size: 18px; line-height: 1.6; color: #462b6d">You'll get help with applications and interviews, careers guidance, networking events and advice on graduate schemes.</p>
-      <div style="margin-top: 32px; padding: 24px 28px; background: #ffffff; border-radius: 15px">
-        <h3 style="margin: 0; font-size: 20px; font-weight: 600">Pre-approved for a Masters</h3>
-        <p style="margin: 8px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Apply by the end of March in your final year and meet the entry requirements, and you're pre-approved for a Winchester Masters.</p>
-      </div>
+      <div id="rm-careers" style="{{ rm.careers.box }}">
+      <div style="display: flex; flex-direction: column; gap: 18px; font-size: 18px; font-weight: 500; line-height: 1.6; color: #5c358e">
+      <p style="margin: 0">A degree in Accounting and Finance from Winchester opens doors to diverse and rewarding career paths. Our graduates are sought after for their combination of technical expertise, professional exemptions, and well-developed interpersonal skills.</p>
+      <p style="margin: 0">Many of our alumni have secured positions at prestigious organisations including the "Big Four" accounting firms, major corporations like Next and Tesco, and public sector bodies such as HMRC. The roles they take on are equally varied – from audit trainees and tax specialists to financial analysts, management accountants, and general business managers.</p>
+      <p style="margin: 0">The flexibility of our degree prepares you for multiple career directions:</p>
+      <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px"><li><strong style="font-weight: 600; color: #291647">Professional practice</strong>: Fast-track your journey to becoming a chartered accountant with our extensive professional exemptions.</li><li><strong style="font-weight: 600; color: #291647">Corporate finance</strong>: Apply your skills in treasury, financial analysis, or management accounting roles across all business sectors</li><li><strong style="font-weight: 600; color: #291647">Public sector</strong>: Contribute to financial management in government departments, local authorities, or public services.</li><li><strong style="font-weight: 600; color: #291647">Financial services</strong>: Pursue opportunities in banking, insurance, or investment management.</li><li><strong style="font-weight: 600; color: #291647">Entrepreneurship</strong>: Develop the financial acumen to launch and manage your own business.</li></ul>
+      <p style="margin: 0">From your first year, we focus on building your employability with targeted support, including regular workshops on professional applications and interview techniques, career guidance from academics with industry connections, opportunities to network with employers at our finance-focused careers events, personalised advice on navigating competitive graduate schemes and optional placement experiences that build your professional network.</p>
+      <p style="margin: 0">The accounting profession is evolving rapidly with technological advancement, but this creates opportunities rather than threats for well-prepared graduates. Our programme's emphasis on developing both technical and human skills ensures you'll be positioned to add value in ways that technology cannot – through analysis, interpretation, ethical judgement, and strategic thinking.</p>
+      <p style="margin: 0">Today's finance sector needs professionals who can adapt quickly, make sound judgements, and communicate complex information clearly to non-specialists. Our "Discovering Your Subject" module develops these crucial skills alongside your technical knowledge. You'll learn to see accounting as more than calculations – it's about telling the financial story of a business and helping shape its future.</p>
+      <p style="margin: 0">This comprehensive approach produces graduates who aren't just exam-ready but workplace-ready. You'll emerge with the confidence to apply your knowledge flexibly, the ability to work with diverse teams, and the adaptability to thrive as the profession continues to evolve. That's the Winchester difference – an education that prepares you not just for your first job, but for a fulfilling career.</p>
+      <h3 style="margin: 14px 0 0; font-size: 24px; font-weight: 500; line-height: 1.2; color: #291647">Pre-approved for a Masters</h3>
+      <p style="margin: 0">If you study a Bachelor Honours Degree with us, you will be pre-approved to start a Masters degree at Winchester. To be eligible, you will need to apply by the end of March in the final year of your degree and meet the entry requirements of your chosen Masters degree.</p>
     </div>
-    <div style="display: flex; flex-direction: column; gap: 16px">
-      <img src="images/careers.jpg" alt="A student talking with an adviser in the Careers and Opportunities Hub" style="width: 100%; height: 480px; object-fit: cover; border-radius: 15px; display: block">
-      <a href="#" style="color: #291647; font-size: 16px; font-weight: 600">Our careers service</a>
+      <sc-if value="{{ rm.careers.fade }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: linear-gradient(rgba(255,255,255,0), #ffffff); pointer-events: none"></span></sc-if>
+      </div>
+      <button type="button" aria-expanded="{{ rm.careers.expanded }}" aria-controls="rm-careers" onClick="{{ rm.careers.toggle }}" style="width: 100%; margin-top: 4px; display: flex; align-items: center; gap: 14px; padding: 16px 0 0; border: 0; border-top: 1px solid #d9cbee; background: transparent; color: #291647; font: 500 18px Figtree, sans-serif; text-align: left; cursor: pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="1.8" aria-hidden="true" style="{{ rm.careers.chev }}"><circle cx="12" cy="12" r="10"></circle><path d="M8 10.5l4 4 4-4"></path></svg><span>{{ rm.careers.label }}</span></button>
     </div>
   </div>
 </section>
 
-<!-- FEES -->
-<section id="fees" class="sec pad" aria-labelledby="fees-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<!-- FEES (rich text slice, same component as course overview) -->
+<section id="fees" class="sec pad" aria-labelledby="fees-h" style="padding: 80px 40px; border-bottom: 1px solid #ead8ff">
   <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 20px 60px">
     <div>
-      <h2 id="fees-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 56px; line-height: 1.1">How much will university cost me?</h2>
-      <p style="margin: 20px 0 0; font-size: 16px; color: #462b6d">Showing fees for: <strong style="color: #291647">{{ feeName }}</strong></p>
+      <h2 id="fees-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">How much will university cost me?</h2>
+      <p style="margin: 20px 0 0; font-size: 16px; color: #5c358e; font-weight: 500">Showing fees for: <strong style="color: #291647">{{ feeName }}</strong></p>
     </div>
     <div>
-      <h3 style="margin: 0; font-size: 22px; font-weight: 500">2027/28 tuition fees</h3>
+      <div id="rm-fees" style="{{ rm.fees.box }}">
+      <div style="display: flex; flex-direction: column; gap: 18px; font-size: 18px; font-weight: 500; line-height: 1.6; color: #5c358e">
+      <div style="background: #f3e9ff; border-radius: 15px; padding: 28px 32px 12px">
+      <h3 style="margin: 0; font-size: 24px; font-weight: 500; line-height: 1.2; color: #291647">2027/28 tuition fees</h3>
       <dl style="margin: 16px 0 0; display: flex; flex-direction: column">
         <sc-for list="{{ feeRows }}" as="r" hint-placeholder-count="3">
-          <div class="cols-2" style="display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 6px 20px; padding: 16px 0; border-top: 1px solid #d9cbee">
+          <div class="cols-2" style="display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 6px 20px; padding: 16px 0; border-top: 1px solid #c68efd">
             <dt style="font-size: 17px; font-weight: 600">{{ r.k }}</dt>
             <dd style="margin: 0; font-size: 17px; line-height: 1.5; display: flex; gap: 10px; align-items: center; flex-wrap: wrap"><span>{{ r.v }}</span><sc-if value="{{ r.hasTag }}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 12px; background: #d4ef70; font-size: 12px; font-weight: 600">To confirm</span></sc-if></dd>
           </div>
         </sc-for>
       </dl>
-      <p style="margin: 16px 0 0; font-size: 15px; line-height: 1.6; color: #462b6d">{{ feeNote }}</p>
-      <h3 style="margin: 40px 0 0; font-size: 22px; font-weight: 500">Additional costs</h3>
-      <p style="margin: 8px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Your fees cover teaching and assessment. You may also choose to pay for:</p>
-      <ul style="margin: 12px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 17px; line-height: 1.5">
-        <li>Core texts: £50 to £200 a year</li>
-        <li>Travel to a placement or volunteering in Year 3: £5 to £30 a day</li>
-        <li>Smart clothing for oral assessments: £0 to £50</li>
-        <li>Trips: £10 a trip</li>
-      </ul>
+      </div>
+      <h3 style="margin: 22px 0 0; font-size: 24px; font-weight: 500; line-height: 1.2; color: #291647">Additional tuition fee information</h3>
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <p style="margin: 0">*(UK / Channel Islands / Isle of Man / Republic of Ireland) £10,050 for the 27/28 academic year. Fees for future academic years will be determined in line with our Terms and Conditions. The fee is currently subject to a governmental fee cap for each academic year. It is our policy to charge tuition fees at the level of the cap set by the Government. If the cap set by the Government changes, then we may increase our Fees in line with governmental policy.</p>
+      <p style="margin: 0">Remember, you don’t have to pay any of this upfront if you are able to get a tuition fee loan from the UK Government to cover the full cost of your fees each year.</p>
+      <p style="margin: 0">UK Part-Time fees are calculated on a pro rata basis of the full-time fee for a 120 credit course. The fee for a single credit is £83.75 and a 15 credit module is £1,256. Part-time students can take up to a maximum 90 credits per year, so the maximum fee in a given year will be the government permitted maximum fee of £7,530</p>
+      </sc-if>
+      <sc-if value="{{ isIntl }}" hint-placeholder-val="{{ false }}">
+      <p style="margin: 0">*(International) £16,700 for the 27/28 academic year. Fees for future academic years will be determined in line with our Terms and Conditions. We decide the annual level of increase of our Tuition Fees by taking into account a range of factors including the cost of delivering the course and change in governmental funding.</p>
+      <p style="margin: 0">International part-time fees are calculated on a pro rata basis of the full-time fee for a 120 credit course. The fee for a single credit is £139.14 and a 15 credit module is £2,087.</p>
+      </sc-if>
+      <h3 style="margin: 22px 0 0; font-size: 24px; font-weight: 500; line-height: 1.2; color: #291647">Additional costs</h3>
+      <p style="margin: 0">As one of our students all of your teaching and assessments are included in your tuition fees, including, lectures/guest lectures and tutorials, seminars, laboratory sessions and specialist teaching facilities. You will also have access to a wide range of student support and IT services.</p>
+      <p style="margin: 0">There might be additional costs you may encounter whilst studying. The following highlights optional costs for this course:</p>
+      <h4 style="margin: 6px 0 0; font-size: 20px; font-weight: 500; line-height: 1.2; color: #291647">Optional</h4>
+      <p style="margin: 0"><strong style="font-weight: 600; color: #291647">Core Text</strong>: it is recommended that you purchase the latest editions of all of the core textbooks. Many of these texts relate to extensive online material for which you require an access code supplied with the textbook. It is possible for students to purchase second-hand copies where applicable. Indicative cost is £50-£200 per year.</p>
+      <p style="margin: 0"><strong style="font-weight: 600; color: #291647">Volunteering and Placements</strong>: you may incur travel costs on optional volunteering placements in the third year of study. Indicative cost is £5-£30 per day.</p>
+      <p style="margin: 0"><strong style="font-weight: 600; color: #291647">Smart Clothing</strong>: you may be expected to dress formally for oral assessments. Costs will vary depending on the students existing wardrobe. Indicative cost is £0-£50.</p>
+      <p style="margin: 0"><strong style="font-weight: 600; color: #291647">Trips</strong>: you may be asked to contribute a small amount towards travel costs. Indicative cost is £10 per trip.</p>
+      <h3 style="margin: 22px 0 0; font-size: 24px; font-weight: 500; line-height: 1.2; color: #291647">Scholarships, bursaries and awards</h3>
+      <p style="margin: 0">We have a variety of scholarship and bursaries available to support you financially with the cost of your course. To see if you’re eligible, please see our <a href="#" style="color: #291647; font-weight: 600">Scholarships and Awards</a>.</p>
+      <a href="#" style="align-self: flex-start; min-height: 60px; padding: 0 20px; border-radius: 5px; background: #291647; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">Visit student finance <span aria-hidden="true">→</span></a>
+    </div>
+      <sc-if value="{{ rm.fees.fade }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: linear-gradient(rgba(255,255,255,0), #ffffff); pointer-events: none"></span></sc-if>
+      </div>
+      <button type="button" aria-expanded="{{ rm.fees.expanded }}" aria-controls="rm-fees" onClick="{{ rm.fees.toggle }}" style="width: 100%; margin-top: 4px; display: flex; align-items: center; gap: 14px; padding: 16px 0 0; border: 0; border-top: 1px solid #d9cbee; background: transparent; color: #291647; font: 500 18px Figtree, sans-serif; text-align: left; cursor: pointer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="1.8" aria-hidden="true" style="{{ rm.fees.chev }}"><circle cx="12" cy="12" r="10"></circle><path d="M8 10.5l4 4 4-4"></path></svg><span>{{ rm.fees.label }}</span></button>
     </div>
   </div>
 </section>
 
 <!-- STUDENT STORIES (CTA slice) -->
-<section id="students" class="sec two-col" aria-labelledby="students-h" style="display: grid; grid-template-columns: minmax(0, 60fr) minmax(0, 40fr); align-items: stretch; background: #c68efd">
+<section id="students" class="sec two-col" aria-labelledby="students-h" style="display: grid; grid-template-columns: minmax(0, 60fr) minmax(0, 40fr); align-items: stretch; background: #c68efd; border-bottom: 1px solid #b57bef">
   <div class="cta-media" style="position: relative; min-height: 640px; min-width: 0"><img src="images/student-story.jpg" alt="Students talking together in a café" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; clip-path: url(#cta-wave-l); display: block"></div>
   <div class="pad" style="padding: 100px 40px 100px 60px; display: flex; flex-direction: column; gap: 20px; justify-content: center; min-width: 0">
       <p style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="#f3e9ff"></path></svg>Student stories</p>
-      <h2 id="students-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Life on the course</h2>
-      <blockquote style="margin: 0; font-size: 22px; line-height: 1.5; font-weight: 500">“[Quote from an Accounting and Finance student]”</blockquote>
-      <p style="margin: 0; font-size: 17px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap">[Student name], [year of study]<span style="display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 12px; background: #d4ef70; font-size: 12px; font-weight: 600">To confirm</span></p>
+      <h2 id="students-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.1">Life on the course</h2>
+      <blockquote style="margin: 0; font-size: 22px; line-height: 1.5; font-weight: 500">“The case studies feel like real work. By my second year I was confident walking into placement interviews and talking about actual numbers.”</blockquote>
+      <p style="margin: 0; font-size: 17px; font-weight: 500; display: flex; gap: 10px; align-items: center; flex-wrap: wrap">Priya, Year 3, BA (Hons) Accounting and Finance</p>
       <a href="#" style="align-self: flex-start; min-height: 60px; padding: 0 22px; border-radius: 5px; background: #291647; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">Read more student stories <span aria-hidden="true">→</span></a>
     </div>
 </section>
 
-<!-- TEAM -->
-<section id="team" class="sec pad" aria-labelledby="team-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<!-- TEAM (People teasers, 2 up) -->
+<section id="team" class="sec pad" aria-labelledby="team-h" style="padding: 80px 40px; background: #ffffff; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="team-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Meet the course team</h2>
-    <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 40px">
-      <div style="padding: 28px; background: #f3e9ff; border-radius: 15px; display: flex; gap: 20px; align-items: flex-start">
-        <span aria-hidden="true" style="flex-shrink: 0; width: 88px; height: 88px; border-radius: 50%; background: #c68efd; display: flex; align-items: center; justify-content: center; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 32px">JL</span>
-        <div>
-          <h3 style="margin: 0; font-size: 22px; font-weight: 500">Jayne Little</h3>
-          <p style="margin: 4px 0 0; font-size: 15px; font-weight: 600; color: #8f48d5">Programme Leader</p>
-          <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Jayne qualified as a chartered accountant with Touche Ross (now Deloitte) and was a Finance Manager in the education and charity sectors.</p>
-          <a href="#" style="display: inline-block; margin-top: 12px; color: #291647; font-size: 15px; font-weight: 600">View staff profile</a>
-        </div>
-      </div>
-      <div style="padding: 28px; background: #f3e9ff; border-radius: 15px; display: flex; gap: 20px; align-items: flex-start">
-        <span aria-hidden="true" style="flex-shrink: 0; width: 88px; height: 88px; border-radius: 50%; background: #c68efd; display: flex; align-items: center; justify-content: center; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 32px">LT</span>
-        <div>
-          <h3 style="margin: 0; font-size: 22px; font-weight: 500">Lim Keong Teoh</h3>
-          <p style="margin: 4px 0 0; font-size: 15px; font-weight: 600; color: #8f48d5">Senior Lecturer in Accounting and Taxation</p>
-          <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Shortlisted for the Times Higher Education Award for Most Innovative Teacher of the Year.</p>
-          <a href="#" style="display: inline-block; margin-top: 12px; color: #291647; font-size: 15px; font-weight: 600">View staff profile</a>
-        </div>
-      </div>
+    <h2 id="team-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.2">Meet the course team</h2>
+    <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 60px">
+      <a href="#" class="person-card teaser" style="display: grid; grid-template-columns: 183px minmax(0, 1fr); min-height: 208px; background: #f5f5f5; border-radius: 15px; text-decoration: none; color: #291647">
+        <span class="t-img" style="height: 100%"><img src="images/team-1.jpg" alt="Photo of Jayne Little" style="width: 100%; height: 100%; min-height: 208px; object-fit: cover; border-radius: 15px; display: block"><span class="t-arrow" aria-hidden="true"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span></span>
+        <span style="padding: 30px; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 20px; font-weight: 500; line-height: 1.2">Jayne Little</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">Programme Leader</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">Jayne qualified as a chartered accountant with Touche Ross (now Deloitte) and was a Finance Manager in the education and charity sectors.</span></span>
+      </a>
+      <a href="#" class="person-card teaser" style="display: grid; grid-template-columns: 183px minmax(0, 1fr); min-height: 208px; background: #f5f5f5; border-radius: 15px; text-decoration: none; color: #291647">
+        <span class="t-img" style="height: 100%"><img src="images/team-2.jpg" alt="Photo of Lim Keong Teoh" style="width: 100%; height: 100%; min-height: 208px; object-fit: cover; border-radius: 15px; display: block"><span class="t-arrow" aria-hidden="true"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span></span>
+        <span style="padding: 30px; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 20px; font-weight: 500; line-height: 1.2">Lim Keong Teoh</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">Senior Lecturer in Accounting and Taxation</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">Shortlisted for the Times Higher Education Award for Most Innovative Teacher of the Year.</span></span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- DISCOVER UNI -->
-<section id="discover-uni" class="sec pad" aria-labelledby="du-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<!-- DISCOVER UNI (official Discover Uni widget, recreated from a screen grab of the live page) -->
+<section id="discover-uni" class="sec pad" aria-labelledby="du-h" style="position: relative; overflow: hidden; padding: 56px 40px 32px; background: #0c1d46; color: #ffffff; border-bottom: 1px solid #ead8ff">
+  <svg aria-hidden="true" viewBox="0 0 1280 540" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%"><polygon points="760,0 1280,0 1280,540 560,540" fill="#0a2a7a"></polygon><path d="M1000 540 C1080 300 1180 120 1280 60 L1280 540 Z" fill="#0f3aa6"></path></svg>
+  <div style="position: relative; max-width: 1200px; margin: 0 auto">
+    <h2 id="du-h" style="margin: 0; font-size: 28px; font-weight: 500; line-height: 1.2">Official student data from <strong style="font-weight: 700">Discover Uni</strong></h2>
+    <div class="du-grid" style="margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 240px; gap: 20px; align-items: stretch">
+      <div style="background: #ffffff; border-radius: 8px; padding: 20px 28px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; color: #111111">
+        <svg width="132" height="132" viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="55" fill="none" stroke="#fdd835" stroke-width="22"></circle><text x="66" y="77" text-anchor="middle" font-family="Figtree, sans-serif" font-size="30" fill="#111111">100%</text></svg>
+        <p style="margin: 0; font-size: 22px; font-weight: 500; line-height: 1.25">Say staff value students views and opinions about the course.</p>
+        <p style="margin: 0; font-size: 14px; line-height: 1.35; color: #444444">Data from 25 students in Accounting and Finance (Full-time) over the previous two years</p>
+      </div>
+      <div style="background: #ffffff; border-radius: 8px; padding: 20px 28px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; color: #111111">
+        <svg width="132" height="132" viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="55" fill="none" stroke="#fdd835" stroke-width="22"></circle><text x="66" y="77" text-anchor="middle" font-family="Figtree, sans-serif" font-size="30" fill="#111111">100%</text></svg>
+        <p style="margin: 0; font-size: 22px; font-weight: 500; line-height: 1.25">Teaching staff have supported my learning well.</p>
+        <p style="margin: 0; font-size: 14px; line-height: 1.35; color: #444444">Data from 25 students in Accounting and Finance (Full-time) over the previous two years</p>
+      </div>
+      <div style="background: #ffffff; border-radius: 8px; padding: 20px 28px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; color: #111111">
+        <svg width="132" height="132" viewBox="0 0 132 132" aria-hidden="true"><circle cx="66" cy="66" r="55" fill="none" stroke="#fdd835" stroke-width="22"></circle><text x="66" y="77" text-anchor="middle" font-family="Figtree, sans-serif" font-size="30" fill="#111111">100%</text></svg>
+        <p style="margin: 0; font-size: 22px; font-weight: 500; line-height: 1.25">In work or doing further study 15 months after the course.</p>
+        <p style="margin: 0; font-size: 14px; line-height: 1.35; color: #444444">Data from 10 students in Accounting and Finance (Full-time)</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 28px; padding-left: 8px">
+        <div style="display: flex; align-items: center; gap: 10px"><svg width="88" height="88" viewBox="0 0 96 96" aria-hidden="true"><polygon fill="#2f8f7a" points="48.0,2.0 87.8,25.0 74.0,33.0 48.0,18.0"></polygon><polygon fill="#7fc8b0" points="87.8,25.0 87.8,71.0 74.0,63.0 74.0,33.0"></polygon><polygon fill="#1f6f63" points="87.8,71.0 48.0,94.0 48.0,78.0 74.0,63.0"></polygon><polygon fill="#a9dcc8" points="48.0,94.0 8.2,71.0 22.0,63.0 48.0,78.0"></polygon><polygon fill="#3fa58c" points="8.2,71.0 8.2,25.0 22.0,33.0 22.0,63.0"></polygon><polygon fill="#5cb79c" points="8.2,25.0 48.0,2.0 48.0,18.0 22.0,33.0"></polygon></svg><span style="font-size: 30px; font-weight: 700; line-height: 0.95; color: #ffffff">Discover<br>Uni</span></div>
+        <p style="margin: 0; font-size: 21px; line-height: 1.5">Discover Uni is an official source of information on higher education across the UK.</p>
+        <a href="#" style="align-self: flex-start; margin-top: auto; padding: 16px 24px; border-radius: 30px; background: #fdd835; color: #111111; text-decoration: none; font-size: 17px; font-weight: 600">See all course data</a>
+      </div>
+    </div>
+    <p style="margin: 18px 0 0; font-size: 17px; font-weight: 500">Accounting and Finance (Full-time), University of Winchester</p>
+  </div>
+</section>
+
+<!-- COMPARE (Course compare slice, Layout B) -->
+<section id="compare" class="sec pad" aria-labelledby="cmp-h" style="padding: 80px 40px; background: #ffffff; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="du-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Discover Uni</h2>
-    <div style="margin-top: 32px; height: 260px; border: 2px dashed #c68efd; border-radius: 15px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; box-sizing: border-box">
-      <p style="margin: 0; font-size: 18px; color: #462b6d">Discover Uni statistics for {{ discoverCode }} (embedded widget)</p>
+    <h2 id="cmp-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.2">Compare related courses</h2>
+    <div class="cols-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 60px; align-items: stretch">
+      <a href="#" class="teaser" style="background: #f5f5f5; border-radius: 15px; padding: 30px; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; text-decoration: none; color: #291647">
+        <span style="align-self: flex-start; padding: 5px 10px; border-radius: 5px; background: #d4ef70; font-size: 14px; font-weight: 500; line-height: 1.6">This course</span>
+        <div style="display: flex; flex-direction: column; gap: 5px"><h3 style="margin: 0; font-size: 24px; font-weight: 500; line-height: 1.2">Accounting and Finance</h3><p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">BA (Hons)</p></div>
+        <dl style="margin: 0"><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Duration</dt><dd style="margin: 0; text-align: right">3 years full time</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">UCAS code</dt><dd style="margin: 0; text-align: right">NN34</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Typical offer</dt><dd style="margin: 0; text-align: right">104-120 points</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Location</dt><dd style="margin: 0; text-align: right">Winchester campus</dd></div></dl>
+      </a>
+      <a href="#" class="teaser" style="background: #ffffff; border: 1px solid #ead8ff; border-radius: 15px; padding: 30px; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; text-decoration: none; color: #291647">
+        <span style="align-self: flex-start; padding: 5px 10px; border-radius: 5px; background: #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6">Related</span>
+        <div style="display: flex; flex-direction: column; gap: 5px"><h3 style="margin: 0; font-size: 24px; font-weight: 500; line-height: 1.2">Business Management</h3><p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">BA (Hons)</p></div>
+        <dl style="margin: 0"><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Duration</dt><dd style="margin: 0; text-align: right">3 years full time</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">UCAS code</dt><dd style="margin: 0; text-align: right">NP29</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Typical offer</dt><dd style="margin: 0; text-align: right">104-120 points</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Location</dt><dd style="margin: 0; text-align: right">Winchester campus</dd></div></dl>
+      </a>
+      <a href="#" class="teaser" style="background: #ffffff; border: 1px solid #ead8ff; border-radius: 15px; padding: 30px; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; text-decoration: none; color: #291647">
+        <span style="align-self: flex-start; padding: 5px 10px; border-radius: 5px; background: #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6">Related</span>
+        <div style="display: flex; flex-direction: column; gap: 5px"><h3 style="margin: 0; font-size: 24px; font-weight: 500; line-height: 1.2">Marketing</h3><p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">BA (Hons)</p></div>
+        <dl style="margin: 0"><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Duration</dt><dd style="margin: 0; text-align: right">3 years full time</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">UCAS code</dt><dd style="margin: 0; text-align: right">3R93</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Typical offer</dt><dd style="margin: 0; text-align: right">112-120 points</dd></div><div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid #ead8ff; font-size: 14px; font-weight: 500; line-height: 1.6"><dt style="color: #5c358e; font-weight: 500">Location</dt><dd style="margin: 0; text-align: right">Winchester campus</dd></div></dl>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- COMPARE -->
-<section id="compare" class="sec pad" aria-labelledby="cmp-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
+<!-- OPEN DAYS (Events slice, 3-up layout G from the homepage) -->
+<section id="open-days" class="sec pad" aria-labelledby="od-h" style="padding: 80px 40px; background: #ffffff; border-bottom: 1px solid #ead8ff">
   <div style="max-width: 1200px; margin: 0 auto">
-    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap">
-      <h2 id="cmp-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Compare courses</h2>
-      <a href="#" style="color: #291647; font-size: 16px; font-weight: 600">View related courses in Business and Marketing</a>
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px">
+      <h2 id="od-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.2">Come and visit us</h2>
+      <a href="#" style="min-height: 60px; padding: 0 20px; border-radius: 5px; background: #c68efd; color: #291647; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">View all open days <span aria-hidden="true">→</span></a>
     </div>
-    <div class="cols-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 40px">
-      <div style="padding: 28px; border: 2px solid #291647; border-radius: 15px; display: flex; flex-direction: column; gap: 10px">
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8f48d5">This course</p>
-        <h3 style="margin: 0; font-size: 22px; font-weight: 500">BA (Hons) Accounting and Finance</h3>
-        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #462b6d">3 years full-time · 104 to 120 points · NN34</p>
-      </div>
-      <div style="padding: 28px; border: 1px solid #d9cbee; border-radius: 15px; display: flex; flex-direction: column; gap: 10px">
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8f48d5">Related course</p>
-        <h3 style="margin: 0; font-size: 22px; font-weight: 500">[Related course]</h3>
-        <span style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 12px; background: #d4ef70; font-size: 12px; font-weight: 600">To confirm</span>
-      </div>
-      <div style="padding: 28px; border: 1px solid #d9cbee; border-radius: 15px; display: flex; flex-direction: column; gap: 10px">
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8f48d5">Related course</p>
-        <h3 style="margin: 0; font-size: 22px; font-weight: 500">[Related course]</h3>
-        <span style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 12px; background: #d4ef70; font-size: 12px; font-weight: 600">To confirm</span>
-      </div>
+    <div style="margin-top: 60px; display: flex; flex-direction: column; gap: 10px">
+      <a href="#" class="ev-row teaser" style="display: grid; grid-template-columns: 183px minmax(0, 1fr) minmax(0, 409px) 60px; gap: 20px; align-items: center; padding: 30px 40px; background: #f5f5f5; border-radius: 15px; text-decoration: none; color: #291647">
+        <span style="display: flex; align-items: baseline; gap: 10px"><span style="font-size: 64px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em">28</span><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">Sat Nov</span></span>
+        <span style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #5c358e">Open day · Next up</span><span style="font-size: 29px; font-weight: 500; line-height: 1.2">Undergraduate Open Day</span></span>
+        <span style="display: flex; flex-direction: column; gap: 5px; font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e"><span style="display: flex; align-items: center; gap: 10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>9am to 3pm</span><span style="display: flex; align-items: center; gap: 10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>King Alfred Quarter and West Downs Quarter</span></span>
+        <span style="width: 60px; height: 60px; border-radius: 5px; background: #c68efd; display: flex; align-items: center; justify-content: center"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span>
+      </a>
+      <a href="#" class="ev-row teaser" style="display: grid; grid-template-columns: 183px minmax(0, 1fr) minmax(0, 409px) 60px; gap: 20px; align-items: center; padding: 30px 40px; background: #f5f5f5; border-radius: 15px; text-decoration: none; color: #291647">
+        <span style="display: flex; align-items: baseline; gap: 10px"><span style="font-size: 64px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em">9</span><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase">Sat Jan</span></span>
+        <span style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #5c358e">Open day</span><span style="font-size: 29px; font-weight: 500; line-height: 1.2">Undergraduate Open Day</span></span>
+        <span style="display: flex; flex-direction: column; gap: 5px; font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e"><span style="display: flex; align-items: center; gap: 10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>9am to 3pm</span><span style="display: flex; align-items: center; gap: 10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Winchester campus</span></span>
+        <span style="width: 60px; height: 60px; border-radius: 5px; background: #c68efd; display: flex; align-items: center; justify-content: center"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- OPEN DAYS -->
-<section id="open-days" class="sec pad" aria-labelledby="od-h" style="padding: 80px 40px; background: #c68efd">
-  <div class="two-col" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 387px minmax(0, 1fr); gap: 24px 60px">
-    <div>
-      <h2 id="od-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Come and visit us</h2>
-      <p style="margin: 20px 0 0; font-size: 18px; line-height: 1.6">Meet the course team, see the campus and ask us anything.</p>
-    </div>
-    <div class="cols-2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
-      <div style="padding: 28px; background: #ffffff; border-radius: 15px; display: flex; flex-direction: column; gap: 14px">
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8f48d5">Open day</p>
-        <p style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 38px; line-height: 1.1">Saturday 28 November 2026</p>
-        <a href="#" style="align-self: flex-start; min-height: 52px; padding: 0 20px; border-radius: 5px; background: #291647; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">Register <span aria-hidden="true">→</span></a>
-      </div>
-      <div style="padding: 28px; background: #ffffff; border-radius: 15px; display: flex; flex-direction: column; gap: 14px">
-        <p style="margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8f48d5">Open day</p>
-        <p style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 38px; line-height: 1.1">Saturday 9 January 2027</p>
-        <a href="#" style="align-self: flex-start; min-height: 52px; padding: 0 20px; border-radius: 5px; background: #291647; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">Register <span aria-hidden="true">→</span></a>
-      </div>
+<!-- NEWS (Related block) -->
+<section id="news" class="sec pad" aria-labelledby="news-h" style="padding: 80px 40px; background: #ffffff; border-bottom: 1px solid #ead8ff">
+  <div style="max-width: 1200px; margin: 0 auto">
+    <h2 id="news-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.2">Related news</h2>
+    <div class="cols-3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 60px; align-items: stretch">
+      <a href="#" class="teaser" style="background: #f5f5f5; border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #291647">
+        <span class="t-img"><img src="images/careers.jpg" alt="Placeholder photo" style="display: block; width: 100%; aspect-ratio: 386 / 217; object-fit: cover; border-radius: 15px"><span class="t-arrow" aria-hidden="true"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span></span>
+        <span style="padding: 30px; display: flex; flex-direction: column; gap: 15px"><span style="font-size: 24px; font-weight: 500; line-height: 1.2">Lim Keong Teoh shortlisted for Most Innovative Teacher of the Year</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">Read all about Senior Lecturer in Accounting and Taxation, Lim Keong Teoh, and his shortlisting for the prestigious Times Higher Education Award for Most Innovative Teacher of the Year.</span></span>
+      </a>
+      <a href="#" class="teaser" style="background: #f5f5f5; border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #291647">
+        <span class="t-img"><img src="images/news-book.jpg" alt="Students running through a stone archway in Winchester" style="display: block; width: 100%; aspect-ratio: 386 / 217; object-fit: cover; border-radius: 15px"><span class="t-arrow" aria-hidden="true"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span></span>
+        <span style="padding: 30px; display: flex; flex-direction: column; gap: 15px"><span style="font-size: 24px; font-weight: 500; line-height: 1.2">Ryan's new book explores the beginnings of England and its borders</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">A new book by a Winchester historian looks at how England’s earliest borders took shape, and why they still matter today.</span></span>
+      </a>
+      <a href="#" class="teaser" style="background: #f5f5f5; border-radius: 15px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #291647">
+        <span class="t-img"><img src="images/news-recording.jpg" alt="Two students operating a camera in a studio" style="display: block; width: 100%; aspect-ratio: 386 / 217; object-fit: cover; border-radius: 15px"><span class="t-arrow" aria-hidden="true"><span class="t-clip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a1"><path d="M4 12h15M13 6l6 6-6 6"></path></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="a2"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></span></span></span>
+        <span style="padding: 30px; display: flex; flex-direction: column; gap: 15px"><span style="font-size: 24px; font-weight: 500; line-height: 1.2">Academic's recording dream comes true with the help of students</span><span style="font-size: 16px; font-weight: 500; line-height: 1.6; color: #5c358e">Music and sound production students helped a member of staff record an album in the University’s own studios.</span></span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- NEWS -->
-<section id="news" class="sec pad" aria-labelledby="news-h" style="padding: 80px 40px">
-  <div style="max-width: 1200px; margin: 0 auto">
-    <h2 id="news-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Related news</h2>
-    <a href="#" style="margin-top: 32px; padding: 28px; border: 1px solid #d9cbee; border-radius: 15px; display: flex; flex-direction: column; gap: 10px; max-width: 590px; text-decoration: none; color: #291647">
-      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #8f48d5">News</span>
-      <span style="font-size: 22px; font-weight: 500; line-height: 1.35">Lim Keong Teoh shortlisted for Most Innovative Teacher of the Year at the Times Higher Education Awards</span>
-      <span style="font-size: 16px; font-weight: 600; text-decoration: underline">Read the story</span>
-    </a>
+<!-- CTA SLICE (Variant B, no image) -->
+<section id="apply-now" class="pad" aria-labelledby="cta-final-h" style="position: relative; overflow: hidden; background: #c68efd; color: #291647; padding: 80px 40px; min-height: 478px; box-sizing: border-box; border-bottom: 1px solid #b57bef">
+  <svg class="cta-motif" aria-hidden="true" width="623" height="478" viewBox="0 0 623 478" style="position: absolute; top: 0; right: 0; height: 100%; width: auto"><path fill-rule="evenodd" d="M645.997 200.324V313.555L345.232 -83.9937L416.073 423.527L646 367.831V393.782L611.323 428.068H416.708L427.283 503.832L427.278 503.824L380.188 561.989H170.28L170.281 562H138.289L0 259.638V-83.9995H583.941L645.997 200.324ZM170.265 561.859L427.277 503.821L98.6406 -63.1919L170.265 561.859Z" fill="#a862ec"></path></svg>
+  <div style="position: relative; max-width: 1200px; margin: 0 auto">
+    <div style="max-width: 793px; display: flex; flex-direction: column; gap: 20px">
+      <p style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0 C6 4 8 6 12 6 C8 6 6 8 6 12 C6 8 4 6 0 6 C4 6 6 4 6 0 Z" fill="#f3e9ff"></path></svg>Apply</p>
+      <h2 id="cta-final-h" class="h2 h2-content" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 52px; line-height: 1.2">Ready to start <em>your journey?</em></h2>
+      <p style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.6">Apply through UCAS with code NN34, or come to an open day to meet the course team first.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap">
+        <a href="#apply" style="min-height: 60px; padding: 0 20px; border-radius: 5px; background: #291647; color: #f3e9ff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">{{ applyLabel }} <span aria-hidden="true">→</span></a>
+        <a href="#open-days" style="min-height: 60px; padding: 0 20px; border-radius: 5px; border: 2px solid #291647; color: #291647; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; box-sizing: border-box">Book an open day</a>
+      </div>
+    </div>
   </div>
 </section>
 
 </main>
 
-<!-- FINAL CTA + FOOTER -->
-<footer>
-  <div class="pad" style="background: #291647; color: #ffffff; padding: 80px 40px">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap">
-      <h2 class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1; max-width: 640px">Ready to start your journey?</h2>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap">
-        <a href="#apply" style="min-height: 60px; padding: 0 22px; border-radius: 5px; background: #c68efd; color: #291647; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px">{{ applyLabel }} <span aria-hidden="true">→</span></a>
-        <a href="#open-days" style="min-height: 60px; padding: 0 22px; border-radius: 5px; border: 2px solid #c68efd; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; box-sizing: border-box">Book an open day</a>
-      </div>
+<!-- FOOTER (Figma footer block) -->
+<footer style="background: #291647; color: #ffffff">
+  <div class="pad" style="padding: 80px 40px; border-top: 1px solid #753bb3; border-bottom: 1px solid #753bb3">
+    <div class="cols-3" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+      <div style="display: flex; gap: 15px; align-items: flex-start"><svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true" style="flex: none"><path fill-rule="evenodd" d="M31.4309 7.32397L32.9264 12.7149C34.7897 19.4321 40.9297 24.0845 47.9311 24.0845H52.976V26.4577L49.0897 29.1272C43.4936 32.9714 41.0519 39.9863 43.0596 46.4522L45.0211 52.7702H42.2254L40.0605 50.9901C34.3057 46.2576 25.9857 46.2575 20.2309 50.9901L18.066 52.7702H15.2704L17.2319 46.4522C19.2394 39.9862 16.7977 32.9714 11.2014 29.1272L7.31543 26.4577V24.0845H12.3603C19.3617 24.0845 25.5017 19.4321 27.365 12.7149L28.8605 7.32397H31.4309ZM29.3657 13.2645C27.2541 20.8774 20.2953 26.1504 12.3603 26.1504H10.5221L12.3805 27.4271C18.7229 31.7839 21.4902 39.734 19.2149 47.0621L18.3463 49.86L18.909 49.3973C25.431 44.0339 34.8601 44.034 41.3822 49.3973L41.9452 49.86L41.0765 47.0621C38.8012 39.734 41.5686 31.7839 47.9109 27.4271L49.7694 26.1504H47.9311C39.9962 26.1504 33.0374 20.8774 30.9257 13.2645L30.1457 10.4528L29.3657 13.2645Z" fill="#c68efd"></path></svg><div style="display: flex; flex-direction: column; gap: 10px; padding-right: 20px"><p style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.2; color: #ffffff">Top 10 in the UK for employability</p><p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #dbbaff">UniCompare 2026</p></div></div>
+      <div style="display: flex; gap: 15px; align-items: flex-start"><svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true" style="flex: none"><path fill-rule="evenodd" d="M45.9786 23.5169C45.9785 14.7368 38.8813 7.52284 30.1012 7.4103L29.8936 7.40879C21.0182 7.40917 13.8092 14.6676 13.8092 23.5169C13.8092 28.0706 15.7402 32.4534 19.1214 35.5128L24.4506 40.3347C26.9699 42.6141 28.8278 45.4747 29.8936 48.6201C30.9596 45.4746 32.818 42.6141 35.3371 40.3347L40.6667 35.5128C44.0479 32.4534 45.9786 28.0706 45.9786 23.5169ZM34.0453 23.933C34.0453 21.6513 32.1871 19.8017 29.8945 19.8016C27.602 19.8016 25.7437 21.6513 25.7436 23.933C25.7436 26.2148 27.602 28.0644 29.8945 28.0644C32.1871 28.0643 34.0453 26.2148 34.0453 23.933ZM36.1209 23.933C36.1209 27.3557 33.3333 30.1301 29.8945 30.1302C26.4557 30.1302 23.6681 27.3557 23.6681 23.933C23.6681 20.5104 26.4557 17.7358 29.8945 17.7358C33.3334 17.7359 36.1208 20.5105 36.1209 23.933ZM48.0541 23.5169C48.0541 28.6469 45.8809 33.5865 42.0627 37.0412L36.7332 41.8631L36.7335 41.8634C33.0766 45.1723 30.9746 49.8487 30.9312 54.7628V54.8073L30.9318 54.8076C30.9316 54.8465 30.9312 54.8822 30.9312 54.9174H28.8559V54.7628L28.8523 54.5328C28.7467 49.7029 26.6545 45.1206 23.0545 41.8634L17.7253 37.0412C13.9073 33.5865 11.7339 28.6469 11.7339 23.5169C11.7339 13.5423 19.8564 5.34368 29.8936 5.34326L30.1286 5.34477C40.0573 5.47194 48.0541 13.6202 48.0541 23.5169Z" fill="#c68efd"></path></svg><div style="display: flex; flex-direction: column; gap: 10px; padding-right: 20px"><p style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.2; color: #ffffff">Winchester named as safest area to live and work in the UK</p><p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #dbbaff">Anubis 2025</p></div></div>
+      <div style="display: flex; gap: 15px; align-items: flex-start"><svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true" style="flex: none"><path fill-rule="evenodd" d="M19.5798 42.5351V40.4695H5.05127V38.7898L9.07268 23.1808C9.89658 19.9828 12.7922 17.7464 16.1092 17.7464L19.5798 17.7467V28.0751H17.5041V19.8123H16.1092C13.7399 19.8123 11.6716 21.4096 11.0831 23.6938L7.29359 38.4039H21.6551V42.5351C21.6551 45.611 21.661 47.4672 23.1017 50.3355C23.1019 50.336 23.1022 50.3365 23.1026 50.3372C23.1042 50.3404 23.1075 50.3463 23.112 50.3548C23.1209 50.3718 23.1353 50.3991 23.1551 50.4351C23.1948 50.5074 23.2555 50.6142 23.335 50.7438C23.4955 51.0051 23.7259 51.3483 24.0088 51.6862C24.6298 52.4279 25.2681 52.8639 25.8062 52.8639V54.9295C24.2688 54.9295 23.0908 53.8162 22.4146 53.0086C22.049 52.5719 21.7605 52.1406 21.5642 51.821C21.4654 51.6601 21.3883 51.5246 21.3348 51.4274C21.308 51.3787 21.2869 51.3394 21.2721 51.311C21.2647 51.2969 21.2588 51.2854 21.2544 51.2769C21.2522 51.2726 21.2503 51.269 21.2488 51.2662C21.2482 51.2648 21.2477 51.2636 21.2472 51.2626C21.2469 51.2621 21.2466 51.2616 21.2464 51.2612L21.2461 51.2607C21.246 51.2604 21.2458 51.2601 22.1739 50.7982L21.2458 51.2601C19.5737 47.9317 19.5798 45.6563 19.5798 42.5351ZM44.4854 32.2067V34.2723H30.9948V54.9295H28.9194V34.2723H15.4287V32.2067H44.4854ZM21.1272 9.99994C21.1272 8.57056 19.9714 7.41796 18.5419 7.41796C17.1091 7.41796 15.9475 8.57389 15.9475 9.99994C15.9475 10.8689 16.5281 11.7774 17.3098 12.5676C17.6802 12.942 18.0543 13.248 18.3371 13.4605C18.413 13.5176 18.4819 13.5672 18.5414 13.6094C18.6005 13.5674 18.6689 13.5181 18.7442 13.4614C19.0262 13.2488 19.3994 12.9431 19.7688 12.5687C20.548 11.7789 21.1272 10.8699 21.1272 9.99994ZM43.9664 9.99994C43.9663 8.57392 42.805 7.41801 41.3722 7.41796C39.9427 7.41796 38.7867 8.57058 38.7866 9.99994C38.7866 10.8699 39.3661 11.7789 40.1453 12.5687C40.5147 12.9431 40.8879 13.2488 41.1699 13.4614C41.2451 13.5181 41.3132 13.5677 41.3722 13.6096C41.4318 13.5674 41.5009 13.5177 41.577 13.4605C41.8598 13.248 42.2339 12.942 42.6043 12.5676C43.3861 11.7774 43.9664 10.8689 43.9664 9.99994ZM54.8626 40.4695H40.3344V42.5351C40.3344 45.6563 40.3404 47.9317 38.6683 51.2601L37.7399 50.7982L38.668 51.2607L38.6678 51.2612C38.6676 51.2616 38.6672 51.2621 38.6669 51.2626C38.6664 51.2636 38.6657 51.2648 38.665 51.2662C38.6636 51.269 38.662 51.2726 38.6598 51.2769C38.6554 51.2855 38.6492 51.2968 38.6418 51.311C38.6269 51.3394 38.6061 51.3787 38.5793 51.4274C38.5258 51.5246 38.4487 51.6601 38.3499 51.821C38.1537 52.1406 37.8651 52.5719 37.4995 53.0086C36.8233 53.8162 35.6453 54.9295 34.108 54.9295V52.8639C34.646 52.8639 35.284 52.4279 35.905 51.6862C36.1879 51.3483 36.4184 51.0051 36.5789 50.7438C36.6584 50.6142 36.719 50.5074 36.7588 50.4351C36.7786 50.3991 36.7932 50.3718 36.8022 50.3548C36.8066 50.3463 36.8097 50.3404 36.8113 50.3372C36.812 50.3358 36.8125 50.335 36.8127 50.3347C38.253 47.4668 38.259 45.6107 38.259 42.5351V38.4039H52.6205L48.831 23.6938C48.2424 21.4096 46.174 19.8123 43.805 19.8123H42.4098V28.0751H40.3344V17.7467L43.805 17.7464C47.1218 17.7464 50.0175 19.9829 50.8415 23.1808L54.8302 38.6636L54.8626 38.7898V40.4695ZM23.2029 9.99994C23.2029 11.7121 22.1263 13.1274 21.2497 14.0159C20.7911 14.4808 20.3361 14.8528 19.9971 15.1083C19.8268 15.2367 19.6834 15.3372 19.5806 15.4071C19.5291 15.4421 19.4875 15.4696 19.4576 15.489C19.4427 15.4987 19.4306 15.5065 19.4217 15.5122C19.4172 15.515 19.4135 15.5172 19.4106 15.519C19.4092 15.5199 19.4078 15.5208 19.4067 15.5215C19.4062 15.5218 19.4058 15.5221 19.4054 15.5223L19.4048 15.5229C19.4044 15.5228 19.3948 15.508 18.8531 14.6478L19.4043 15.5232L19.1516 15.6808H17.9331L17.6807 15.5237L18.2307 14.6478L17.6802 15.5234L17.6779 15.5223C17.6769 15.5217 17.6758 15.5207 17.6744 15.5199C17.6714 15.518 17.6678 15.5155 17.6633 15.5127C17.6543 15.507 17.6421 15.4993 17.6271 15.4896C17.5971 15.4702 17.5554 15.4428 17.5038 15.4079C17.4007 15.338 17.2569 15.2375 17.0862 15.1091C16.7464 14.8537 16.2906 14.4817 15.8309 14.017C14.9522 13.1288 13.8721 11.7132 13.8721 9.99994C13.8722 7.43302 15.9629 5.35205 18.5419 5.35205C21.1243 5.35205 23.2028 7.43635 23.2029 9.99994ZM46.042 9.99994C46.042 11.7132 44.9619 13.1288 44.0833 14.017C43.6235 14.4818 43.1674 14.8537 42.8277 15.1091C42.6569 15.2375 42.5131 15.338 42.41 15.4079C42.3585 15.4428 42.317 15.4702 42.287 15.4896C42.2721 15.4993 42.2598 15.507 42.2508 15.5127C42.2464 15.5155 42.2427 15.518 42.2398 15.5199C42.2383 15.5208 42.237 15.5217 42.2359 15.5223C42.2354 15.5226 42.2349 15.5229 42.2345 15.5232L42.234 15.5234C42.2337 15.5236 42.2334 15.5237 41.6834 14.6478L42.2334 15.5237L41.9811 15.6808H40.7625L40.5096 15.5232L41.0607 14.6478C40.5267 15.496 40.5101 15.5222 40.5093 15.5229L40.5085 15.5223C40.5081 15.5221 40.5076 15.5218 40.5071 15.5215C40.5061 15.5209 40.505 15.5199 40.5035 15.519C40.5006 15.5172 40.4967 15.515 40.4922 15.5122C40.4832 15.5065 40.4712 15.4987 40.4563 15.489C40.4264 15.4696 40.385 15.442 40.3335 15.4071C40.2307 15.3372 40.0871 15.2367 39.9168 15.1083C39.5778 14.8528 39.123 14.4808 38.6645 14.0159C37.7878 13.1274 36.7112 11.7121 36.7112 9.99994C36.7113 7.43633 38.7898 5.35205 41.3722 5.35205C43.9512 5.3521 46.042 7.43305 46.042 9.99994Z" fill="#c68efd"></path></svg><div style="display: flex; flex-direction: column; gap: 10px; padding-right: 20px"><p style="margin: 0; font-size: 20px; font-weight: 500; line-height: 1.2; color: #ffffff">15th in the UK for Student Happiness</p><p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #dbbaff">UniFresher Guide 2027</p></div></div>
     </div>
-    <div style="max-width: 1200px; margin: 64px auto 0; padding-top: 32px; border-top: 1px solid #8f48d5; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 15px; line-height: 1.7; color: #f3e9ff">
-      <img src="images/logo.svg" alt="University of Winchester" style="height: 44px; width: auto">
-      <p style="margin: 0">University of Winchester, Sparkford Road, Winchester, Hampshire SO22 4NR</p>
-      <p style="margin: 0">+44 (0) 1962 841515<br>enquiries@winchester.ac.uk</p>
+  </div>
+  <div class="pad" style="padding: 60px 40px 40px">
+    <div style="max-width: 1200px; margin: 0 auto">
+      <div class="cols-4" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: end">
+        <div style="display: flex; flex-direction: column; gap: 20px">
+          <img src="images/logo.svg" alt="University of Winchester" style="width: 200px; height: auto; display: block">
+          <p style="margin: 0; font-size: 16px; font-weight: 500; line-height: 1.6; color: #dbbaff">University of Winchester<br>Sparkford Road, Winchester<br>Hampshire SO22 4NR</p>
+          <p style="margin: 0; display: flex; flex-direction: column; gap: 5px; font-size: 16px; font-weight: 500; line-height: 1.2"><a href="#" style="color: #ffffff; text-decoration: none">+44 (0)1962 841515</a><a href="#" style="color: #ffffff; text-decoration: none">enquiries@winchester.ac.uk</a></p>
+        </div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; font-size: 16px; font-weight: 500; line-height: 1.2"><li><a href="#" style="color: #ffffff; text-decoration: none">Student support</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Policies and statutory information</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Alumni</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">How to find us</a></li></ul>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; font-size: 16px; font-weight: 500; line-height: 1.2"><li><a href="#" style="color: #ffffff; text-decoration: none">Our charitable status</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Current students</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Jobs at Winchester</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Make a payment</a></li></ul>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 15px; font-size: 16px; font-weight: 500; line-height: 1.2"><li><a href="#" style="color: #ffffff; text-decoration: none">Make a payment</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Accessibility</a></li><li><a href="#" style="color: #ffffff; text-decoration: none">Staff</a></li></ul>
+      </div>
+      <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #753bb3; display: flex; flex-direction: column; gap: 20px; font-size: 16px; font-weight: 500">
+        <div style="display: flex; flex-wrap: wrap; gap: 12px 20px; line-height: 1.2"><a href="#" style="color: #dbbaff; text-decoration: none">Disclaimer</a><a href="#" style="color: #dbbaff; text-decoration: none">Privacy and cookie policy</a><a href="#" style="color: #dbbaff; text-decoration: none">Freedom of information</a><a href="#" style="color: #dbbaff; text-decoration: none">Freedom of speech</a><a href="#" style="color: #dbbaff; text-decoration: none">Modern slavery statement</a></div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap"><p style="margin: 0; line-height: 1.6; color: #dbbaff">© University of Winchester 2026</p><div style="display: flex; gap: 20px"><a href="#" aria-label="Facebook" style="display: flex"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.6V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.4H7.6V13h2.7v8h3.2z" fill="#dbbaff"></path></svg></a><a href="#" aria-label="X" style="display: flex"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.8 3h3L14.3 10.5 22 21h-6l-4.7-6.2L5.8 21H2.8l7-8L2.4 3h6.1l4.3 5.7L17.8 3zm-1 16.2h1.7L7.3 4.7H5.5l11.3 14.5z" fill="#dbbaff"></path></svg></a><a href="#" aria-label="Instagram" style="display: flex"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#dbbaff" stroke-width="2"></rect><circle cx="12" cy="12" r="4" fill="none" stroke="#dbbaff" stroke-width="2"></circle><circle cx="17.3" cy="6.7" r="1.2" fill="#dbbaff"></circle></svg></a></div></div>
+      </div>
     </div>
   </div>
 </footer>
@@ -613,15 +706,15 @@ body{background:#e4dcee;overflow:hidden}
 <div role="region" aria-label="Your course options" style="position: sticky; bottom: 0; z-index: 30; background: #d4ef70; color: #291647; box-shadow: 0 -6px 16px rgba(41, 22, 71, 0.14)">
   <div class="pad" style="max-width: 1200px; margin: 0 auto; padding: 10px 40px; display: flex; align-items: center; gap: 8px 10px; flex-wrap: wrap">
     <p style="margin: 0 6px 0 0; font-size: 15px; font-weight: 600">Your options</p>
-    <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 34px 0 14px; background: rgba(255, 255, 255, 0.6); border-radius: 5px; cursor: pointer"><span style="font-size: 13px; font-weight: 500; color: #462b6d; white-space: nowrap">Fee status</span>
+    <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 34px 0 14px; background: rgba(255, 255, 255, 0.6); border-radius: 5px; cursor: pointer"><span style="font-size: 13px; font-weight: 500; color: #5c358e; white-space: nowrap">Fee status</span>
       <select value="{{ feeValue }}" onChange="{{ onFee }}" style="appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: #291647; font: 600 15px Figtree, sans-serif; padding: 0; margin: 0; cursor: pointer; min-height: 44px"><option value="home">UK and Ireland</option><option value="intl">International</option></select>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg>
     </label>
-    <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 34px 0 14px; background: rgba(255, 255, 255, 0.6); border-radius: 5px; cursor: pointer"><span style="font-size: 13px; font-weight: 500; color: #462b6d; white-space: nowrap">Course</span>
+    <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 34px 0 14px; background: rgba(255, 255, 255, 0.6); border-radius: 5px; cursor: pointer"><span style="font-size: 13px; font-weight: 500; color: #5c358e; white-space: nowrap">Course</span>
       <select value="{{ placeValue }}" onChange="{{ onPlace }}" style="appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: #291647; font: 600 15px Figtree, sans-serif; padding: 0; margin: 0; cursor: pointer; min-height: 44px"><option value="none">Standard, 3 years</option><option value="yes">With placement, 4 years</option></select>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg>
     </label>
-    <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 34px 0 14px; background: rgba(255, 255, 255, 0.6); border-radius: 5px; cursor: pointer"><span style="font-size: 13px; font-weight: 500; color: #462b6d; white-space: nowrap">Start</span>
+    <label style="position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 34px 0 14px; background: rgba(255, 255, 255, 0.6); border-radius: 5px; cursor: pointer"><span style="font-size: 13px; font-weight: 500; color: #5c358e; white-space: nowrap">Start</span>
       <select value="sep27" onChange="{{ noop }}" style="appearance: none; -webkit-appearance: none; border: 0; background: transparent; color: #291647; font: 600 15px Figtree, sans-serif; padding: 0; margin: 0; cursor: pointer; min-height: 44px"><option value="sep27">September 2027</option></select>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#291647" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none"><path d="M6 9l6 6 6-6"></path></svg>
     </label>
@@ -680,14 +773,10 @@ body{background:#e4dcee;overflow:hidden}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { fee: 'home', place: 'none', year: 'y1', openMod: null, openEntry: null, optsOpen: false, jumpOpen: false, current: 'overview', progress: 0 };
+    this.state = { rmOpen: {}, fee: 'home', place: 'none', year: 'y1', openMod: null, openEntry: null, optsOpen: false, current: 'overview', progress: 0 };
     this.sections = [
-      ['overview', 'Course overview'], ['why', 'Why choose Winchester'], ['apply', 'How to apply'],
-      ['modules', 'Course structure'], ['entry', 'Entry requirements'],
-      ['pathways', 'Pathways Programme'], ['scholarships', 'Scholarships, bursaries and awards'], ['accreditations', 'Accreditations'],
-      ['facilities', 'Facilities'], ['careers', 'Career prospects'], ['fees', 'Fees and costs'],
-      ['students', 'Student stories'], ['team', 'Course team'], ['discover-uni', 'Discover Uni'],
-      ['compare', 'Compare courses'], ['open-days', 'Open days'], ['news', 'Related news']
+      ['overview', 'Course overview'], ['apply', 'How to apply'], ['modules', 'Course details'],
+      ['entry', 'Entry requirements'], ['careers', 'Careers'], ['fees', 'Fees'], ['apply-now', 'Apply']
     ];
     this.onScroll = this.onScroll.bind(this);
   }
@@ -729,7 +818,7 @@ class Component extends DCLogic {
       { label: 'Typical offer', value: intl ? '104 to 120 points, plus IELTS 6.0' : '104 to 120 UCAS points', hasTag: false },
       { label: 'Location', value: 'Winchester campus', hasTag: false },
       { label: 'UCAS code', value: 'NN34', hasTag: false },
-      { label: 'Fees (2027/28)', value: place ? feeYear + ', plus [placement year fee]' : feeYear, hasTag: place }
+      { label: 'Fees (2027/28)', value: place ? feeYear + ', with a reduced fee for your placement year' : feeYear, hasTag: false }
     ];
 
     const DESC = {"Financial Accounting": ["This module aims to develop the fundamental concepts and practices of financial accounting and the application of this knowledge to different forms of business organisations. With a focus on using the IASB’s Conceptual Framework and accounting for transactions and events from first principles, you will develop your conceptual understanding of accounting, your knowledge of the main accounting terminology and your awareness of the nature and purpose of financial reporting.", "You will acquire the techniques of double entry accounting and how to apply its principles in recording transactions, adjusting financial records and preparing non-complex financial statements."], "Management Accounting": ["The module introduces management accounting as a specialised service function primarily involving the collection, storage and recording of financial data, its conversion to useful information and the effective communication of this information for decision making. It prepares you for more advanced aspects of management accounting and finance encountered later in the programme."], "The Business Environment": ["This module provides you with a holistic view of how an entity’s performance can be affected by both its own internal operating environment and the external environment. It develops your knowledge and skills in understanding and applying the legal principles in the context of the business environment, and in lawful and ethical behaviours for professional accountants.", "You will study various aspects of management theory, external environment mapping and uses of technology by businesses and finance professionals."], "Discovering Your Subject": ["Whatever your future career, there are certain professional skills that are required in the workplace. This module provides opportunities to acquire and apply essential skills for academic success, while also developing digital skills that are a prerequisite for a successful career.", "By establishing and pursuing a personal development plan, you will develop personal qualities such as self-awareness, confidence and resilience, and professional skills such as communication, teamwork, risk management, coaching and feedback. You will learn to construct outstanding CVs and professional LinkedIn profiles, and the module covers the Microsoft Office suite and digital skills of particular relevance to your discipline.", "This module is taught as a mix of lectures, practitioner guest lectures, hands-on skills seminars and computer lab sessions."], "International Financial Reporting": ["This module builds on the knowledge of financial accounting from Year 1 by requiring you to extend your understanding of double entry bookkeeping to the application of the International Financial Reporting Standards (IFRS). The approach to teaching the IFRS will be Framework-based, an approach recommended by the IASB, which develops a critical understanding of the well-established principles around corporate reporting.", "You will be taught from exercises and case studies that recount real life or lifelike business situations, presenting managers with a dilemma or uncertain outcome. This allows you to evaluate critically the appropriateness of certain accounting treatments and consider these within an ethical context."], "Research and Consultancy Skills": ["This module enables you to develop your understanding and competence in using diverse research methods for academic and professional purposes. You will develop practical qualitative and quantitative research skills including defining and scoping a project, designing a research protocol, collecting data and using appropriate analysis methods, with an appreciation of the ethical implications of research.", "You will also learn the key stages required to complete an applied project from concept to delivery: how to manage a project and contribute effectively as a member of a project team, using ideas generation techniques and problem-solving skills to develop innovative solutions to business problems."], "Financial Management": ["This module introduces the core concepts and key topic areas of business finance and the financial environment. It will enable you to understand how the financial markets operate, evaluate alternative sources of finance available to a business, and calculate the cost of different sources of finance and the weighted average cost of capital of a business.", "You will undertake and critique techniques for capital investment appraisals and business and financial asset valuation, and analyse critically the efficient market hypothesis, capital structure theories and dividend policies. This prepares you to study more advanced finance, such as financial risk management, in your final year."], "Data Analysis": ["An understanding of data and an appreciation of the key tools needed to analyse business data is becoming an essential skill for finance professionals. This module introduces you to data analytics and demonstrates how to apply it effectively in a business context.", "You will learn how to select and use tools to extract, validate and analyse data. Communicating and visualising data, for example with pie charts or cluster diagrams, is also covered, so you can share your findings with both specialists and non-specialists."], "Financial Modelling": ["This module aims to provide you with an understanding of Excel and its application in financial modelling. You will develop proficiency in using Excel, from the basic tools to advanced functions, and gain the skills needed to create financial models that accurately reflect a company’s financial performance, such as financial statements, valuation and sensitivity analysis."], "Personal and Business Taxation": ["This module develops your knowledge and understanding of the overall function and purpose of UK taxation in a modern economic context. You will learn how to calculate income tax, national insurance contributions, corporation tax, value added tax (VAT) and capital gains tax liabilities.", "You will also critically evaluate the scope and objectives of the UK tax system for individuals and business entities, including the implications of non-compliance and tax avoidance, and recognise the professional standards and ethical issues in a tax practice."], "Industrial Placement Year": ["This optional industrial placement year can be taken between your second and third year. It offers you the opportunity to undertake meaningful and relevant employment experience, in the form of a 30-week work placement.", "You will demonstrate the relevance of the work to your course and your competency in key skills, such as communication and team working. Applying your learning in the workplace integrates your academic study with meaningful employment experience."], "Advanced Financial Reporting and Analysis": ["This module extends your knowledge and application of IFRS to more detailed and complex areas of reporting. The technical content is mapped to professional qualification requirements, and you will need to pass this module to gain full exemptions.", "An inquiry guided approach supports you in analysing technical issues, creating valid approaches to reporting and critically evaluating the current IFRS. You will draw on technical articles and scholarly reviews to make informed judgements, and use analytical skills to interpret financial statement information."], "Investments and Financial Risk Management": ["This module develops an understanding of the key concepts of investments and financial risk management. It introduces the core investment principles and techniques that enable you to make informed investment decisions, including sustainable investing.", "It also develops your knowledge of the various types and nature of financial risk, and covers the main frameworks and techniques for the practical aspects of financial risk management."], "Strategic Performance Management": ["This module equips you with the skills to exercise professional judgement in decision making and performance management in different business contexts. It builds on knowledge and skills developed in previous modules and introduces contemporary management accounting for strategic business decisions."], "Audit and Assurance": ["This module introduces the concepts of audit and assurance and the nature, role and purpose of the external audit function. You will develop your understanding of the principles and processes of the statutory audit and the regulatory framework, and consider the differences between internal and external audit.", "It also covers the audit of financial statements, including audit planning and risk assessment, materiality, evaluating internal controls, obtaining audit evidence and the statutory audit reporting process, and explores the contribution that audit makes to corporate governance."], "Strategic Leadership and Governance": ["Strategic leadership and good governance are integral components of a successful organisation. This module lets you explore the principles of strategic leadership and forms of governance, and their significance and impact.", "It also provides a critical insight into the challenges, theory and practice of corporate governance, and its importance to the accountant, in the appropriate theoretical, ethical and regulatory context."], "Digital Finance": ["This module covers the growing trend toward digitalisation in the financial sector, in both digital banking and non-bank financial services providers, and the challenges and opportunities it brings.", "Topics include blockchain technology, fintech, digital peer-to-peer funding platforms, distributed ledger business models and cryptocurrencies, as well as how the banking system and central banks are responding."]};
@@ -743,13 +832,13 @@ class Component extends DCLogic {
     };
     const yearKeys = place ? ['y1', 'y2', 'place', 'y3'] : ['y1', 'y2', 'y3'];
     const yr = yearKeys.indexOf(s.year) >= 0 ? s.year : 'y1';
-    const yearLabels = { y1: 'Year 1', y2: 'Year 2', place: 'Placement year', y3: 'Year 3' };
+    const yearLabels = { y1: 'Year 1, Level 4', y2: 'Year 2, Level 5', place: 'Placement year', y3: 'Year 3, Level 6' };
     const yearTabs = yearKeys.map((k) => ({ id: 'tab-' + k, label: yearLabels[k], pressed: yr === k ? 'true' : 'false', style: tab(yr === k), pick: set({ year: k }) }));
 
     const seg = (pct, bg) => 'display: block; width: ' + pct + '%; background: ' + bg + ';';
     const hrs = { y1: ['Year 1', 288, 912, 29, 60, 11], y2: ['Year 2', 288, 912, 30, 56, 14], y3: ['Year 3', 240, 960, 36, 53, 11] };
     const h = hrs[yr];
-    const yh = h ? { has: true, none: false, label: h[0] + ' study hours', teaching: String(h[1]), independent: String(h[2]), cw: h[3] + '%', ex: h[4] + '%', pr: h[5] + '%', cwStyle: seg(h[3], '#291647'), exStyle: seg(h[4], '#c68efd'), prStyle: seg(h[5], '#d4ef70') } : { has: false, none: true };
+    const yh = h ? { has: true, none: false, label: h[0] + ' study hours', teaching: String(h[1]), independent: String(h[2]), total: (h[1] + h[2]).toLocaleString('en-GB'), tStyle: seg(Math.round(h[1] / (h[1] + h[2]) * 100), '#291647'), iStyle: seg(Math.round(h[2] / (h[1] + h[2]) * 100), '#8f48d5'), cw: h[3] + '%', ex: h[4] + '%', pr: h[5] + '%', cwStyle: seg(h[3], '#8f48d5'), exStyle: seg(h[4], '#291647'), prStyle: seg(h[5], '#c68efd') } : { has: false, none: true };
 
     const feeTabs = [['home', 'UK'], ['intl', 'International']].map(([k, l]) => ({ id: 'tab-fee-' + k, label: l, pressed: s.fee === k ? 'true' : 'false', style: tab(s.fee === k), pick: set({ fee: k }) }));
     const ukEntry = [
@@ -759,7 +848,7 @@ class Component extends DCLogic {
       { k: 'T Level', v: 'Merit in a T Level' }
     ];
 
-    const rowSt = (first) => 'display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 4px 20px; padding: 18px 0;' + (first ? '' : ' border-top: 1px solid #e9e1f3;');
+    const rowSt = (first) => 'display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 4px 20px; padding: 18px 0;' + (first ? '' : ' border-top: 1px solid #ead8ff;');
     const mkRows = (rows) => rows.map((x, i) => ({ k: x[0], v: x[1], note: x[2] || '', hasNote: !!x[2], style: rowSt(i === 0) }));
     const mkMore = (items) => items.map((x) => { const key = (intl ? 'i:' : 'u:') + x[0]; const open = s.openEntry === key; return { title: x[0], text: x[1], link: x[2], open: open, expanded: open ? 'true' : 'false', chevron: open ? 'transform: rotate(180deg); flex-shrink: 0' : 'flex-shrink: 0', toggle: () => this.setState({ openEntry: open ? null : key }) }; });
     const entry = intl ? {
@@ -782,18 +871,23 @@ class Component extends DCLogic {
     const feeRows = intl
       ? [{ k: 'Full-time, Year 1', v: '£16,700', hasTag: false }, { k: 'Part-time', v: '£139.14 per credit (£2,087 for a 15-credit module)', hasTag: false }]
       : [{ k: 'Full-time, Year 1', v: '£10,050', hasTag: false }, { k: 'Part-time', v: '£83.75 per credit (£1,256 for a 15-credit module), up to £7,530 a year', hasTag: false }];
-    if (place) feeRows.push({ k: 'Placement year', v: '[Placement year fee]', hasTag: true });
+    if (place) feeRows.push({ k: 'Placement year', v: 'Reduced fee for your year in industry', hasTag: false });
 
-    const cardStyle = (on) => 'padding: 28px; border-radius: 15px; display: flex; flex-direction: column; gap: 12px; min-height: 260px; box-sizing: border-box; ' + (on ? 'background: #ffffff; border: 2px solid #291647;' : 'background: transparent; border: 1px solid #c68efd;');
+    const cardStyle = (on) => 'padding: 28px; border-radius: 15px; display: flex; flex-direction: column; gap: 12px; min-height: 260px; box-sizing: border-box; ' + (on ? 'background: #f5f5f5; border: 2px solid #291647;' : 'background: transparent; border: 1px solid #c68efd;');
 
-    const label = (this.sections.find((x) => x[0] === s.current) || this.sections[0])[1];
-    const jumpLinks = this.sections.filter(([id]) => !(intl && id === 'pathways')).map(([id, l]) => ({
-      href: '#' + id, label: l,
-      close: () => this.setState({ jumpOpen: false }),
-      style: 'display: flex; align-items: center; min-height: 44px; font-size: 17px; font-weight: 500; text-decoration: none; ' + (id === s.current ? 'color: #d4ef70;' : 'color: #ffffff;')
+    const jumpLinks = this.sections.map(([id, l]) => ({
+      href: '#' + id, label: l, current: id === s.current ? 'location' : 'false',
+      style: 'display: flex; align-items: center; min-height: 88px; box-sizing: border-box; font-size: 16px; font-weight: 500; text-decoration: none; color: ' + (id === s.current ? '#c68efd;' : '#ffffff;')
     }));
 
+    const RM_H = { overview: 200, careers: 290, fees: 420 };
+    const rm = {};
+    Object.keys(RM_H).forEach((k) => {
+      const open = !!(s.rmOpen && s.rmOpen[k]);
+      rm[k] = { box: 'position: relative; overflow: hidden; ' + (open ? '' : 'max-height: ' + RM_H[k] + 'px;'), fade: !open, expanded: open ? 'true' : 'false', label: open ? 'Read less' : 'Read more', chev: 'flex: none; transition: transform .2s ease;' + (open ? ' transform: rotate(180deg);' : ''), toggle: () => this.setState({ rmOpen: Object.assign({}, s.rmOpen, { [k]: !open }) }) };
+    });
     return {
+      rm,
       optionGroups, facts,
       feeValue: s.fee, placeValue: s.place, noop: () => {},
       onFee: (e) => this.setState({ fee: e.target.value }),
@@ -809,11 +903,6 @@ class Component extends DCLogic {
       ukCardStyle: cardStyle(!intl), intlCardStyle: cardStyle(intl),
       ukCardTag: intl ? 'UK' : 'Your route', intlCardTag: intl ? 'Your route' : 'International',
       discoverCode: place ? 'NN34 with a placement year' : 'NN34',
-      currentLabel: label,
-      jumpOpen: s.jumpOpen, jumpExpanded: s.jumpOpen ? 'true' : 'false',
-      jumpButton: s.jumpOpen ? 'Close' : 'Expand',
-      chevronStyle: s.jumpOpen ? 'transform: rotate(180deg)' : '',
-      toggleJump: () => this.setState({ jumpOpen: !s.jumpOpen }),
       jumpLinks,
       progressStyle: 'height: 5px; width: ' + s.progress + '%; background: #ffffff;'
     };
