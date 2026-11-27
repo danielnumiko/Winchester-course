@@ -1,16 +1,19 @@
-# Winchester course page options prototype
+# Winchester course page prototype
 
-An interactive prototype of the options panel at the top of a University of Winchester course page, and the page content that changes with each option.
+A design prototype of a University of Winchester course page, using BA (Hons) Accounting and Finance as the example.
 
-Open `index.html` in a browser, or enable GitHub Pages for this repository.
+Open `index.html` in a browser, or view it on GitHub Pages: https://danielnumiko.github.io/Winchester-course/
 
 ## What it shows
 
-- A **study level** dropdown: undergraduate, postgraduate taught, research degree, degree apprenticeship and short course, each using a real Winchester course as the example.
-- **Choose your options**: the options that apply to that study level (for example fee status, route, placement and start date for undergraduate).
-- **What you need to know**: key facts and the apply button, which update with the options.
-- **Content that changes with these options**: each page section that changes, with what every choice does to it. The current choices are highlighted.
+- A hero with the key course facts, which scrolls past a pinned image.
+- A sticky "On this page" menu that shows the section you're reading.
+- A pinned options strip at the bottom of the screen. Changing fee status or placement year updates the facts, fees, entry requirements, modules and apply button.
+- Course structure and entry requirements as tabbed panels, with module and entry details in accordions.
+- The Winchester call to action slices for Pathways, scholarships, facilities and student stories.
 
-Undergraduate sections follow the course page wireframe. The other study levels follow the section headings on winchester.ac.uk, as there is no wireframe for them yet.
+Course content was taken from winchester.ac.uk in November 2026. Anything marked "To confirm" still needs checking with the University.
 
-Course details were taken from winchester.ac.uk in November 2026. Values in square brackets still need confirming with the University.
+`questions.html` lists our open questions and proposals for the University.
+
+This replaces the earlier course page options prototype, which is still in the git history.
