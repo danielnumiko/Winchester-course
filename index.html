@@ -10,12 +10,12 @@
 <style>
 body{margin:0;background:#ffffff}
 a{color:#291647}a:hover{color:#8f48d5}
-html{scroll-behavior:smooth}
+
 .sec{scroll-margin-top:96px}
 .hero-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
 .hero-scroll{padding-bottom:40px}
-.hero-media{position:sticky;top:20px;align-self:start;height:min(calc(100vh - 40px), 960px)}
-@media (max-width:899px){
+.hero-media{position:sticky;top:20px;align-self:start;height:min(792px, 960px)}
+@container page (max-width:899px){
 .hero-row{grid-template-columns:1fr}
 .hero-media{position:relative;top:0;order:-1;height:420px !important}
 .cta-media{min-height:360px !important;order:-1}
@@ -27,15 +27,22 @@ html{scroll-behavior:smooth}
 .h2{font-size:44px !important}
 .jump-grid{grid-template-columns:1fr 1fr !important}
 }
-@media (max-width:560px){
+@container page (max-width:560px){
 .cols-2,.cols-3,.cols-4,.cols-6,.jump-grid{grid-template-columns:1fr !important}
 .pad{padding-left:16px !important;padding-right:16px !important}
 .mod-row{flex-wrap:wrap}
 }
 </style>
+
+<style>
+html,body{height:100%}
+body{background:#e4dcee;overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#frame{width:1280px;height:832px;flex:none;overflow-y:auto;overflow-x:hidden;background:#ffffff;container:page/inline-size;scroll-behavior:smooth;border-radius:8px;box-shadow:0 12px 40px rgba(41,22,71,.25);transform-origin:center center}
+</style>
 </head>
 <body>
-<div id="app"><noscript><p style="padding:40px;font-family:sans-serif">This prototype needs JavaScript to run.</p></noscript></div>
+<div id="stage"><div id="frame"><div id="app"><noscript><p style="padding:40px;font-family:sans-serif">This prototype needs JavaScript to run.</p></noscript></div></div></div>
 <template id="tpl">
 <div style="font-family: Figtree, sans-serif; color: #291647; background: #ffffff; min-width: 0">
 <svg aria-hidden="true" width="0" height="0" style="position: absolute"><defs><clipPath id="cta-wave" clipPathUnits="objectBoundingBox"><path d="M0,0 L0.84,0 C0.9,0.14 0.96,0.28 1,0.4 L1,0.86 C0.72,0.84 0.42,0.87 0.2,1 L0,1 C0.07,0.72 0.07,0.28 0,0 Z"></path></clipPath><clipPath id="cta-wave-l" clipPathUnits="objectBoundingBox"><path d="M1,0 L0.16,0 C0.1,0.14 0.04,0.28 0,0.4 L0,0.86 C0.28,0.84 0.58,0.87 0.8,1 L1,1 C0.93,0.72 0.93,0.28 1,0 Z"></path></clipPath></defs></svg>
@@ -353,7 +360,7 @@ html{scroll-behavior:smooth}
 <section id="accreditations" class="sec pad" aria-labelledby="acc-h" style="padding: 80px 40px; border-bottom: 1px solid #e9e1f3">
   <div style="max-width: 1200px; margin: 0 auto">
     <h2 id="acc-h" class="h2" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-weight: 400; font-size: 64px; line-height: 1.1">Professional body accreditations</h2>
-    <p style="margin: 40px 0 0; max-width: 740px; font-size: 18px; line-height: 1.6; color: #462b6d">This course is accredited by four professional accounting bodies, so you can be exempt from some of their professional exams and get a head start on your qualification.</p>
+    <p style="margin: 40px 0 0; max-width: 740px; font-size: 18px; line-height: 1.6; color: #462b6d">Our BA (Hons) Accounting and Finance programme is accredited by prestigious professional bodies known for their commitment to excellence and maintaining the highest standards. This ensures that your experience at the University of Winchester is of the highest quality, aligned with industry best practices. It also helps to boost your employability and can give you exemptions from some professional exams as follows:</p>
     <ol style="list-style: none; margin: 52px 0 0; padding: 0">
       <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
         <div style="aspect-ratio: 16 / 9; background: #ffffff; border: 1px solid #e9e1f3; border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 100%; max-width: 360px">
@@ -362,7 +369,7 @@ html{scroll-behavior:smooth}
         <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">01</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">ICAEW Partner in Learning</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">As a Partner in Learning, the course gives you exemption from some modules of the ACA qualification.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">The University of Winchester is recognised as an Institute of Chartered Accountants in England and Wales (ICAEW) Partner in Learning, working with ICAEW in the professional development of students. This allows you to apply for exemption from some modules when studying for the professional chartered accountant (ACA) qualification after graduating.</p>
         </div>
       </li>
       <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
@@ -372,7 +379,7 @@ html{scroll-behavior:smooth}
         <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">02</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">ACCA accredited</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">The course is accredited for the maximum exemption, from up to 9 ACCA papers.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">This degree is accredited by the Association of Chartered Certified Accountants and you can apply for up to the maximum exemption from 9 modules when studying for the professional qualification after graduating.</p>
         </div>
       </li>
       <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
@@ -382,7 +389,7 @@ html{scroll-behavior:smooth}
         <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">03</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">CIMA</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">You can gain exemption from the certificate and operational level modules.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Chartered Institute of Management Accountants (CIMA) accreditation will exempt you from the certificate and operational level modules of its professional syllabus.</p>
         </div>
       </li>
       <li class="acc-row" style="display: grid; grid-template-columns: 472px 96px minmax(0, 1fr); gap: 20px 0; align-items: start; padding: 28px 0; border-top: 1px solid #e9e1f3">
@@ -392,7 +399,7 @@ html{scroll-behavior:smooth}
         <p aria-hidden="true" style="margin: 0; font-family: 'IvyPresto Display', 'Playfair Display', serif; font-size: 48px; line-height: 1; color: #8f48d5">04</p>
         <div>
           <h3 style="margin: 0; font-size: 30px; font-weight: 500; line-height: 1.25">CIPFA</h3>
-          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">The course is recognised for exemption against specific CIPFA exams.</p>
+          <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: #462b6d">Our programme allows you the opportunity to be recognised for exemption against specific examinations when studying for the Professional Chartered Public Finance Accountant (CIPFA) qualification after graduating.</p>
         </div>
       </li>
     </ol>
@@ -668,7 +675,8 @@ html{scroll-behavior:smooth}
   window.__dcBuild = build;
 })();
 </script>
-<script>
+<script>var SCROLLER = document.getElementById('frame'), FRAME_SCALE = 1; function fitFrame() { FRAME_SCALE = Math.min(1, (innerWidth - 32) / 1280, (innerHeight - 32) / 832); SCROLLER.style.transform = FRAME_SCALE < 1 ? 'scale(' + FRAME_SCALE + ')' : ''; } fitFrame(); addEventListener('resize', fitFrame);
+
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -684,21 +692,21 @@ class Component extends DCLogic {
     this.onScroll = this.onScroll.bind(this);
   }
   componentDidMount() {
-    window.addEventListener('scroll', this.onScroll, { passive: true });
+    SCROLLER.addEventListener('scroll', this.onScroll, { passive: true });
     this.onScroll();
   }
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
+    SCROLLER.removeEventListener('scroll', this.onScroll);
   }
   onScroll() {
     if (typeof document === 'undefined') return;
     let cur = this.sections[0][0];
     for (const [id] of this.sections) {
       const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top < 160) cur = id;
+      if (el && (el.getBoundingClientRect().top - SCROLLER.getBoundingClientRect().top) / FRAME_SCALE < 160) cur = id;
     }
-    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const p = Math.round(Math.min(1, Math.max(0, window.scrollY / max)) * 100);
+    const max = Math.max(1, SCROLLER.scrollHeight - SCROLLER.clientHeight);
+    const p = Math.round(Math.min(1, Math.max(0, SCROLLER.scrollTop / max)) * 100);
     if (cur !== this.state.current || p !== this.state.progress) this.setState({ current: cur, progress: p });
   }
   renderVals() {
